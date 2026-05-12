@@ -14,6 +14,7 @@ This file is the primary memory for future AI sessions.
 - Member responsibility guides expanded into end-to-end implementation checklists
 - `ai-docs` landing page created for daily project continuity
 - Leader flow document added to coordinate who does what and in what order
+- Implementation playbook added with week-by-week progress, day 1 tasks, and commit strategy
 
 ## Current Feature Being Developed
 
@@ -21,6 +22,7 @@ This file is the primary memory for future AI sessions.
 - Repository-level development tracking documentation
 - End-to-end member workflow guides for implementation ownership
 - Leader coordination flow for sequencing work and dependencies
+- 8-week implementation playbook for synchronized execution
 
 ## Next Planned Tasks
 
@@ -29,6 +31,7 @@ This file is the primary memory for future AI sessions.
 3. Confirm the source tree for `ServerApp`, `ClientApp`, and `Shared` once code folders are introduced.
 4. Track the first working TCP connection flow.
 5. Add implementation notes as code is introduced.
+6. Follow the 8-week implementation playbook to keep the team synchronized.
 
 ## Important Implementation Notes
 
@@ -71,3 +74,4 @@ Planned runtime structure from the architecture notes:
 - 2026-05-12: confirmed the project is still in the documentation and planning stage, with no application source tree present yet.
 - 2026-05-12: expanded the member guides so each role now has phase-by-phase responsibilities from project start to completion.
 - 2026-05-12: added a leader flow document describing task order, ownership, dependencies, and handoff sequence.
+- 2026-05-12: added an implementation playbook covering week-by-week progress, day 1 tasks, and GitHub commit strategy.
