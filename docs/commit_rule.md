@@ -15,6 +15,21 @@ type(scope): short message
 - `test`: add or update tests
 - `chore`: maintenance task
 
+## Scopes
+
+Use only these scopes:
+
+- `chat`
+- `server`
+- `network`
+- `gui`
+- `database`
+- `lock`
+- `docs`
+- `test`
+- `auth`
+- `shared`
+
 ## Rules
 
 - Use lowercase `type` and `scope`.
@@ -30,3 +45,5 @@ type(scope): short message
 - `feat(gui): create dashboard form`
 - `fix(network): handle reconnect`
 - `docs(architecture): update system overview`
+- `feat(database): add user login`
+- `test(shared): add packet parser tests`
