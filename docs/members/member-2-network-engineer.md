@@ -1,118 +1,153 @@
 # Member 2 - Network Engineer
 
-## 1. Vai tro va muc tieu
+## 1. Vai tro
 
-Ban phu trach lop networking cua toan bo he thong, bao gom TCP server, TCP client, packet protocol, dispatch message, reconnect va xu ly loi socket.
+Ban phu trach toan bo lop networking. Nhiem vu cua ban la giu ket noi TCP on dinh, packet ro rang, multi-client chay duoc, va khong lam tre UI.
 
-## 2. Pham vi cong viec
+## 2. Muc tieu cuoi cung
 
-- Xay dung TCP socket server va TCP socket client.
-- Ho tro multi-client ket noi dong thoi.
-- Tao co che gui/nhan JSON packet.
-- Viet parser, dispatcher, handler cho cac loai packet.
-- Xu ly disconnect, timeout, reconnect co ban.
+- Server va client ket noi duoc qua TCP.
+- Packet JSON duoc gui nhan on dinh.
+- Multi-client hoat dong song song.
+- Disconnect, timeout, reconnect co xu ly an toan.
+- Cac module khac co the dung network API ma khong phai doan.
 
-## 3. Dau vao can nam
+## 3. Viec can lam tu dau den cuoi
 
-- Dia chi IP/Port server.
-- Danh sach packet type.
-- Quy uoc gui du lieu theo dong hoac delimiter.
-- Trang thai client: online, offline, locked, playing.
+### Giai doan khoi tao
 
-## 4. Luong lam viec tu a den z
+- Xac dinh port, IP, va mo hinh ket noi.
+- Chon cach frame packet on dinh.
+- Chot cach encode/decode JSON.
+- Tao skeleton cho server listener va client connector.
 
-### Buoc 1: Tao ket noi co ban
+### Giai doan core connection
 
-- Viet server lang nghe tren mot port.
-- Viet client ket noi den server.
-- Kiem tra echo packet co ve duoc khong.
+- Viet TCP server accept loop.
+- Viet TCP client connect loop.
+- Test echo/handshake co ban.
+- Bao dam server khong block khi mot client cham.
+- Tao connection/session object rieng cho moi client.
 
-### Buoc 2: Ho tro nhieu client
+### Giai doan packet contract
 
-- Moi client co mot session/connection object rieng.
-- Server khong duoc block khi mot client cham.
-- Dung async/await hoac worker thread hop ly.
+- Dinh nghia packet type chinh.
+- Xay parser/serializer.
+- Chot loi output neu packet sai format.
+- Dam bao packet model khop voi `API.md`.
+- Khong thay doi schema vo toi va lap lai.
 
-### Buoc 3: Dinh dang packet
+### Giai doan dispatch
 
-- Moi packet co field `type`.
-- Cac field khac phai ro rang va on dinh.
-- Khong doi schema lien tuc trong luc demo.
+- Route packet theo `type`.
+- Tach handler cho login, status, chat, lock, unlock, timer, notification.
+- Tra ket qua ro rang khi packet khong hop le.
+- Ghi log loi socket va loi parse.
 
-### Buoc 4: Viet dispatcher
+### Giai doan on dinh
 
-- Parse JSON sang object/packet model.
-- Dua packet ve dung handler theo `type`.
-- Neu packet loi, tra response that bai ro rang.
+- Bat exception socket co kiem soat.
+- Xu ly disconnect sach se.
+- Ho tro reconnect co ban cho client.
+- Kiem tra timeout va mat ket noi giua chung.
+- Giu thread UI khong bi block.
 
-### Buoc 5: Xu ly loi mang
+### Giai doan integration
 
-- Bat exception socket.
-- Dong ket noi sach se khi client thoat.
-- Cho phep reconnect sau khi mat mang.
+- Kiem tra network voi server GUI.
+- Kiem tra network voi client GUI.
+- Kiem tra message broadcast neu can.
+- Kiem tra state sync giua nhieu client.
+- Kiem tra thoi gian phan hoi khi co nhieu event lien tiep.
 
-### Buoc 6: Test dong thoi
+### Giai doan release
 
-- Test 2 client, 3 client, sau do tang len neu can.
-- Test cac case: login, chat, lock, unlock, timer, notification.
-- Test mat ket noi giua chung.
+- Chay test multi-client.
+- Chay test packet invalid.
+- Chay test server restart.
+- Chay test reconnect sau disconnect.
+- Xac nhan network layer doan truoc demo.
 
-## 5. Cach code de khong gay tre GUI
+## 4. Checklist cong viec theo phase
 
-- Khong doc/ghi socket truc tiep tren UI thread.
-- Tat ca thao tac network nang nen chay background.
-- Chi marshal ket qua ve UI khi can cap nhat man hinh.
-- Su dung queue hoac event de day du lieu len GUI.
+### Phase 1 - Connection
 
-## 6. Checklist A-Z cho Member 2
+- [ ] Tao server listener
+- [ ] Tao client connector
+- [ ] Tao handshake
+- [ ] Tao basic send/receive loop
 
-- A: Accept connection.
-- B: Broadcast neu can gui nhieu client.
-- C: Convert JSON sang object.
-- D: Dispatch packet dung handler.
-- E: Error handling.
-- F: Framing packet ro rang.
-- G: Guard against null/invalid data.
-- H: Handle disconnect.
-- I: Integrate voi ServerApp va ClientApp.
-- J: Just one source of truth cho packet schema.
-- K: Keep network thread separate from UI thread.
-- L: Log loi socket.
-- M: Manage multi-client session.
-- N: Normalize message format.
-- O: Observe timeout.
-- P: Parse packet an toan.
-- Q: Queue event neu can.
-- R: Reconnect support.
-- S: Session lifecycle.
-- T: Thread-safe access.
-- U: Update client state.
-- V: Validate packet type.
-- W: Work with server and client consistently.
-- X: eXpose clear network API cho team khac goi.
-- Y: Yield back to UI after background work.
-- Z: Zero crash on normal network errors.
+### Phase 2 - Packet contract
 
-## 7. Test can chay
+- [ ] Dinh nghia packet type
+- [ ] Dinh nghia shared DTO
+- [ ] Dinh nghia framing rule
+- [ ] Dinh nghia parse error behavior
 
-- Client login thanh cong.
-- Client chat voi admin.
-- Server gui lock/unlock.
-- Server gui notification.
-- Timer cap nhat dung.
-- Mot client thoat khong lam sap toan bo server.
+### Phase 3 - Routing and state
 
-## 8. Deliverables can nop
+- [ ] Xay packet dispatcher
+- [ ] Ganh client session state
+- [ ] Ganh server machine state
+- [ ] Dong bo status update
 
-- TCP server/client chay duoc.
-- Packet model va parser.
-- Dispatcher/handler cho packet chinh.
-- Reconnect co ban.
-- Test note voi ket qua multi-client.
+### Phase 4 - Resilience
 
-## 9. Definition of Done
+- [ ] Xu ly disconnect
+- [ ] Xu ly timeout
+- [ ] Xu ly reconnect
+- [ ] Ghi log loi mang
 
-- Server nhan duoc nhieu client dong thoi.
-- Packet doc/ghi on dinh.
-- Reconnect/timeout khong lam app crash.
-- Cac module khac dung duoc API network ma ban cung cap.
+### Phase 5 - Integration
+
+- [ ] Ket noi voi server UI
+- [ ] Ket noi voi client UI
+- [ ] Test broadcast
+- [ ] Test multi-client
+
+## 5. Cong viec theo tung loai packet
+
+### Auth packets
+
+- `LOGIN`
+- `LOGOUT`
+
+### Control packets
+
+- `LOCK`
+- `UNLOCK`
+- `TIMER`
+
+### Status packets
+
+- `STATUS`
+- `SESSION`
+- `HEARTBEAT` neu duoc bo sung sau
+
+### Communication packets
+
+- `CHAT`
+- `NOTIFICATION`
+
+## 6. Nguyen tac ky thuat
+
+- Khong doc ghi socket tren UI thread.
+- Khong update WinForms control truc tiep tu background thread.
+- Khong de schema packet thay doi ma khong cap nhat shared docs.
+- Khong de loi socket lam sap toan bo server.
+- Khong de message format tua nhau giua server va client.
+
+## 7. Deliverables can nop
+
+- TCP server/client core.
+- Packet parser/serializer.
+- Dispatcher and handlers.
+- Reconnect and disconnect handling.
+- Multi-client test note.
+
+## 8. Definition of Done
+
+- 2-3 client ket noi on dinh.
+- Packet qua lai dung schema.
+- Disconnect khong lam crash app.
+- Module khac co the tich hop vao API ma khong xung dot.

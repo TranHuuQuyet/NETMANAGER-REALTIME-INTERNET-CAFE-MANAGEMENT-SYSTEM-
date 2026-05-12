@@ -1,115 +1,122 @@
 # Member 3 - Server GUI Developer
 
-## 1. Vai tro va muc tieu
+## 1. Vai tro
 
-Ban phu trach giao dien admin dashboard. UI phai de nhin, de demo, cap nhat realtime va khong bi tre khi co nhieu su kien tu mang.
+Ban phu trach giao dien admin dashboard cua server. UI phai ro rang, realtime, de thao tac, va khong tre khi network co nhieu event.
 
-## 2. Pham vi cong viec
+## 2. Muc tieu cuoi cung
 
-- Tao man hinh login admin.
-- Tao dashboard chinh.
-- Hien thi danh sach may va trang thai.
-- Tao control panel de lock/unlock, notification, timer.
-- Hien thi chat neu can.
+- Admin co the dang nhap va vao dashboard.
+- Danh sach may cap nhat realtime.
+- Lock, unlock, notification, timer, chat co the thao tac duoc.
+- UI khong freeze khi co socket event.
 
-## 3. Nhu cau UI can dat
+## 3. Viec can lam tu dau den cuoi
 
-- Ro rang, de su dung, de trinh dien.
-- Trang thai may thay doi phai nhin thay ngay.
-- Button phai co hanh dong cu the.
-- Khong block UI khi dang nghe socket.
+### Giai doan khoi tao
 
-## 4. Luong lam viec tu a den z
+- Tao khung dashboard.
+- Tao layout header, content, control panel.
+- Chot control naming va style naming.
+- Tao form login admin neu can.
 
-### Buoc 1: Tao layout co ban
+### Giai doan machine view
 
-- Chia man hinh thanh header, sidebar/control, main machine list.
-- Dat cac thanh phan chinh truoc, style sau.
+- Hien thi danh sach may.
+- Hien thi trang thai online, offline, locked, playing.
+- Hien thi IP, machine name, timer, connection state neu co.
+- Tao refresh pattern cho machine list.
 
-### Buoc 2: Login admin
+### Giai doan control flow
 
-- Tao form dang nhap.
-- Kiem tra thong tin co ban.
-- Neu login thanh cong thi vao dashboard.
+- Tao nut lock, unlock, notification, timer.
+- Tao area xem chat neu co.
+- Tao hanh dong admin ro rang, khong lam loan UI.
+- Mapping button event sang network service.
 
-### Buoc 3: Hien thi machine list
+### Giai doan realtime
 
-- Moi may co card hoac row rieng.
-- Hien thi ten may, IP, trang thai, timer, ket noi.
-- Co mau sac phan biet online/offline/locked/playing.
+- Nhan update tu network service.
+- Invoke ve UI thread dung cach.
+- Cap nhat mau sac, icon, badge, label theo state.
+- Kiem tra khong co deadlock hay cross-thread error.
 
-### Buoc 4: Control panel
+### Giai doan polish
 
-- Nut lock.
-- Nut unlock.
-- Nut notification.
-- Nut start/stop timer neu can.
+- Don dep spacing, typography, va visual hierarchy.
+- Dam bao dashboard de demo.
+- Giam noise UI, tang readability.
+- Thiet lap empty state va error state ro rang.
 
-### Buoc 5: Realtime refresh
+### Giai doan integration
 
-- Cap nhat UI bang event/Invoke an toan thread.
-- Khong cap nhat truc tiep tu network thread.
+- Ket noi voi socket layer.
+- Ket noi voi auth layer neu dashboard co login.
+- Ket noi voi shared packet models.
+- Test voi client lock/unlock/timer/notify.
 
-### Buoc 6: Demo mode
+### Giai doan release
 
-- UI phai san sang trinh dien, de view.
-- Khong nhieu text, khong qua rat.
+- Kiem tra dashboard chay on dinh khi co nhieu event.
+- Kiem tra refresh lien tuc khong lam lag.
+- Kiem tra admin action gui ra dung packet.
+- Kiem tra UI sau reconnect va after disconnect.
 
-## 5. Cach to chuc code
+## 4. Checklist cong viec theo phase
 
-- Tach form, control, service rieng.
-- Khong viet logic network qua nhieu trong form.
-- Dung service hoac controller de nhan su kien tu server.
-- Dat ten control de hieu: `btnLock`, `btnUnlock`, `lstMachines`.
+### Phase 1 - Layout
 
-## 6. Checklist A-Z cho Member 3
+- [ ] Tao dashboard shell
+- [ ] Tao login form
+- [ ] Tao machine list panel
+- [ ] Tao control panel
 
-- A: Align layout dep va ro.
-- B: Build login form.
-- C: Card/row machine list.
-- D: Display state by color.
-- E: Event-driven refresh.
-- F: Full dashboard view.
-- G: Group controls hop ly.
-- H: Handle network updates an toan.
-- I: Invoke UI thread dung cach.
-- J: Just enough information, khong qua tai.
-- K: Keep UI responsive.
-- L: Lock/unlock buttons ro rang.
-- M: Machine status realtime.
-- N: Notification panel.
-- O: Overlay hoac highlight khi can.
-- P: Progress/timer display.
-- Q: Quick actions cho admin.
-- R: Realtime state change.
-- S: Search/filter neu co thoi gian.
-- T: Timer display.
-- U: Update list on event.
-- V: Visual clarity.
-- W: Window states on login/logout.
-- X: eXecute no blocking work on UI thread.
-- Y: Yield to background network service.
-- Z: Zero freeze on normal use.
+### Phase 2 - State display
 
-## 7. Test can chay
+- [ ] Hien machine status
+- [ ] Hien connection state
+- [ ] Hien timer state
+- [ ] Hien notification area
 
-- Login admin vao dashboard.
-- Thay doi machine state va xem UI cap nhat.
-- Bam lock/unlock va xem nut/label doi ngay.
-- Notification hien len ro rang.
-- UI van chay duoc khi co nhieu event.
+### Phase 3 - Actions
 
-## 8. Deliverables can nop
+- [ ] Gui lock command
+- [ ] Gui unlock command
+- [ ] Gui notification
+- [ ] Gui timer command
 
-- Login admin form.
-- Dashboard chinh.
-- Machine list realtime.
-- Control panel lock/unlock/notification.
-- UI khong block khi receive event.
+### Phase 4 - Realtime UI
 
-## 9. Definition of Done
+- [ ] Listen network updates
+- [ ] Update UI thread safely
+- [ ] Refesh machine cards
+- [ ] Handle offline state
 
-- Admin co the quan sat va dieu khien may.
-- Dashboard demo nhin ro, khong loi visual lon.
-- Realtime update oon dinh.
-- Khong crash khi nhan nhieu su kien.
+### Phase 5 - Demo readiness
+
+- [ ] Polish visuals
+- [ ] Test multi-client updates
+- [ ] Remove UI clutter
+- [ ] Validate interaction speed
+
+## 5. Hanh vi UI can dam bao
+
+- Khong block khi dang nhan packet.
+- Khong update truc tiep tu background thread.
+- Khong de button action gay trung lap packet.
+- Khong de dashboard mat trang thai khi socket reconnect.
+
+## 6. Deliverables can nop
+
+- Admin login form.
+- Realtime dashboard.
+- Machine list/state view.
+- Control panel cho lock/unlock/notification/timer.
+- UI integration voi network service.
+
+## 7. Definition of Done
+
+- Admin thao tac on dinh.
+- Machine state nhin thay ngay.
+- UI khong freeze.
+- Dashboard demo duoc ma khong can giai thich nhieu.

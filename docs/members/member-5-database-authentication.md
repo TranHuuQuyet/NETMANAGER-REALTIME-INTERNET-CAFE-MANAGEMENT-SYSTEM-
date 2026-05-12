@@ -1,116 +1,121 @@
 # Member 5 - Database & Authentication
 
-## 1. Vai tro va muc tieu
+## 1. Vai tro
 
-Ban phu trach SQLite, login validation, account storage, va session/config luu tru co ban. Muc tieu la giu auth don gian, on dinh, de demo.
+Ban phu trach SQLite, login validation, luu account, luu session, va cac thong tin persistence co ban cho he thong.
 
-## 2. Pham vi cong viec
+## 2. Muc tieu cuoi cung
 
-- Tao database SQLite.
-- Tao bang tai khoan admin/client.
-- Viet logic login/validation.
-- Luu session co ban va cau hinh can thiet.
-- Ho tro lookup thong tin may neu can.
+- Auth hoat dong on dinh.
+- Du lieu user va session co the luu/lay lai duoc.
+- Server co can cu de xac thuc admin/client.
+- Schema don gian, de debug, de demo.
 
-## 3. Dau vao can nam
+## 3. Viec can lam tu dau den cuoi
 
-- Danh sach user admin/client.
-- Quyen truy cap cua moi loai tai khoan.
-- Cac truong can luu: username, password hash, role, machineId, status, lastLogin.
+### Giai doan khoi tao
 
-## 4. Luong lam viec tu a den z
+- Chot schema toi thieu.
+- Chot field can thiet cho `Users`, `Sessions`, `Machines`.
+- Chot cach hash password neu co.
+- Chot luong auth cho admin va client.
 
-### Buoc 1: Thiet ke schema
+### Giai doan data access
 
-- Bang `Users`.
-- Bang `Sessions` neu can.
-- Bang `Machines` neu can luu cau hinh may.
-- Khong thiet ke qua phuc tap.
-
-### Buoc 2: Tao repository/data access layer
-
-- Viet class truy van DB rieng.
+- Tao repository/data access layer rieng.
 - Khong viet SQL truc tiep trong UI.
-- Co ham add, get, validate, update.
+- Tao ham add/get/update/validate.
+- Tao error handling cho SQLite ro rang.
 
-### Buoc 3: Authentication
+### Giai doan authentication
 
-- Xac thuc admin.
-- Xac thuc client.
-- Tra ve ket qua ro rang: success, invalid, locked, disabled.
+- Validate username/password.
+- Tra ket qua success/fail ro rang.
+- Phan biet admin, client, disabled, locked neu can.
+- Ghi last login neu co.
 
-### Buoc 4: Session va config
+### Giai doan session and config
 
-- Luu session id/co ban neu can.
-- Luu thong tin ket noi hoac cau hinh client.
-- Khong luu thong tin nhay cam khong can thiet.
+- Luu session co ban.
+- Luu machine mapping neu can.
+- Luu config ket noi neu project can.
+- Khong luu du lieu nhay cam khong can thiet.
 
-### Buoc 5: Tich hop voi server
+### Giai doan integration
 
-- Server goi ham auth truoc khi chap nhan client neu can.
-- Server dong bo user state voi machine state.
+- Noi auth vao server login flow.
+- Noi auth vao dashboard neu co admin login.
+- Noi session vao state machine cua server.
+- Dam bao ket qua auth khop voi packet contract.
 
-### Buoc 6: Test data
+### Giai doan hardening
 
-- Tao it nhat 1 admin.
-- Tao vai client test.
-- Kiem tra case dung mat khau, sai mat khau, user khong ton tai.
+- Kiem tra sai mat khau.
+- Kiem tra user khong ton tai.
+- Kiem tra database bi loi.
+- Kiem tra concurrent access co an toan khong.
 
-## 5. Cach lam de de demo
+### Giai doan release
 
-- Duong di auth nen ngan.
-- Khong can UI quan ly phuc tap.
-- Chi can login thanh cong va luu duoc trang thai co ban.
-- Neu khong kip, co the fake mot phan data trong giai doan dau nhung cuoi cung phai co DB that.
+- Kiem tra login tu client.
+- Kiem tra login tu admin.
+- Kiem tra session tracking.
+- Kiem tra database khong lam app crash khi loi.
 
-## 6. Checklist A-Z cho Member 5
+## 4. Checklist cong viec theo phase
 
-- A: Account table.
-- B: Basic login validation.
-- C: Connection config storage.
-- D: Data access layer.
-- E: Error handling cho SQLite.
-- F: Fetch user by username.
-- G: Get role/permission.
-- H: Hash password neu co the.
-- I: Integrate voi server auth.
-- J: JSON config neu can, nhung uu tien DB.
-- K: Keep schema simple.
-- L: Login success/fail response.
-- M: Machine mapping neu can.
-- N: Normalize data fields.
-- O: Optional session table.
-- P: Password check.
-- Q: Query simple and safe.
-- R: Record last login.
-- S: Session storage.
-- T: Test invalid login.
-- U: Update user state.
-- V: Validate required fields.
-- W: Write minimal SQL.
-- X: eXpose simple API cho team dung.
-- Y: Yield clear auth result codes.
-- Z: Zero leakage of plaintext password.
+### Phase 1 - Schema
 
-## 7. Test can chay
+- [ ] Tao `Users`
+- [ ] Tao `Sessions`
+- [ ] Tao `Machines`
+- [ ] Chot field va key
 
-- Login admin dung.
-- Login client dung.
-- Login sai mat khau.
-- User khong ton tai.
-- Server goi auth va nhan ket qua dung.
-- Luu session/config co ban.
+### Phase 2 - Data access
 
-## 8. Deliverables can nop
+- [ ] Tao repository
+- [ ] Tao query helpers
+- [ ] Tao error handling
+- [ ] Tao seed data neu can
 
-- SQLite database file hoac schema script.
+### Phase 3 - Authentication
+
+- [ ] Validate login
+- [ ] Tra auth result
+- [ ] Luu last login
+- [ ] Phan loai role
+
+### Phase 4 - Session storage
+
+- [ ] Luu session start/end
+- [ ] Luu machine mapping
+- [ ] Luu config co ban
+- [ ] Dong bo voi server state
+
+### Phase 5 - Stability
+
+- [ ] Test sai mat khau
+- [ ] Test user khong ton tai
+- [ ] Test DB error handling
+- [ ] Test concurrent access
+
+## 5. Nguyen tac
+
+- Schema don gian hon schema dep.
+- Khong de SQL loang ra code UI.
+- Khong de plaintext password ton tai trong luong xu ly.
+- Khong de auth result mo ho.
+
+## 6. Deliverables can nop
+
+- SQLite schema hoac script.
 - Data access layer.
 - Auth service.
-- Session/config storage co ban.
+- Session/config storage.
 
-## 9. Definition of Done
+## 7. Definition of Done
 
-- Login hoat dong on dinh.
-- DB duoc truy van tu code that.
-- Team khac co the dung auth service de xac thuc.
-- Khong co loi DB nghiem trong khi demo.
+- Login on dinh.
+- Data doc/ghi duoc.
+- Team khac co the dung auth service ma khong doan schema.
+- DB loi khong lam sap demo.

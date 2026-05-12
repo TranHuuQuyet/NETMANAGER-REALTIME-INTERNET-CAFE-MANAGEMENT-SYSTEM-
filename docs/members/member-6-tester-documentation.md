@@ -1,130 +1,124 @@
 # Member 6 - Tester & Documentation
 
-## 1. Vai tro va muc tieu
+## 1. Vai tro
 
-Ban phu trach test, ghi loi, viet tai lieu, va ho tro demo. Muc tieu la giup team co ban build on dinh, co checklist ro va co tai lieu de trinh bay.
+Ban phu trach test, bug report, tai lieu, va ho tro demo. Ban giup team biet phan nao dang on, phan nao dang hong, va lam sao chay project dung cach.
 
-## 2. Pham vi cong viec
+## 2. Muc tieu cuoi cung
 
-- Test multi-client, lock/unlock, timer, chat, notification, auth.
-- Ghi bug va xep muc do uu tien.
-- Viet README, huong dan su dung, va checklist demo.
-- Ho tro chay demo ngay trinh dien.
+- Demo flow chay duoc tren may that.
+- Bugs duoc ghi ro, uu tien ro, va de lap lai.
+- Documentation de hieu va co the dung ngay.
+- Nguoi moi tham gia co the doc docs de tiep tuc work.
 
-## 3. Luong lam viec tu a den z
+## 3. Viec can lam tu dau den cuoi
 
-### Buoc 1: Lap test plan
+### Giai doan khoi tao
 
-- Xac dinh test case theo module.
-- Phan chia test theo luong chinh va edge case.
+- Lap test plan cho core flow.
+- Lap checklist demo.
+- Xac dinh test matrix cho multi-client.
+- Dinh nghia format bug report.
 
-### Buoc 2: Test chuc nang core
+### Giai doan smoke test
 
-- Connect.
-- Login.
-- Realtime status.
-- Notification.
-- Lock/unlock.
-- Timer.
-- Chat co ban.
+- Test connect.
+- Test login.
+- Test chat, notification, timer, lock, unlock.
+- Test multi-client co ban.
 
-### Buoc 3: Test loi va tinh huong xau
+### Giai doan regression
 
-- Mat ket noi.
-- Timeout.
-- Sai packet.
-- Dong thoi nhieu client.
-- Server restart giua chung.
+- Test disconnect.
+- Test server restart.
+- Test packet invalid.
+- Test reconnect.
+- Test UI freeze va thread issue.
 
-### Buoc 4: Ghi bug
+### Giai doan bug tracking
 
-- Neu co bug, ghi ro: buoc tao, ket qua mong doi, ket qua that te.
-- Danh muc do nghiem trong: high, medium, low.
+- Ghi reproduction steps.
+- Ghi expected vs actual.
+- Danh severity.
+- Theo doi workaround tam thoi neu co.
 
-### Buoc 5: Viet tai lieu
+### Giai doan documentation
 
-- Huong dan chay server.
-- Huong dan chay client.
-- Luong demo.
-- FAQ loi thuong gap.
+- Cap nhat README, guide, va demo notes.
+- Cap nhat checklist chay server/client.
+- Cap nhat faq loi thuong gap.
+- Dam bao docs khong mau thuan voi code.
 
-### Buoc 6: Ho tro demo
+### Giai doan release support
 
-- Chu bi ban build.
-- Kiem tra may demo truoc gio.
-- Co san checklist va script ngan.
+- Chay final smoke test.
+- Xac nhan build co the demo.
+- Chuan bi script trinh bay ngan.
+- San sang ho tro khi co loi ngay demo.
 
-## 4. Cach viet bug report
+## 4. Checklist cong viec theo phase
+
+### Phase 1 - Planning
+
+- [ ] Tao test plan
+- [ ] Tao demo checklist
+- [ ] Tao bug template
+- [ ] Tao regression list
+
+### Phase 2 - Functional test
+
+- [ ] Test connect
+- [ ] Test login
+- [ ] Test notification
+- [ ] Test chat
+- [ ] Test timer
+- [ ] Test lock/unlock
+
+### Phase 3 - Risk test
+
+- [ ] Test multi-client
+- [ ] Test disconnect
+- [ ] Test timeout
+- [ ] Test invalid packet
+- [ ] Test server restart
+
+### Phase 4 - Docs
+
+- [ ] Cap nhat README
+- [ ] Cap nhat run guide
+- [ ] Cap nhat demo flow
+- [ ] Cap nhat FAQ
+
+### Phase 5 - Release support
+
+- [ ] Final smoke test
+- [ ] Final bug sweep
+- [ ] Demo rehearsal
+- [ ] Final checklist
+
+## 5. Bug report format
 
 Moi bug nen co:
 
-- Tieu de ngan gon.
-- Module anh huong.
-- Buoc tai hien.
-- Ket qua mong doi.
-- Ket qua hien tai.
-- Do uu tien.
-- Screenshot neu can.
+- title
+- module
+- steps to reproduce
+- expected result
+- actual result
+- severity
+- workaround neu co
 
-## 5. Checklist A-Z cho Member 6
-
-- A: Acceptance test.
-- B: Bug report.
-- C: Checklist demo.
-- D: Documentation.
-- E: Edge case test.
-- F: Final build check.
-- G: Group demo script.
-- H: Highlight critical bugs.
-- I: Installation steps.
-- J: Jot down reproduction steps.
-- K: Keep notes clear.
-- L: Log of bugs.
-- M: Multi-client test.
-- N: Network failure test.
-- O: Offline/online transition test.
-- P: Prioritize bugs.
-- Q: Quick demo rehearsal.
-- R: Regression test.
-- S: Smoke test.
-- T: Timer/lock/chat test.
-- U: Update README.
-- V: Verify deliverables.
-- W: Write concise instructions.
-- X: eXecute demo checklist.
-- Y: Yoke team feedback into docs.
-- Z: Zero missing steps in final guide.
-
-## 6. Test matrix goi y
-
-### Nhom test core
-
-- Client A connect server.
-- Client B connect server.
-- Admin lock Client A.
-- Admin unlock Client A.
-- Admin gui notification.
-- Client chat voi admin.
-
-### Nhom test rui ro
-
-- Client dong dot ngot.
-- Server restart.
-- Packet invalid.
-- Nhieu event lien tiep.
-- UI co bi tre khong.
-
-## 7. Deliverables can nop
+## 6. Deliverables can nop
 
 - Test report.
 - Bug list.
-- README huong dan chay.
-- Checklist demo-ready.
+- README va huong dan chay.
+- Demo checklist.
 - Script demo ngan.
 
-## 8. Definition of Done
+## 7. Definition of Done
 
-- Team co tai lieu de chay project ma khong can hoi nhieu.
-- Bug lon duoc ghi nhan va uu tien ro.
+- Team co the chay project ma khong hoi lai qua nhieu.
+- Bug lon duoc ghi nhan va de uu tien ro.
 - Demo co checklist san.
-- Moi thanh vien biet cach chay phan cua minh.
+- Tai lieu khong bi loi thoi.

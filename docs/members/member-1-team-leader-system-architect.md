@@ -1,113 +1,140 @@
 # Member 1 - Team Leader / System Architect
 
-## 1. Vai tro va muc tieu
+## 1. Vai tro
 
-Ban phu trach huong di tong the, chia pham vi, dam bao cac module khop voi nhau va giu project nam trong muc tieu demo.
+Ban la nguoi giu huong di tong the cua du an. Nhiem vu cua ban la giu scope dung, kien truc dong bo, milestone ro rang, va integration khong bi vo.
 
-## 2. Pham vi cong viec
+## 2. Muc tieu cuoi cung
 
-- Quyet dinh kien truc tong the cua `ServerApp`, `ClientApp`, `Shared`.
-- Chot protocol, quy uoc packet, quy uoc dat ten, quy uoc branch va commit.
-- Theo doi tien do 8 tuan va cham diem rui ro.
-- Review code tich hop giua cac thanh vien.
-- Xu ly cac diem nghe, tranh xung dot giua networking, GUI va database.
+- Du an chay dung pham vi demo da chot.
+- Server, client va shared contract khong xung dot nhau.
+- Moi thanh vien biet ro minh lam gi, lam den dau, va khi nao xong.
+- Team co the tiep tuc lam viec o session sau ma khong phai reread toan bo codebase.
 
-## 3. Dau vao can nam
+## 3. Viec can lam tu dau den cuoi
 
-- Roadmap tong the cua du an.
-- Danh sach milestone va pham vi uu tien.
-- Protocol packet JSON.
-- Yeu cau demo: realtime, lock/unlock, timer, notification, chat co ban.
+### Giai doan khoi tao
 
-## 4. Viec can lam tu dau den cuoi
+- Chot pham vi MVP.
+- Loai bo cac tinh nang khong phuc vu demo.
+- Xac nhan branch rule, commit rule, folder rule.
+- Ghi lai architecture, API contract, va tracker file.
+- Phan cong owner chinh cho tung module.
 
-### Buoc 1: Chot pham vi
+### Giai doan thiet ke
 
-- Loai bo tinh nang khong can thiet nhu file transfer, voice call, video streaming.
-- Xac dinh MVP phai co: connect, login, machine list, notification, lock/unlock, timer, chat.
+- Chot structure `ServerApp`, `ClientApp`, `Shared`.
+- Chot packet type, state model, va async model.
+- Kiem tra cac quy uoc dat ten co dong bo giua server va client.
+- Dinh nghia dau vao va dau ra cho moi module.
+- Dam bao cac member khong lam overlap vao cung mot write scope.
 
-### Buoc 2: Chot kien truc
+### Giai doan xay dung nen tang
 
-- Tach ro `Shared` dung chung.
-- Server xu ly socket, session, auth, command dispatch.
-- Client xu ly connect, receive command, UI lock screen.
+- Theo doi tien do TCP core, auth core, UI core, va DB core.
+- Mo lich integration som thay vi doi cuoi ky.
+- Kiem tra cac contract nhu `LOGIN`, `STATUS`, `LOCK`, `UNLOCK`, `NOTIFICATION`, `TIMER`, `CHAT`.
+- Neu co module cham, dieu chinh uu tien ngay.
+- Giai quyet conflict ve packet, state, hoac thread model.
 
-### Buoc 3: Chot quy uoc code
+### Giai doan tich hop
 
-- Ten class, ten packet, ten state phai thong nhat.
-- Moi packet co `type` ro rang.
-- Moi feature phai co mot nguoi phu trach chinh.
+- Review source changes truoc khi merge.
+- Kiem tra client va server co cung hieu mot packet hay khong.
+- Kiem tra UI co bi block boi network work hay khong.
+- Kiem tra database auth co tra ve dung trang thai hay khong.
+- Xac nhan multi-client flow truoc khi de mo rong them.
 
-### Buoc 4: Theo doi tien do
+### Giai doan hoan thien
 
-- Moi tuan cap nhat tinh trang: done, in progress, blocked.
-- Neu mot module cham, can dieu chinh nguoi ho tro ngay.
+- Uu tien bug co lien quan den login, reconnect, lock, timer, notification.
+- Doi chieu bug list voi test result.
+- Kiem tra build demo va huong dan chay.
+- Dam bao docs va code khong mo thuan nhau.
+- Chot version dem0-ready.
 
-### Buoc 5: Review tich hop
+## 4. Checklist cong viec theo phase
 
-- Kiem tra packet co khop giua server va client khong.
-- Kiem tra thread/UI co bi block khong.
-- Kiem tra database auth co can thiet hay co the fake luc dau.
+### Phase 0 - Project control
 
-## 5. Cach lam viec hang tuan
+- [ ] Chot scope MVP
+- [ ] Chot branch conventions
+- [ ] Chot commit conventions
+- [ ] Chot folder layout
+- [ ] Chot ownership theo member
 
-### Dau tuan
+### Phase 1 - Architecture and contract
 
-- Hop ngan 15-20 phut.
-- Chot muc tieu tuan nay.
-- Tach task ro tung nguoi.
+- [ ] Xac nhan luong server/client
+- [ ] Xac nhan shared packet contract
+- [ ] Xac nhan state model
+- [ ] Xac nhan database schema muc tieu
+- [ ] Xac nhan threading rules
 
-### Giua tuan
+### Phase 2 - Build tracking
 
-- Kiem tra tien do.
-- Xac nhan module nao da san sang integration.
-- Neu co do tre, chuyen ho tro qua module co nguy co cao.
+- [ ] Theo doi task cua tung member
+- [ ] Cap nhat blocker hang ngay
+- [ ] Ghi decision khi co thay doi lon
+- [ ] Kiem tra phan tich rui ro
+- [ ] Doi chieu milestone voi tien do that
 
-### Cuoi tuan
+### Phase 3 - Integration and release
 
-- Demo noi bo.
-- Review bug.
-- Cap nhat roadmap neu can.
+- [ ] Review merge request / commit changes
+- [ ] Kiem tra regression
+- [ ] Chot demo flow
+- [ ] Chot bug list
+- [ ] Chot final docs
 
-## 6. Checklist A-Z cho Member 1
+## 5. Cong viec theo tung module
 
-- A: An dinh pham vi MVP.
-- B: Bao ve scope, khong de team lan sang tinh nang phu.
-- C: Chot branch structure.
-- D: Dinh nghia milestone ro rang.
-- E: Enforce quy uoc code va commit.
-- F: Fix conflict giua cac module.
-- G: Giu chatbot / lock / timer dung muc tieu demo.
-- H: Hoi dap nhanh khi module bi ket.
-- I: Intergration som, khong doi cuoi ky.
-- J: Jump vao xu ly khi networking/GUI bi tre.
-- K: Kiem tra packet format.
-- L: Lanh dao review code.
-- M: Map trang thai client/server.
-- N: Neu scope lech, cat bo ngay.
-- O: O dinh tien do.
-- P: Phan cong ro nguoi dung module nao.
-- Q: Quan ly changelog va ghi chu.
-- R: Review before merge.
-- S: Scope control.
-- T: Theo doi bug open.
-- U: Uu tien demo flow.
-- V: Validate output cua tung module.
-- W: Weekly sync.
-- X: Xac nhan do san sang.
-- Y: Yeu cau test truoc khi merge.
-- Z: Zero in on core features.
+### Server
+
+- Kiem tra co accept nhieu client duoc khong.
+- Kiem tra command dispatch co dung packet type khong.
+- Kiem tra login va auth response co dung khong.
+- Kiem tra dashboard co cap nhat realtime khong.
+
+### Client
+
+- Kiem tra connect/login flow.
+- Kiem tra lock/unlock screen.
+- Kiem tra notification, timer, chat.
+- Kiem tra disconnect va reconnect.
+
+### Shared
+
+- Kiem tra packet model co on dinh khong.
+- Kiem tra enums, constants, va utility co dong bo khong.
+- Kiem tra schema changes co duoc cap nhat tai API.md khong.
+
+### Database
+
+- Kiem tra account lookup.
+- Kiem tra password handling.
+- Kiem tra session tracking.
+- Kiem tra config persistence.
+
+## 6. Nhiem vu hang ngay
+
+- Kiem tra `PROJECT_STATE.md` truoc khi bat dau.
+- Kiem tra `TASKS.md` de lay task tiep theo.
+- Ghi note ngan neu co decision moi.
+- Neu co bug moi, dua vao `BUGS.md`.
+- Neu co doi schema hay protocol, cap nhat `API.md`.
 
 ## 7. Deliverables can nop
 
-- Roadmap da dieu chinh.
-- Kien truc tong the.
-- Checklist demo.
-- Bao cao tinh trang cac module.
+- Roadmap da chia phase ro rang.
+- Architecture va API contract dong bo.
+- Task tracking cap nhat lien tuc.
+- Bug list va decision log day du.
+- Build demo on dinh.
 
 ## 8. Definition of Done
 
-- Cac module khop nhau.
-- Demo chay duoc luong chinh.
-- Khong con xung dot nghiem trong ve protocol.
-- Team biet ro ai lam gi va lam den dau.
+- Scope khong lech.
+- Milestone khong bi tre ma khong co ly do.
+- Team co the tiep tuc lam viec ma khong mat ngu canh.
+- Tat ca file memory phan anh dung trang thai hien tai.
