@@ -1,686 +1,607 @@
--------NETMANAGER — REALTIME INTERNET CAFE MANAGEMENT SYSTEM ------
--------
-/////////////////////////Môn học ///////////////////////////////////
+# NETMANAGER - REALTIME INTERNET CAFE MANAGEMENT SYSTEM
 
-Lập trình mạng 
+## 1. Tổng Quan Dự Án
 
-Loại project 
+**Môn học:** Lập trình mạng  
+**Loại project:** Desktop application theo mô hình Client-Server  
+**Thời gian thực hiện:** 8 tuần  
+**Số lượng thành viên:** 6 người
 
-Desktop Application — Client/Server Architecture 
+NetManager là hệ thống quản lý quán net realtime, tập trung vào giao tiếp mạng nội bộ qua TCP Socket, xử lý nhiều client đồng thời và đồng bộ trạng thái máy theo thời gian thực.
 
-//Thời gian thực hiện 
+### Mục tiêu chính
 
-2 tháng (8 tuần) 
+- Xây dựng một hệ thống demo ổn định cho môn Lập trình mạng.
+- Quản lý máy client theo thời gian thực.
+- Gửi thông báo, khóa/mở khóa máy, và quản lý session timer.
+- Hỗ trợ chat cơ bản giữa admin và client.
+- Ưu tiên độ ổn định, khả năng demo và tính dễ hiểu của code.
 
-//Số lượng thành viên 
+### Phạm vi ưu tiên
 
-6 người 
+Tập trung vào các chức năng cốt lõi:
 
- 
+- TCP connection
+- Multi-client
+- Realtime machine status
+- Notification
+- Lock / unlock
+- Session timer
+- Basic chat
+- Client authentication
 
-1. GIỚI THIỆU ĐỀ TÀI 
+Không mở rộng sang các tính năng nặng như:
 
-1.1 Mô tả đề tài 
-
-NetManager là hệ thống quản lí quán net hoạt động theo mô hình Client-Server sử dụng TCP Socket. 
-
-//Hệ thống cho phép: 
-
-quản trị viên theo dõi trạng thái máy tính realtime  
-gửi thông báo tới client  
-lock/unlock máy  
-quản lí session timer  
-chat realtime giữa admin và client  
-
-//Project tập trung vào: 
-networking  
-realtime communication  
-multithreading  
-desktop application  
-client-server architecture  
-
-1.2 Mục tiêu project 
-
-//Mục tiêu chính 
-Xây dựng hệ thống quản lí quán net realtime hoạt động ổn định trong mạng LAN. 
-//Mục tiêu kỹ thuật 
-TCP Socket Communication  
-Multi-client handling  
-JSON packet communication  
-Realtime synchronization  
-GUI desktop application  
-Session management  
-Authentication system  
-
-2. KIẾN TRÚC HỆ THỐNG 
-
-               SERVER ADMIN 
-        +------------------------+ 
-        |  Admin Dashboard       | 
-        |  Machine Manager       | 
-        |  Realtime Control      | 
-        +-----------+------------+ 
-                    | 
-             TCP SOCKET SERVER 
-                    | 
-     -------------------------------- 
-      |            |              | 
-   CLIENT 1     CLIENT 2      CLIENT 3 
-
- 
-
-3. TECH STACK 
-
-//Programming Language 
-C#  
-
-//GUI Framework 
-Windows Forms 
-
-//Networking 
-TCP Socket  
-
-//async/await  
-Multithreading  
-
-//Database 
-SQLite 
-
-//IDE 
-Microsoft Visual Studio 
-
-//Version Control 
-GitHub 
-
-
-4. CHỨC NĂNG HỆ THỐNG 
-4.1 SERVER ADMIN 
-
-//Authentication 
-Login/logout admin  
-
-//Machine Management 
-Hiển thị danh sách máy realtime  
-
-//Trạng thái:  
-Online  
-Offline  
-Locked  
-Playing  
-
-//Realtime Notification 
-Gửi thông báo tới client  
-
-//Lock/Unlock System 
-Khóa/mở khóa máy client  
-
-//Session Timer 
-Quản lí thời gian sử dụng  
-
-//Chat System 
-Chat realtime với client  
-
- 
-
-4.2 CLIENT APP 
-
-//Server Connection 
-Kết nối IP/Port  
-
-//Authentication 
-Login/logout client  
-
-//Realtime Data 
-Nhận thông báo  
-Nhận timer  
-Nhận trạng thái lock/unlock  
-
-
-//Chat System 
-Chat với admin  
-
-5. CẤU TRÚC PROJECT 
-
-NetManager/ 
-│ 
-├── ServerApp/ 
-│   ├── Forms/ 
-│   ├── Networking/ 
-│   ├── Models/ 
-│   ├── Services/ 
-│   └── Database/ 
-│ 
-├── ClientApp/ 
-│   ├── Forms/ 
-│   ├── Networking/ 
-│   ├── Models/ 
-│   └── Services/ 
-│ 
-├── Shared/ 
-│   ├── Packets/ 
-│   ├── Constants/ 
-│   └── Utilities/ 
-│ 
-├── Docs/ 
-│ 
-└── README.md 
-
- 
-
-6. THIẾT KẾ PACKET 
-Ví dụ packet JSON :
-Login Packet 
-
-{ 
-  "type": "LOGIN", 
-  "username": "client01", 
-  "password": "123456" 
-} 
-
-Chat Packet 
-{ 
-  "type": "CHAT", 
-  "sender": "PC01", 
-  "message": "Máy em bị lag" 
-} 
-
- 
-Lock Packet 
-{ 
-  "type": "LOCK" 
-} 
-
- 
-
-Notification Packet 
-{ 
-  "type": "NOTIFICATION", 
-  "message": "Server restart after 10 minutes" 
-} 
-
- 
-
-7. KẾ HOẠCH PHÁT TRIỂN (8 TUẦN) 
-
-->>>>Mục tiêu chung: Hoàn thành một hệ thống desktop demo ổn định cho môn Mạng máy tính, tập trung vào các chức năng cốt lõi và tránh tính năng mở rộng không cần thiết. 
-
-//Tuần 1 — Nền tảng mạng và cơ sở dự án 
-Mục tiêu 
-
-- Thiết lập repo, cấu trúc dự án và quy ước commit. 
-- Xây dựng TCP server/client đơn giản trên LAN. 
-- Đảm bảo nhiều client có thể kết nối đồng thời. 
-Công việc 
-- Setup GitHub repository và branch workflow. 
-- Tạo project ServerApp, ClientApp, Shared. 
-- Viết socket server và socket client cơ bản. 
-- Xây dựng cơ chế gửi/nhận gói tin JSON đơn giản. 
-- Thử nghiệm kết nối 2-3 client với server. 
-
-Kết quả cần đạt 
-- Server chạy và nhận kết nối client. 
-- Client gửi/nhận gói tin thành công. 
-- Có test đơn giản cho multi-client connection. 
-
-//Tuần 2 — Protocol giao tiếp và xác thực cơ bản 
-Mục tiêu 
-- Hoàn thiện giao thức JSON packet cho demo. 
-- Xây dựng xác thực đơn giản trên client/server. 
-Công việc 
-- Định nghĩa packet: LOGIN, STATUS, LOCK, UNLOCK, NOTIFICATION, TIMER, CHAT. 
-- Viết parser/handler packet cho server và client. 
-- Tạo flow login client và xác thực admin cơ bản. 
-- Thêm trạng thái online/offline cho mỗi client. 
-Kết quả cần đạt 
-- Client login được và server quản lý session. 
-- Packet handler xử lý đúng các loại gói demo. 
-- Thông tin trạng thái client được đồng bộ hóa. 
-
-//Tuần 3 — GUI server & GUI client cơ bản 
-Mục tiêu 
-- Hoàn thiện giao diện desktop cho server và client. 
-- Kết nối GUI với cơ chế networking. 
-Công việc 
-- Server: Login admin, dashboard, danh sách máy, trạng thái. 
-- Client: Connect form, login client, hiển thị trạng thái, nhận thông báo. 
-- Giao diện đơn giản, rõ ràng và dễ dùng cho demo. 
-Kết quả cần đạt 
-- Admin có thể xem danh sách máy realtime. 
-- Client có thể connect, đăng nhập và xem lệnh từ server. 
-- GUI phản hồi nhanh và không bị treo khi có sự kiện mạng. 
-
-//Tuần 4 — Realtime machine status và thông báo 
-Mục tiêu 
-- Làm cho hệ thống hoạt động realtime đủ tốt cho demo. 
-Công việc 
-- Đồng bộ trạng thái máy qua TCP/JSON. 
-- Hiển thị thông báo admin trên client. 
-- Cập nhật trạng thái online/offline, locked, playing. 
-- Đảm bảo GUI hiển thị thay đổi tức thì. 
-Kết quả cần đạt 
-- Server gửi thông báo và client nhận hiển thị. 
-- Trạng thái máy cập nhật realtime trong dashboard. 
-- Tối thiểu 3 client hoạt động ổn định cùng lúc. 
-
-
-//Tuần 5 — Lock/unlock và session timer 
-Mục tiêu 
-- Hoàn thiện hai chức năng demo quan trọng: khóa máy và quản lý thời gian. 
-Công việc 
-- Tạo lệnh lock/unlock từ admin. 
-- Thiết kế màn hình khóa client full-screen. 
-- Đồng bộ session timer và cập nhật thời gian còn lại. 
-- Thử hành vi liên tục khi client bị khóa/mở khóa. 
-Kết quả cần đạt 
-- Client bị khóa được quản lý bởi server. 
-- Timer chạy đúng và client hiển thị thời gian. 
-- Trường hợp mất kết nối được xử lý an toàn. 
-
-
-//Tuần 6 — Database nhỏ gọn và ổn định hoá 
-Mục tiêu 
-- Tích hợp SQLite cho login và lưu cấu hình. 
-- Củng cố độ ổn định của hệ thống. 
-Công việc 
-- Lưu tài khoản admin/client vào SQLite. 
-- Thực hiện xác thực login với database. 
-- Xây dựng retry/reconnect cơ bản cho client. 
-- Thêm logging lỗi đơn giản để dễ debug. 
-Kết quả cần đạt 
-- Login dựa trên database hoạt động. 
-- Server/Client chịu được reconnect nhẹ. 
-- Các lỗi mạng không khiến app crash. 
-
-
-//Tuần 7 — Tập trung testing và sửa lỗi 
-Mục tiêu 
-- Làm cho demo mượt, sửa tất cả lỗi lớn trước buổi trình diễn. 
-Công việc 
-- Chạy test multi-client, test lock/unlock, test timer. 
-- Kiểm tra các trường hợp mất kết nối, đăng xuất, timeout. 
-- Làm sạch UI, thông báo lỗi thân thiện. 
-- Chuẩn bị kịch bản demo và checklist. 
-Kết quả cần đạt 
-- Demo flow chính chạy ổn định. 
-- Không có crash khi sử dụng tính năng chính. 
-- Có checklist “demo-ready” cho nhóm. 
-
-
-//Tuần 8 — Hoàn thiện demo và trình diễn 
-Mục tiêu 
-- Chuẩn bị bản demo hoàn chỉnh, sẵn sàng chạy trên máy thật. 
-Công việc 
-- Hoàn thiện nội dung slide/nội dung trình bày. 
-- Kiểm tra lần cuối trên cấu hình desktop. 
-- Sửa phần còn sót, tối ưu phản hồi GUI. 
-- Ghi lại bug nhỏ còn lại và xác nhận demo flow. 
-Kết quả cần đạt 
-- Hệ thống chạy mượt trong kịch bản demo. 
-- Có bản build hoặc project sẵn sàng trình diễn. 
-- Nhóm hiểu rõ vai công việc và kịch bản. 
+- File transfer
+- Voice call
+- Video streaming
+- Báo cáo phức tạp
 
 ---
 
-Tập trung demo desktop: 
-- Bỏ qua file transfer, voice call, video streaming, báo cáo phức tạp hay tính năng mở rộng không cần thiết. 
-- Chỉ giữ các chức năng thiết yếu: realtime status, lock/unlock, notifications, timer, chat cơ bản, client/server connect + auth.
-
-GIAI ĐOẠN 5 — LOCK SYSTEM 
-
-Tuần 6 
-
-Mục tiêu 
-
-Xây dựng lock/unlock system. 
-
-Công việc 
-
-Fullscreen lock screen  
-
-Unlock command  
-
-Realtime sync  
-
-Kết quả cần đạt 
-
-Lock/unlock realtime hoạt động  
-
-Milestone 
-
-v0.5-lock-system 
-
- 
-
-GIAI ĐOẠN 6 — DATABASE & AUTH 
-
-Tuần 7 
-
-Mục tiêu 
-
-Tích hợp database. 
-
-Công việc 
-
-SQLite integration  
-
-Account storage  
-
-Login validation  
-
-Session storage  
-
-Kết quả cần đạt 
-
-Login bằng database  
-
-Milestone 
-
-v0.6-database 
-
- 
-
-GIAI ĐOẠN 7 — TESTING & FINAL 
-
-Tuần 8 
-
-Mục tiêu 
-
-Hoàn thiện sản phẩm. 
-
-Công việc 
-
-Bug fixing  
-
-UI optimization  
-
-Multi-client testing  
-
-Documentation  
-
-Slide presentation  
-
-Demo preparation  
-
-Kết quả cần đạt 
-
-Demo hoàn chỉnh  
-
-Milestone 
-
-v1.0-final-release 
-
- 
-
-8. PHÂN CÔNG THÀNH VIÊN 
-
-MEMBER 1 — TEAM LEADER / SYSTEM ARCHITECT 
-
-Nhiệm vụ 
-
-- Điều phối tiến độ tuần, đảm bảo nhóm bám sát milestone. 
-- Thiết kế tổng thể, quyết định kiến trúc server/client. 
-- Review code chính, kiểm tra tích hợp. 
-- Hỗ trợ gỡ nghẽn khi networking hoặc GUI bị chậm. 
-
-Deliverables 
-
-- Roadmap rõ ràng cho 8 tuần. 
-- Kiến trúc ServerApp/ClientApp/Shared. 
-- Bản build demo ổn định. 
-
-MEMBER 2 — NETWORK ENGINEER 
-
-Nhiệm vụ 
-
-- Xây dựng TCP server và TCP client. 
-- Quản lý multi-client, gửi nhận packet chính xác. 
-- Thiết kế lại protocol JSON phù hợp demo. 
-- Xử lý reconnect, timeout, lỗi socket. 
-
-Deliverables 
-
-- Socket server/client hoạt động. 
-- Packet dispatcher, parser/handler. 
-- Reconnect/retry cơ bản. 
-
-MEMBER 3 — SERVER GUI DEVELOPER 
-
-Nhiệm vụ 
-
-- Xây dựng admin dashboard desktop. 
-- Hiển thị danh sách máy và trạng thái realtime. 
-- Triển khai chức năng lock/unlock, gửi notification, trình bày timer. 
-- Tối ưu hiển thị để tránh lag khi có nhiều thay đổi. 
-
-Deliverables 
-
-- Server UI cho dashboard demo. 
-- Control panel lock/unlock/notify. 
-- Machine list realtime hoạt động. 
-
-MEMBER 4 — CLIENT APP DEVELOPER 
-
-Nhiệm vụ 
-
-- Xây dựng client desktop app. 
-- Triển khai kết nối IP/Port và xác thực client. 
-- Hiển thị thông báo, trạng thái lock, timer. 
-- Tạo màn hình khóa full-screen cho client. 
-
-Deliverables 
-
-- Client app kết nối server. 
-- Màn hình lock/unlock hoạt động. 
-- Hiển thị realtime notification và timer. 
-
-MEMBER 5 — DATABASE & AUTHENTICATION 
-
-Nhiệm vụ 
-
-- Tích hợp SQLite cho quản lý tài khoản. 
-- Xây dựng login validation và lưu session. 
-- Quản lý cấu hình đơn giản cho client/server. 
-- Hỗ trợ server lưu trạng thái user/machine nếu cần. 
-
-Deliverables 
-
-- Database SQLite cơ bản cho demo. 
-- Hệ thống login admin/client. 
-- Lưu trữ cấu hình và thông tin session. 
-
-MEMBER 6 — TESTER & DOCUMENTATION 
-
-Nhiệm vụ 
-
-- Chạy thử multi-client, test lock/timer/chat. 
-- Ghi nhận bug, đề xuất ưu tiên sửa lỗi. 
-- Chuẩn bị README ngắn gọn và script demo. 
-- Hỗ trợ nhóm trong ngày demo để vận hành mượt. 
-
-Deliverables 
-
-- Test report và danh sách lỗi. 
-- Checklist demo-ready. 
-- Tài liệu hướng dẫn sử dụng và slide demo. 
+## 2. Kiến Trúc Hệ Thống
+
+### Mô hình tổng thể
+
+```text
+Admin Dashboard
+      |
+      | TCP Socket
+      v
+TCP Server -----------------> Client 1
+      |                      -> Client 2
+      |                      -> Client 3
+      |
+      +-- Quản lý session, trạng thái máy, thông báo, lock/unlock
+```
+
+### Thành phần chính
+
+- **ServerApp**: xử lý kết nối, quản lý client, phát lệnh, lưu trạng thái.
+- **ClientApp**: kết nối server, nhận lệnh, hiển thị trạng thái, chat, lock screen.
+- **Shared**: packet model, constants, utility dùng chung.
 
 ---
 
-Quan trọng: nhóm nên tập trung vào việc làm cho các chức năng cốt lõi chạy ổn định, không nên mở rộng thêm tính năng khác cho buổi demo. Các tính năng phụ như file transfer, voice/video, logging nâng cao, báo cáo phân tích có thể bỏ qua để đảm bảo buổi demo không gặp sự cố.
- 
+## 3. Tech Stack
 
-9. GITHUB WORKFLOW 
+- **Ngôn ngữ:** C#
+- **GUI:** Windows Forms
+- **Networking:** TCP Socket, async/await, multithreading
+- **Database:** SQLite
+- **IDE:** Microsoft Visual Studio
+- **Version control:** GitHub
 
-Branch Structure 
+---
 
-main 
-develop 
-feature/socket 
-feature/gui 
-feature/chat 
-feature/database 
-feature/lock-system 
+## 4. Chức Năng Hệ Thống
 
- 
+### 4.1. Server Admin
 
-Workflow 
+#### Xác thực
 
-feature/* 
-   ↓ 
-develop 
-   ↓ 
-main 
+- Đăng nhập / đăng xuất admin
 
- 
+#### Quản lý máy
 
-Commit Convention 
+- Hiển thị danh sách máy realtime
+- Trạng thái: `Online`, `Offline`, `Locked`, `Playing`
 
-Ví dụ 
+#### Điều khiển realtime
 
-[NETWORK] Add TCP server 
-[GUI] Add dashboard form 
-[DATABASE] Add SQLite login 
-[CHAT] Implement realtime chat 
+- Gửi thông báo đến client
+- Khóa / mở khóa máy
+- Quản lý session timer
+- Chat realtime với client
 
- 
+#### Giám sát
 
-10. CÔNG CỤ QUẢN LÍ 
+- Theo dõi trạng thái kết nối
+- Cập nhật UI ngay khi client thay đổi trạng thái
 
-Source Control 
+### 4.2. Client App
 
-GitHub 
+#### Kết nối
 
- 
+- Nhập IP / Port server
+- Kết nối và tự động xử lý reconnect cơ bản
 
-Project Management 
+#### Xác thực
 
-GitHub Projects 
+- Đăng nhập client
+- Nhận session và trạng thái từ server
 
- 
+#### Nhận lệnh realtime
 
-Communication 
+- Nhận thông báo
+- Nhận lock / unlock
+- Nhận và hiển thị timer
 
-Discord  
+#### Chat
 
-Messenger  
+- Gửi / nhận tin nhắn với admin
 
-Zalo  
+#### Lock screen
 
- 
+- Hiển thị màn hình khóa toàn màn hình khi server yêu cầu
 
-11. RỦI RO PROJECT 
+---
 
-Networking synchronization 
+## 5. Thiết Kế Packet
 
-Thread conflict  
+Giao tiếp giữa server và client dùng JSON packet đơn giản, dễ debug.
 
-Socket disconnect  
+### Các packet chính
 
-Packet loss  
+#### Login
 
- 
+```json
+{
+  "type": "LOGIN",
+  "username": "client01",
+  "password": "123456"
+}
+```
 
-GUI freezing 
+#### Chat
 
-Sai async handling  
+```json
+{
+  "type": "CHAT",
+  "sender": "PC01",
+  "message": "Máy em bị lag"
+}
+```
 
-Blocking thread  
+#### Lock
 
- 
+```json
+{
+  "type": "LOCK"
+}
+```
 
-Time management 
+#### Unlock
 
-Scope quá lớn  
+```json
+{
+  "type": "UNLOCK"
+}
+```
 
-Thiếu integration sớm  
+#### Notification
 
- 
+```json
+{
+  "type": "NOTIFICATION",
+  "message": "Server restart after 10 minutes"
+}
+```
 
-12. GIẢI PHÁP 
+#### Timer
 
-Chia milestone rõ ràng 
+```json
+{
+  "type": "TIMER",
+  "remainingMinutes": 45
+}
+```
 
-Hoàn thành từng giai đoạn  
+#### Status
 
-Không làm dồn cuối kỳ  
+```json
+{
+  "type": "STATUS",
+  "machineId": "PC01",
+  "state": "ONLINE"
+}
+```
 
- 
+---
 
-Networking first 
+## 6. Cấu Trúc Project
 
-Làm socket trước GUI  
+```text
+NetManager/
+├── ServerApp/
+│   ├── Forms/
+│   ├── Networking/
+│   ├── Models/
+│   ├── Services/
+│   └── Database/
+├── ClientApp/
+│   ├── Forms/
+│   ├── Networking/
+│   ├── Models/
+│   └── Services/
+├── Shared/
+│   ├── Packets/
+│   ├── Constants/
+│   └── Utilities/
+├── Docs/
+└── README.md
+```
 
- 
+---
 
-Weekly meeting 
+## 7. Kế Hoạch Phát Triển 8 Tuần
 
-Họp nhóm mỗi tuần  
+### Tuần 1 - Nền tảng mạng và khởi tạo dự án
 
-Review tiến độ  
+**Mục tiêu**
 
- 
+- Tạo khung project và quy ước làm việc chung.
+- Dựng TCP server/client cơ bản trên LAN.
 
-Daily commit 
+**Công việc**
 
-Commit code thường xuyên  
+- Tạo repo GitHub và branch workflow.
+- Tạo project `ServerApp`, `ClientApp`, `Shared`.
+- Viết socket server và socket client cơ bản.
+- Xây dựng cơ chế gửi / nhận JSON packet đơn giản.
+- Kiểm tra kết nối 2-3 client cùng lúc.
 
-Tránh conflict lớn  
+**Kết quả cần đạt**
 
- 
+- Server chạy ổn định và nhận kết nối.
+- Client gửi / nhận dữ liệu thành công.
+- Có kết nối đa client cơ bản.
 
-13. TÍNH NĂNG ƯU TIÊN 
+**Milestone:** `v0.1-network-base`
 
-HIGH PRIORITY 
+---
 
-TCP connection  
+### Tuần 2 - Protocol giao tiếp và xác thực
 
-Multi-client  
+**Mục tiêu**
 
-Realtime machine list  
+- Chuẩn hóa packet JSON.
+- Có flow đăng nhập cơ bản cho admin và client.
 
-Notification  
+**Công việc**
 
-Lock/unlock  
+- Định nghĩa các packet: `LOGIN`, `STATUS`, `LOCK`, `UNLOCK`, `NOTIFICATION`, `TIMER`, `CHAT`.
+- Viết parser và handler cho server / client.
+- Tạo flow login client.
+- Thêm xác thực admin cơ bản.
+- Đồng bộ trạng thái online / offline cho từng máy.
 
-Session timer  
+**Kết quả cần đạt**
 
- 
+- Login hoạt động và session được quản lý.
+- Packet handler xử lý đúng các loại packet chính.
+- Trạng thái client được đồng bộ.
 
-MEDIUM PRIORITY 
+**Milestone:** `v0.2-protocol-auth`
 
-Chat system  
+---
 
-Logging system  
+### Tuần 3 - GUI cơ bản cho server và client
 
-UI optimization  
+**Mục tiêu**
 
- 
+- Hoàn thiện giao diện desktop cho cả hai phía.
 
-LOW PRIORITY 
+**Công việc**
 
-File transfer  
+- Server: màn hình login admin, dashboard, danh sách máy, trạng thái.
+- Client: màn hình kết nối, đăng nhập, hiển thị trạng thái, nhận thông báo.
+- Gắn GUI vào networking layer.
+- Đảm bảo UI không bị treo khi có sự kiện mạng.
 
-Voice call  
+**Kết quả cần đạt**
 
-Video streaming  
+- Admin xem được danh sách máy realtime.
+- Client kết nối, đăng nhập và nhận lệnh.
+- Giao diện phản hồi tốt.
 
- 
+**Milestone:** `v0.3-gui-base`
 
-14. KẾT LUẬN 
+---
 
-NetManager là hệ thống quản lí quán net realtime sử dụng mô hình Client-Server với TCP Socket. 
+### Tuần 4 - Realtime status và notification
 
-Project phù hợp với môn Lập trình mạng vì: 
+**Mục tiêu**
 
-sử dụng networking thực tế  
+- Làm cho dữ liệu máy cập nhật theo thời gian thực.
 
-có realtime communication  
+**Công việc**
 
-có multithreading  
+- Đồng bộ trạng thái máy qua TCP / JSON.
+- Hiển thị notification từ server lên client.
+- Cập nhật trạng thái `Online`, `Offline`, `Locked`, `Playing`.
+- Tối ưu refresh UI để tránh lag.
 
-có client-server architecture  
+**Kết quả cần đạt**
 
-có GUI desktop application  
+- Server gửi thông báo và client hiển thị đúng.
+- Dashboard cập nhật realtime.
+- Ít nhất 3 client hoạt động ổn định cùng lúc.
 
-Hệ thống có khả năng mở rộng thêm nhiều tính năng trong tương lai và phù hợp để sử dụng làm portfolio hoặc đồ án nâng cao sau này. 
+**Milestone:** `v0.4-realtime-status`
 
- 
+---
+
+### Tuần 5 - Lock / Unlock và Session Timer
+
+**Mục tiêu**
+
+- Hoàn thiện hai tính năng demo quan trọng nhất.
+
+**Công việc**
+
+- Tạo lệnh lock / unlock từ admin.
+- Thiết kế màn hình khóa full-screen ở client.
+- Đồng bộ session timer và thời gian còn lại.
+- Kiểm tra tình huống mất kết nối, thoát app, reconnect.
+
+**Kết quả cần đạt**
+
+- Client bị khóa và mở khóa từ server.
+- Timer chạy đúng và hiển thị rõ ràng.
+- Xử lý mất kết nối an toàn.
+
+**Milestone:** `v0.5-lock-system`
+
+---
+
+### Tuần 6 - Database nhỏ gọn và ổn định hóa
+
+**Mục tiêu**
+
+- Tích hợp SQLite cho xác thực và lưu cấu hình.
+
+**Công việc**
+
+- Lưu tài khoản admin / client vào SQLite.
+- Xác thực login bằng database.
+- Lưu session và thông tin cấu hình cần thiết.
+- Thêm logging lỗi đơn giản để dễ debug.
+- Bổ sung reconnect / retry cơ bản cho client.
+
+**Kết quả cần đạt**
+
+- Login dựa trên database hoạt động.
+- Ứng dụng chịu được lỗi mạng nhẹ.
+- Hệ thống ổn định hơn khi demo.
+
+**Milestone:** `v0.6-database-auth`
+
+---
+
+### Tuần 7 - Testing và sửa lỗi
+
+**Mục tiêu**
+
+- Dồn lực kiểm thử và fix bug trước ngày trình diễn.
+
+**Công việc**
+
+- Test multi-client, lock / unlock, timer, notification, chat.
+- Kiểm tra mất kết nối, timeout, logout.
+- Làm sạch UI và thông báo lỗi thân thiện hơn.
+- Chuẩn bị checklist demo.
+
+**Kết quả cần đạt**
+
+- Flow demo chính chạy ổn định.
+- Không crash khi dùng chức năng cốt lõi.
+- Có checklist sẵn sàng demo.
+
+**Milestone:** `v0.9-demo-ready`
+
+---
+
+### Tuần 8 - Hoàn thiện và trình diễn
+
+**Mục tiêu**
+
+- Chốt bản demo cuối cùng.
+
+**Công việc**
+
+- Hoàn thiện slide và kịch bản trình bày.
+- Test lần cuối trên máy thật.
+- Sửa các lỗi nhỏ còn sót.
+- Xác nhận luồng demo và phân vai trình bày.
+
+**Kết quả cần đạt**
+
+- Hệ thống chạy mượt trong kịch bản demo.
+- Có bản build hoặc project sẵn sàng trình diễn.
+- Nhóm nắm rõ vai trò và thứ tự demo.
+
+**Milestone:** `v1.0-final-release`
+
+---
+
+## 8. Phân Công Thành Viên
+
+### Member 1 - Team Leader / System Architect
+
+**Nhiệm vụ**
+
+- Điều phối tiến độ theo tuần.
+- Thiết kế tổng thể kiến trúc.
+- Review code chính và hỗ trợ tích hợp.
+- Giải quyết vấn đề khi networking hoặc GUI bị nghẽn.
+
+**Deliverables**
+
+- Roadmap 8 tuần.
+- Kiến trúc `ServerApp` / `ClientApp` / `Shared`.
+- Bản build demo ổn định.
+
+### Member 2 - Network Engineer
+
+**Nhiệm vụ**
+
+- Xây dựng TCP server và TCP client.
+- Quản lý multi-client.
+- Thiết kế packet handler và parser.
+- Xử lý reconnect, timeout và lỗi socket.
+
+**Deliverables**
+
+- Socket server/client hoạt động.
+- Packet dispatcher và handler.
+- Reconnect cơ bản.
+
+### Member 3 - Server GUI Developer
+
+**Nhiệm vụ**
+
+- Xây dựng dashboard admin desktop.
+- Hiển thị danh sách máy và trạng thái realtime.
+- Triển khai lock/unlock, notification, timer.
+- Tối ưu UI để tránh lag.
+
+**Deliverables**
+
+- Server UI cho demo.
+- Control panel lock/unlock/notify.
+- Machine list realtime.
+
+### Member 4 - Client App Developer
+
+**Nhiệm vụ**
+
+- Xây dựng client desktop app.
+- Kết nối IP/Port và xác thực client.
+- Hiển thị thông báo, trạng thái lock, timer.
+- Tạo màn hình khóa full-screen.
+
+**Deliverables**
+
+- Client app kết nối server.
+- Màn hình lock/unlock.
+- Realtime notification và timer.
+
+### Member 5 - Database & Authentication
+
+**Nhiệm vụ**
+
+- Tích hợp SQLite cho quản lý tài khoản.
+- Xây dựng login validation và lưu session.
+- Hỗ trợ lưu cấu hình đơn giản.
+
+**Deliverables**
+
+- Database SQLite cơ bản.
+- Hệ thống login admin/client.
+- Lưu trữ session và cấu hình.
+
+### Member 6 - Tester & Documentation
+
+**Nhiệm vụ**
+
+- Test multi-client, lock/timer/chat.
+- Ghi nhận và phân loại bug.
+- Viết README ngắn gọn và checklist demo.
+- Hỗ trợ vận hành trong ngày demo.
+
+**Deliverables**
+
+- Test report.
+- Danh sách lỗi và checklist.
+- Tài liệu hướng dẫn sử dụng.
+
+---
+
+## 9. GitHub Workflow
+
+### Branch structure
+
+```text
+main
+develop
+feature/socket
+feature/gui
+feature/chat
+feature/database
+feature/lock-system
+```
+
+### Luồng làm việc
+
+```text
+feature/* -> develop -> main
+```
+
+### Quy ước commit
+
+Ví dụ:
+
+- `[NETWORK] Add TCP server`
+- `[GUI] Add dashboard form`
+- `[DATABASE] Add SQLite login`
+- `[CHAT] Implement realtime chat`
+
+---
+
+## 10. Công Cụ Quản Lý
+
+- **Source control:** GitHub
+- **Project management:** GitHub Projects
+- **Communication:** Discord / Messenger / Zalo
+
+---
+
+## 11. Rủi Ro Dự Án
+
+- Đồng bộ mạng không ổn định
+- Xung đột thread
+- Mất kết nối socket
+- Packet loss
+- GUI bị treo do xử lý blocking
+- Phạm vi quá lớn so với 8 tuần
+- Thiếu tích hợp sớm giữa các module
+
+---
+
+## 12. Giải Pháp Kiểm Soát Rủi Ro
+
+- Chia milestone rõ ràng, hoàn thành từng giai đoạn.
+- Ưu tiên networking trước GUI.
+- Họp nhóm mỗi tuần để review tiến độ.
+- Commit thường xuyên để giảm conflict.
+- Test tích hợp sớm ngay khi có module đầu tiên.
+
+---
+
+## 13. Ưu Tiên Chức Năng
+
+### High priority
+
+- TCP connection
+- Multi-client
+- Realtime machine list
+- Notification
+- Lock / unlock
+- Session timer
+
+### Medium priority
+
+- Chat system
+- Logging system
+- UI optimization
+
+### Low priority
+
+- File transfer
+- Voice call
+- Video streaming
+
+---
+
+## 14. Kết Luận
+
+NetManager là một project phù hợp với môn Lập trình mạng vì có đầy đủ các yếu tố cốt lõi:
+
+- Mô hình client-server
+- Giao tiếp TCP socket
+- Realtime communication
+- Multithreading
+- Desktop GUI
+
+Mục tiêu của roadmap này là giúp nhóm tập trung vào phần cốt lõi, hoàn thiện bản demo ổn định và tránh mở rộng sang các tính năng không cần thiết trong giai đoạn học phần.
