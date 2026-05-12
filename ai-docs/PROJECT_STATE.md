@@ -13,12 +13,14 @@ This file is the primary memory for future AI sessions.
 - Roadmap broken into eight high-level development phases
 - Member responsibility guides expanded into end-to-end implementation checklists
 - `ai-docs` landing page created for daily project continuity
+- Leader flow document added to coordinate who does what and in what order
 
 ## Current Feature Being Developed
 
 - Persistent AI memory system under `/ai-docs`
 - Repository-level development tracking documentation
 - End-to-end member workflow guides for implementation ownership
+- Leader coordination flow for sequencing work and dependencies
 
 ## Next Planned Tasks
 
@@ -68,3 +70,4 @@ Planned runtime structure from the architecture notes:
 - 2026-05-12: created the `/ai-docs` memory system and seeded it with roadmap, state tracking, architecture, API, bugs, decisions, tasks, and contribution conventions.
 - 2026-05-12: confirmed the project is still in the documentation and planning stage, with no application source tree present yet.
 - 2026-05-12: expanded the member guides so each role now has phase-by-phase responsibilities from project start to completion.
+- 2026-05-12: added a leader flow document describing task order, ownership, dependencies, and handoff sequence.

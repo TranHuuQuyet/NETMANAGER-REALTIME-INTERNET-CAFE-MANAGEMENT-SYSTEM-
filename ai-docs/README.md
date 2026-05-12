@@ -8,6 +8,7 @@ This folder is the persistent working memory for the project.
 2. [TASKS.md](./TASKS.md)
 3. [ARCHITECTURE.md](./ARCHITECTURE.md) if you need system context
 4. [API.md](./API.md) if you are working on packets or contracts
+5. [LEADER_FLOW.md](./LEADER_FLOW.md) if you are coordinating sequence and ownership
 
 ## Update When You Finish Work
 
@@ -17,6 +18,7 @@ This folder is the persistent working memory for the project.
 - [ARCHITECTURE.md](./ARCHITECTURE.md) if structure changes
 - [API.md](./API.md) if packet or schema contracts change
 - [DECISIONS.md](./DECISIONS.md) if an important technical choice is made
+- [LEADER_FLOW.md](./LEADER_FLOW.md) if task order or ownership changes
 
 ## Purpose
 

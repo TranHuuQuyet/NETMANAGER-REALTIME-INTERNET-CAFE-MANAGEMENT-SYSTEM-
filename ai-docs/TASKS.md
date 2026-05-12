@@ -16,6 +16,7 @@
 - [x] Document current project scope and architecture
 - [x] Align roadmap with the demo-first LAN client-server goal
 - [x] Expand member guides into end-to-end implementation checklists
+- [x] Add leader flow guide for task sequencing and ownership
 - [ ] Introduce actual application source folders
 - [ ] Implement the shared packet contract
 - [ ] Implement TCP server/client connection flow
@@ -45,6 +46,7 @@
 - [x] Document commit and branch conventions
 - [x] Create initial project memory files
 - [x] Update member role docs for full lifecycle project work
+- [x] Create leader-level implementation order guide
 
 ## Notes
 
