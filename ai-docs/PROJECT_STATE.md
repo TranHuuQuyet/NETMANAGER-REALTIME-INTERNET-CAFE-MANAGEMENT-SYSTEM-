@@ -18,7 +18,7 @@ This file is the primary memory for future AI sessions.
 
 ## Current Feature Being Developed
 
-- Persistent AI memory system under `/ai-docs`
+- Phase 1 contract baseline for the LAN client-server MVP
 - Repository-level development tracking documentation
 - End-to-end member workflow guides for implementation ownership
 - Leader coordination flow for sequencing work and dependencies
@@ -26,11 +26,11 @@ This file is the primary memory for future AI sessions.
 
 ## Next Planned Tasks
 
-1. Start implementation planning for the networking core.
-2. Define the exact packet contract for login, status, lock, unlock, timer, chat, and notification.
-3. Confirm the source tree for `ServerApp`, `ClientApp`, and `Shared` once code folders are introduced.
-4. Track the first working TCP connection flow.
-5. Add implementation notes as code is introduced.
+1. Hand the packet contract baseline to Member 2 for TCP implementation.
+2. Introduce the actual `ServerApp`, `ClientApp`, and `Shared` source folders.
+3. Track the first working TCP connection flow.
+4. Add implementation notes as code is introduced.
+5. Keep `TASKS.md` and `PROJECT_STATE.md` updated after each session.
 6. Follow the 8-week implementation playbook to keep the team synchronized.
 
 ## Important Implementation Notes
@@ -70,6 +70,7 @@ Planned runtime structure from the architecture notes:
 
 ## Latest Updates Summary
 
+- 2026-05-13: froze the Member 1 Phase 1 Week 1 control baseline, including MVP scope, ownership map, commit rules, and the first `API.md` contract draft.
 - 2026-05-12: created the `/ai-docs` memory system and seeded it with roadmap, state tracking, architecture, API, bugs, decisions, tasks, and contribution conventions.
 - 2026-05-12: confirmed the project is still in the documentation and planning stage, with no application source tree present yet.
 - 2026-05-12: expanded the member guides so each role now has phase-by-phase responsibilities from project start to completion.

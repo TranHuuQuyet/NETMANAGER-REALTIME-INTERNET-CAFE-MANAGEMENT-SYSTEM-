@@ -2,24 +2,33 @@
 
 ## Priorities
 
-1. Define or confirm the source folders for the implementation projects.
-2. Lock the shared packet contract.
-3. Start the networking foundation.
-4. Add authentication and session tracking.
-5. Connect GUI flows to network events.
-6. Add persistence and stabilization work.
-7. Expand test coverage and demo notes.
+1. Freeze the shared contract and ownership map.
+2. Start the networking foundation.
+3. Add authentication and session tracking.
+4. Connect GUI flows to network events.
+5. Add persistence and stabilization work.
+6. Expand test coverage and demo notes.
 
 ## In Progress
 
-- [x] Create `/ai-docs` memory system
-- [x] Document current project scope and architecture
-- [x] Align roadmap with the demo-first LAN client-server goal
-- [x] Expand member guides into end-to-end implementation checklists
-- [x] Add leader flow guide for task sequencing and ownership
 - [ ] Introduce actual application source folders
-- [ ] Implement the shared packet contract
+- [ ] Implement the shared packet contract in code
 - [ ] Implement TCP server/client connection flow
+
+## Week 1 Freeze
+
+- [x] Confirm MVP scope for the demo-first LAN system
+- [x] Confirm the excluded features list
+- [x] Confirm ownership for `ServerApp`, `ClientApp`, `Shared`, and `ai-docs`
+- [x] Confirm branch naming and commit naming rules
+- [x] Publish the first version of `API.md`
+
+## Done This Session
+
+- [x] Freeze the Phase 1 packet order
+- [x] Define the v0.1 packet envelope
+- [x] Define the v0.1 response pattern
+- [x] Capture the Member 1 week 1 control baseline
 
 ## Todo
 
@@ -47,9 +56,11 @@
 - [x] Create initial project memory files
 - [x] Update member role docs for full lifecycle project work
 - [x] Create leader-level implementation order guide
+- [x] Freeze the Phase 1 Week 1 control docs
 
 ## Notes
 
 - Keep the checklist small and current.
 - Move items from `Todo` to `Completed` only when the work is truly finished.
 - Add newly discovered blockers to `BUGS.md`, not here.
+- Week 1 for Member 1 is documentation and contract control only; runtime code stays with the owning module teams.

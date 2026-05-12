@@ -38,3 +38,13 @@
 - Keep state names consistent between server and client.
 - Keep commit messages aligned with the repo commit rule.
 - Avoid introducing new architectural layers unless they solve a real problem.
+
+## Phase 1 Week 1 Decisions
+
+- The MVP scope is limited to TCP connection, login, realtime machine status, lock/unlock control, notification delivery, timer updates, and basic chat.
+- Out-of-scope items for this project are file transfer, voice call, video streaming, complex reporting, and advanced analytics.
+- The shared contract baseline is `API.md` version `v0.1`.
+- Packet transport is TCP with UTF-8 JSON and one JSON object per line.
+- The frozen packet order for Phase 1 is `LOGIN`, `STATUS`, `LOCK` / `UNLOCK`, `NOTIFICATION`, `TIMER`, `CHAT`.
+- Folder ownership is split so each runtime module has a clear owner and Member 1 stays in a coordination role.
+- Commit format stays `type(scope): short message` in English.

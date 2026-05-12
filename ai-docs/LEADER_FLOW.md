@@ -23,6 +23,54 @@ The goal is to make the project:
 - Do not let two members edit the same module without a clear owner.
 - Prefer a small working version over a large unfinished version.
 
+## 2.1 Phase 1 Week 1 Freeze
+
+This is the baseline that Member 1 should confirm first.
+
+### MVP Scope
+
+The MVP is a LAN-based Windows Forms client-server system for an internet cafe demo.
+It must support TCP connection, login, realtime machine status, lock/unlock control, notification delivery, timer updates, and basic chat.
+
+### Out of Scope
+
+- file transfer
+- voice call
+- video streaming
+- complex reporting
+- advanced analytics
+
+### Ownership Map
+
+- `ServerApp` - Member 3
+- `ClientApp` - Member 4
+- `Shared` - Member 2
+- `ai-docs` - Member 1 coordinates the control docs, Member 6 handles test and documentation notes
+
+### Branch and Commit Rules
+
+- Each member works in a feature branch.
+- One commit should do one job.
+- One commit should belong to one owner.
+- Commit format: `type(scope): short message`
+- Commit messages must be written in English.
+
+### Frozen Packet Order
+
+1. `LOGIN`
+2. `STATUS`
+3. `LOCK` / `UNLOCK`
+4. `NOTIFICATION`
+5. `TIMER`
+6. `CHAT`
+
+### Expected Output
+
+- `API.md` published as the first version of the shared contract.
+- Folder ownership is explicit.
+- Scope boundaries are clear.
+- No two members touch the same runtime module without a review step.
+
 ## 3. Project Start Order
 
 This is the order the team should follow when starting from zero.
@@ -42,6 +90,7 @@ Tasks:
 - confirm branch naming rule
 - confirm commit naming rule
 - confirm documentation files used by the team
+- publish the first version of `API.md`
 
 Output:
 
@@ -49,6 +98,7 @@ Output:
 - one agreed folder layout
 - one agreed development rule set
 - one shared understanding of what is not being built
+- one frozen packet list for Phase 1
 
 ### Step 1 - Define the shared contract
 
@@ -81,6 +131,7 @@ Output:
 - server and client read the same schema
 - packet format is stable enough for implementation
 - no module depends on an undefined message format
+- packet contract can be handed to Member 2 for implementation
 
 ### Step 2 - Build the networking core
 
@@ -316,6 +367,7 @@ Deliverables:
 - shared contract draft
 - branch and commit rules
 - first roadmap update
+- first API baseline
 
 Checks:
 
@@ -606,4 +658,3 @@ The project is considered done when all of these are true:
 - bugs are documented
 - README and run guide match the implementation
 - the team can explain the architecture clearly during presentation
-
