@@ -4,59 +4,79 @@
 
 Ban phu trach test, bug report, tai lieu, va ho tro demo. Ban giup team biet phan nao dang on, phan nao dang hong, va lam sao chay project dung cach.
 
-## 2. Muc tieu cuoi cung
+## 2. Write Scope
+
+Ban chi nen sua cac file/module lien quan den:
+
+- `README.md`
+- `ai-docs/TASKS.md`
+- `ai-docs/PROJECT_STATE.md`
+- `ai-docs/BUGS.md`
+- `ai-docs/DECISIONS.md`
+- cac tai lieu trong `DOCX/` neu can
+
+Ban khong nen sua runtime code tru khi dang verify bug va co owner ro rang.
+
+## 3. Muc tieu cuoi cung
 
 - Demo flow chay duoc tren may that.
 - Bugs duoc ghi ro, uu tien ro, va de lap lai.
 - Documentation de hieu va co the dung ngay.
 - Nguoi moi tham gia co the doc docs de tiep tuc work.
 
-## 3. Viec can lam tu dau den cuoi
+## 4. Luat de khong xung dot commit
+
+- Ban khong sua logic chuc nang neu chi can test hoac doc.
+- Ban khong doi packet schema neu khong co phan cong tu Member 1.
+- Ban phai ghi bug theo format chung de team khong loan.
+- Moi commit doc nen tach: test plan, bug log, demo guide, README update.
+
+## 5. Cong viec can lam tu dau den cuoi
 
 ### Giai doan khoi tao
 
-- Lap test plan cho core flow.
-- Lap checklist demo.
-- Xac dinh test matrix cho multi-client.
-- Dinh nghia format bug report.
+- lap test plan cho core flow
+- lap checklist demo
+- xac dinh test matrix cho multi-client
+- dinh nghia format bug report
 
 ### Giai doan smoke test
 
-- Test connect.
-- Test login.
-- Test chat, notification, timer, lock, unlock.
-- Test multi-client co ban.
+- test connect
+- test login
+- test chat, notification, timer, lock, unlock
+- test multi-client co ban
 
 ### Giai doan regression
 
-- Test disconnect.
-- Test server restart.
-- Test packet invalid.
-- Test reconnect.
-- Test UI freeze va thread issue.
+- test disconnect
+- test server restart
+- test packet invalid
+- test reconnect
+- test UI freeze va thread issue
 
 ### Giai doan bug tracking
 
-- Ghi reproduction steps.
-- Ghi expected vs actual.
-- Danh severity.
-- Theo doi workaround tam thoi neu co.
+- ghi reproduction steps
+- ghi expected vs actual
+- danh severity
+- theo doi workaround tam thoi neu co
 
 ### Giai doan documentation
 
-- Cap nhat README, guide, va demo notes.
-- Cap nhat checklist chay server/client.
-- Cap nhat faq loi thuong gap.
-- Dam bao docs khong mau thuan voi code.
+- cap nhat README, guide, va demo notes
+- cap nhat checklist chay server/client
+- cap nhat faq loi thuong gap
+- dam bao docs khong mau thuan voi code
 
 ### Giai doan release support
 
-- Chay final smoke test.
-- Xac nhan build co the demo.
-- Chuan bi script trinh bay ngan.
-- San sang ho tro khi co loi ngay demo.
+- chay final smoke test
+- xac nhan build co the demo
+- chuan bi script trinh bay ngan
+- san sang ho tro khi co loi ngay demo
 
-## 4. Checklist cong viec theo phase
+## 6. Ke hoach chi tiet theo phase
 
 ### Phase 1 - Planning
 
@@ -96,7 +116,14 @@ Ban phu trach test, bug report, tai lieu, va ho tro demo. Ban giup team biet pha
 - [ ] Demo rehearsal
 - [ ] Final checklist
 
-## 5. Bug report format
+## 7. Cach lam de khong overlap
+
+- Ban owned doc, test, va bug tracking.
+- Ban khong sua core logic neu khong can.
+- Neu phat hien bug do code, ban ghi lai, roi giao dung owner sua.
+- Ban giup keep source of truth cho team, khong thay the owner chinh.
+
+## 8. Bug report format
 
 Moi bug nen co:
 
@@ -108,7 +135,7 @@ Moi bug nen co:
 - severity
 - workaround neu co
 
-## 6. Deliverables can nop
+## 9. Deliverables can nop
 
 - Test report.
 - Bug list.
@@ -116,9 +143,10 @@ Moi bug nen co:
 - Demo checklist.
 - Script demo ngan.
 
-## 7. Definition of Done
+## 10. Definition of Done
 
 - Team co the chay project ma khong hoi lai qua nhieu.
 - Bug lon duoc ghi nhan va de uu tien ro.
 - Demo co checklist san.
 - Tai lieu khong bi loi thoi.
+

@@ -4,65 +4,84 @@
 
 Ban phu trach ung dung client. Client phai ket noi duoc voi server, nhan lenh realtime, hien lock screen khi can, va giu UI on dinh.
 
-## 2. Muc tieu cuoi cung
+## 2. Write Scope
+
+Ban chi nen sua cac file/module lien quan den:
+
+- `ClientApp/Forms/`
+- `ClientApp/Services/`
+- `ClientApp/Models/`
+- `ClientApp/Views/` neu co
+- `ai-docs/` chi khi cap nhat huong dan client
+
+Ban khong nen sua server dashboard, packet contract, hay database layer.
+
+## 3. Muc tieu cuoi cung
 
 - Client connect va login duoc.
 - Client nhan notification, timer, lock, unlock, chat.
 - Client co lock screen full-screen.
 - Client co xu ly disconnect va reconnect co ban.
 
-## 3. Viec can lam tu dau den cuoi
+## 4. Luat de khong xung dot commit
+
+- Client UI chi nhan event va render state, khong parse packet trong form neu co the tach.
+- Khong sua networking core tru khi co agreed interface.
+- Khong doi packet field neu Member 2 chua chot contract.
+- Moi commit nen tach: connect/login, receive flow, lock screen, chat/timer, polish.
+
+## 5. Cong viec can lam tu dau den cuoi
 
 ### Giai doan khoi tao
 
-- Tao connect form.
-- Tao login flow client.
-- Tao client state model.
-- Chot cach luu IP/Port neu can.
+- tao connect form
+- tao login flow client
+- tao client state model
+- chot cach luu IP/Port neu can
 
 ### Giai doan connection flow
 
-- Kiem tra ket noi den server.
-- Gui login packet.
-- Hien trang thai ket noi va auth ro rang.
-- Xu ly loi connect khong lam crash app.
+- kiem tra ket noi den server
+- gui login packet
+- hien trang thai ket noi va auth ro rang
+- xu ly loi connect khong lam crash app
 
 ### Giai doan realtime receive
 
-- Nhan notification tu server.
-- Nhan timer update.
-- Nhan lock/unlock command.
-- Nhan chat message.
-- Nhan status hoac session update neu co.
+- nhan notification tu server
+- nhan timer update
+- nhan lock/unlock command
+- nhan chat message
+- nhan status hoac session update neu co
 
 ### Giai doan lock screen
 
-- Tao man hinh khoa full-screen.
-- Chan thao tac thoat de dang.
-- Hien thong diep ro rang.
-- Chi mo khoa khi nhan `UNLOCK`.
+- tao man hinh khoa full-screen
+- chan thao tac khong dung
+- hien thong diep ro rang
+- chi mo khoa khi nhan `UNLOCK`
 
 ### Giai doan chat va status
 
-- Hien chat voi admin.
-- Gui message tu client.
-- Cap nhat status khi co thay doi.
-- Dam bao flow chat khong lam tre UI.
+- hien chat voi admin
+- gui message tu client
+- cap nhat status khi co thay doi
+- dam bao flow chat khong lam tre UI
 
 ### Giai doan resilience
 
-- Bao cho nguoi dung khi server mat ket noi.
-- Thu reconnect co ban.
-- Giu local state khong bi vo khi disconnect.
-- Khong de packet xau lam crash client.
+- bao cho nguoi dung khi server mat ket noi
+- thu reconnect co ban
+- giu local state khong bi vo khi disconnect
+- khong de packet xau lam crash client
 
 ### Giai doan polish
 
-- Don dep form, labels, va state feedback.
-- Uu tien readability hon hieu ung phuc tap.
-- Giup nguoi dung biet dang o trang thai nao.
+- don dep form, labels, va state feedback
+- uu tien readability hon hieu ung phuc tap
+- giup nguoi dung biet dang o trang thai nao
 
-## 4. Checklist cong viec theo phase
+## 6. Ke hoach chi tiet theo phase
 
 ### Phase 1 - Connect and login
 
@@ -98,14 +117,22 @@ Ban phu trach ung dung client. Client phai ket noi duoc voi server, nhan lenh re
 - [ ] Test notification/timer/chat
 - [ ] Test UI khong freeze
 
-## 5. Nguyen tac code
+## 7. Cach lam de khong overlap
+
+- Ban chi owned `ClientApp`.
+- Server dashboard la cua Member 3.
+- Network dispatcher la cua Member 2.
+- Auth flow la cua Member 5.
+- Neu can doi contract, ban phai thong qua Member 2 va Member 1 truoc.
+
+## 8. Nguyen tac code
 
 - Tach networking service khoi form.
 - UI chi lam viec voi state va event.
-- Khong parse packet truc tiep trong event handler UI neu co the avoid.
 - Khong de lock flow bi phu thuoc vao button state alone.
+- Khong update UI truc tiep tu thread socket.
 
-## 6. Deliverables can nop
+## 9. Deliverables can nop
 
 - Connect form.
 - Client login flow.
@@ -113,9 +140,10 @@ Ban phu trach ung dung client. Client phai ket noi duoc voi server, nhan lenh re
 - Full-screen lock screen.
 - Notification, timer, chat handling.
 
-## 7. Definition of Done
+## 10. Definition of Done
 
 - Client ket noi va nhan lenh on dinh.
 - Lock screen chay dung.
 - UI khong block.
 - Client demo doc lap duoc va hop voi server.
+

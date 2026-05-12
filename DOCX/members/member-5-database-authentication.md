@@ -4,65 +4,84 @@
 
 Ban phu trach SQLite, login validation, luu account, luu session, va cac thong tin persistence co ban cho he thong.
 
-## 2. Muc tieu cuoi cung
+## 2. Write Scope
+
+Ban chi nen sua cac file/module lien quan den:
+
+- `ServerApp/Database/`
+- `ServerApp/Services/Auth/`
+- `ServerApp/Services/Session/`
+- `ai-docs/API.md` va `ai-docs/DECISIONS.md` khi doi schema
+
+Ban khong nen sua UI form, packet dispatcher cua Member 2, hay client UI.
+
+## 3. Muc tieu cuoi cung
 
 - Auth hoat dong on dinh.
-- Du lieu user va session co the luu/lay lai duoc.
+- Du lieu user va session co the luu va lay lai duoc.
 - Server co can cu de xac thuc admin/client.
 - Schema don gian, de debug, de demo.
 
-## 3. Viec can lam tu dau den cuoi
+## 4. Luat de khong xung dot commit
+
+- Schema la contract, nen moi thay doi phai thong qua Member 1 va Member 2.
+- Neu auth can them enum/model chung, Member 5 chi de xuat; Member 2 se update `Shared/`.
+- Khong de SQL loang ra UI.
+- Khong de password handling bi su dung khac nhau giua cac module.
+- Moi commit nen tach: schema, repository, auth service, session service, integration.
+
+## 5. Cong viec can lam tu dau den cuoi
 
 ### Giai doan khoi tao
 
-- Chot schema toi thieu.
-- Chot field can thiet cho `Users`, `Sessions`, `Machines`.
-- Chot cach hash password neu co.
-- Chot luong auth cho admin va client.
+- chot schema toi thieu
+- chot field can thiet cho `Users`, `Sessions`, `Machines`
+- chot cach hash password neu co
+- chot luong auth cho admin va client
 
 ### Giai doan data access
 
-- Tao repository/data access layer rieng.
-- Khong viet SQL truc tiep trong UI.
-- Tao ham add/get/update/validate.
-- Tao error handling cho SQLite ro rang.
+- tao repository/data access layer rieng
+- khong viet SQL truc tiep trong UI
+- tao ham add/get/update/validate
+- tao error handling cho SQLite ro rang
 
 ### Giai doan authentication
 
-- Validate username/password.
-- Tra ket qua success/fail ro rang.
-- Phan biet admin, client, disabled, locked neu can.
-- Ghi last login neu co.
+- validate username/password
+- tra ket qua success/fail ro rang
+- phan biet admin, client, disabled, locked neu can
+- ghi last login neu co
 
 ### Giai doan session and config
 
-- Luu session co ban.
-- Luu machine mapping neu can.
-- Luu config ket noi neu project can.
-- Khong luu du lieu nhay cam khong can thiet.
+- luu session co ban
+- luu machine mapping neu can
+- luu config ket noi neu project can
+- khong luu du lieu nhay cam khong can thiet
 
 ### Giai doan integration
 
-- Noi auth vao server login flow.
-- Noi auth vao dashboard neu co admin login.
-- Noi session vao state machine cua server.
-- Dam bao ket qua auth khop voi packet contract.
+- noi auth vao server login flow
+- noi auth vao dashboard neu co admin login
+- noi session vao state machine cua server
+- dam bao ket qua auth khop voi packet contract
 
 ### Giai doan hardening
 
-- Kiem tra sai mat khau.
-- Kiem tra user khong ton tai.
-- Kiem tra database bi loi.
-- Kiem tra concurrent access co an toan khong.
+- kiem tra sai mat khau
+- kiem tra user khong ton tai
+- kiem tra database bi loi
+- kiem tra concurrent access co an toan khong
 
 ### Giai doan release
 
-- Kiem tra login tu client.
-- Kiem tra login tu admin.
-- Kiem tra session tracking.
-- Kiem tra database khong lam app crash khi loi.
+- kiem tra login tu client
+- kiem tra login tu admin
+- kiem tra session tracking
+- kiem tra database khong lam app crash khi loi
 
-## 4. Checklist cong viec theo phase
+## 6. Ke hoach chi tiet theo phase
 
 ### Phase 1 - Schema
 
@@ -99,21 +118,28 @@ Ban phu trach SQLite, login validation, luu account, luu session, va cac thong t
 - [ ] Test DB error handling
 - [ ] Test concurrent access
 
-## 5. Nguyen tac
+## 7. Cach lam de khong overlap
+
+- Ban owned auth, session, va DB.
+- Ban khong sua UI truct tiep.
+- Ban khong doi packet format neu chua thong qua Member 2 va Member 1.
+- Ban phai cung cap service interface ro de Member 3 va 4 dung.
+
+## 8. Nguyen tac
 
 - Schema don gian hon schema dep.
-- Khong de SQL loang ra code UI.
 - Khong de plaintext password ton tai trong luong xu ly.
 - Khong de auth result mo ho.
+- Khong de SQL phu thuoc vao control UI.
 
-## 6. Deliverables can nop
+## 9. Deliverables can nop
 
 - SQLite schema hoac script.
 - Data access layer.
 - Auth service.
 - Session/config storage.
 
-## 7. Definition of Done
+## 10. Definition of Done
 
 - Login on dinh.
 - Data doc/ghi duoc.

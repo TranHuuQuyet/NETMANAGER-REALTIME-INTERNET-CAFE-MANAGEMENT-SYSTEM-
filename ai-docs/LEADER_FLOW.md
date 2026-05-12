@@ -1,349 +1,609 @@
 # LEADER FLOW
 
-## Muc dich
+## 1. Purpose
 
-Tai lieu nay danh cho team lead / system architect de dieu phoi project theo dung thu tu:
+This document is the execution guide for the team lead / system architect.
+It defines how to start the project from zero, how to assign work, which module must be finished first, and how to keep the team aligned while building the system.
 
-- ai lam truoc
-- ai lam sau
-- module nao lam truoc
-- chuc nang nao phai xong truoc khi sang buoc tiep theo
+The goal is to make the project:
 
-Muc tieu la giu project di theo dung luong, tranh overlap giua member, va dam bao cac feature core duoc dong bo tu dau den cuoi.
+- easy to start from scratch
+- safe from scope creep
+- clear in ownership
+- stable in integration
+- ready for demo by the end of implementation
 
-## Nguyen tac dieu phoi
+## 2. Core Leadership Rules
 
-- Networking va shared contract phai chot truoc GUI polish.
-- Auth va session phai co truoc khi dong bo trang thai nay sang dashboard.
-- Client connect/login phai co truoc lock/unlock va timer.
-- Test va documentation lam lien tuc, khong doi cuoi ky.
-- Moi thay doi packet hoac state phai cap nhat docs ngay.
+- Lock scope before polishing UI.
+- Lock the shared contract before deep implementation.
+- Build networking first, then auth/session, then GUI, then integration.
+- Never allow server and client to invent different packet formats.
+- Every packet/state change must be reflected in docs the same day.
+- Do not let two members edit the same module without a clear owner.
+- Prefer a small working version over a large unfinished version.
 
-## Thu tu lam viec tong the
+## 3. Project Start Order
 
-### Buoc 1 - Chot scope va quy uoc
+This is the order the team should follow when starting from zero.
 
-Nguoi phu trach:
+### Step 0 - Setup the project control layer
+
+Owner:
 
 - Member 1
 
-Cong viec:
+Tasks:
 
-- chot MVP
-- loai bo tinh nang ngoai scope
-- chot branch convention
-- chot commit convention
-- chot folder structure
-- chot danh sach packet core
+- confirm MVP scope
+- remove out-of-scope features
+- confirm project name
+- confirm folder structure
+- confirm branch naming rule
+- confirm commit naming rule
+- confirm documentation files used by the team
 
-Ket qua can co:
+Output:
 
-- roadmap ro rang
-- file memory dong bo
-- member biet pham vi cua minh
+- one agreed MVP scope
+- one agreed folder layout
+- one agreed development rule set
+- one shared understanding of what is not being built
 
-### Buoc 2 - Chot shared contract
+### Step 1 - Define the shared contract
 
-Nguoi phu trach:
+Owners:
 
-- Member 1 dieu phoi
-- Member 2 implementation chinh
+- Member 1 coordinates
+- Member 2 implements the packet layer
 
-Cong viec:
+Tasks:
 
-- dinh nghia packet type
-- dinh nghia DTO chung
-- dinh nghia state enum
-- dinh nghia framing / parse rule
-- chot contract API trong `API.md`
+- define packet types
+- define shared DTOs
+- define state enums
+- define command enums
+- define JSON framing and parsing rules
+- define success/fail response structure
+- define the first version of `API.md`
 
-Thu tu:
+Required packet order:
 
-1. login
-2. status
-3. lock / unlock
-4. notification
-5. timer
-6. chat
+1. `LOGIN`
+2. `STATUS`
+3. `LOCK` / `UNLOCK`
+4. `NOTIFICATION`
+5. `TIMER`
+6. `CHAT`
 
-Ket qua can co:
+Output:
 
-- server va client doc cung schema
-- khong co packet mo ho
+- server and client read the same schema
+- packet format is stable enough for implementation
+- no module depends on an undefined message format
 
-### Buoc 3 - Lam networking core
+### Step 2 - Build the networking core
 
-Nguoi phu trach:
+Owner:
 
 - Member 2
 
-Cong viec:
+Tasks:
 
-- tao TCP server
-- tao TCP client
-- tao send / receive loop
-- tao parser va dispatcher
-- test multi-client co ban
+- create TCP server listener
+- create TCP client connector
+- create async send/receive loop
+- create packet serializer/parser
+- create dispatcher for packet routing
+- create connection/session object per client
+- test 2 to 3 client connections at the same time
 
-Thu tu lam chuc nang:
+Implementation order:
 
 1. connect
-2. handshake / login
+2. handshake/login
 3. status update
-4. broadcast notification
-5. lock / unlock
+4. notification broadcast
+5. lock/unlock
 6. timer
 7. chat
 
-Ket qua can co:
+Output:
 
-- ket noi on dinh
-- packet gui nhan duoc
-- khong block UI
+- TCP communication is stable
+- packets can go both directions
+- UI is not blocked by socket work
 
-### Buoc 4 - Lam authentication va session
+### Step 3 - Build authentication and session storage
 
-Nguoi phu trach:
+Owner:
 
 - Member 5
 
-Cong viec:
+Tasks:
 
-- tao schema SQLite
-- tao repository / data access
-- tao login validation
-- tao session tracking
-- tao last login / machine mapping neu can
+- create SQLite schema
+- create repository/data access layer
+- create login validation
+- create role mapping if needed
+- create session tracking
+- create basic configuration persistence
+- connect auth result to server flow
 
-Thu tu:
+Implementation order:
 
-1. schema Users
-2. schema Sessions
+1. `Users` schema
+2. `Sessions` schema
 3. auth service
 4. session service
-5. tich hop voi server login flow
+5. server integration
 
-Ket qua can co:
+Output:
 
-- server xac thuc duoc admin/client
-- session state co the luu va doc lai
+- admin/client login can be validated
+- session state can be saved and read
+- the server can trust one source of truth for auth
 
-### Buoc 5 - Lam server dashboard
+### Step 4 - Build server dashboard skeleton
 
-Nguoi phu trach:
+Owner:
 
 - Member 3
 
-Cong viec:
+Tasks:
 
-- tao login form admin
-- tao dashboard
-- tao machine list
-- tao control panel
-- tao realtime update UI
+- create login form
+- create dashboard shell
+- create machine list view
+- create control panel
+- create status display area
+- create event refresh pattern
 
-Thu tu:
+Implementation order:
 
 1. layout
-2. machine list
-3. status display
-4. action buttons
-5. realtime refresh
+2. login
+3. machine list
+4. status view
+5. control buttons
+6. realtime refresh
 
-Phu thuoc:
+Dependencies:
 
-- can packet/status tu Member 2
-- can auth result tu Member 5
+- packet contract from Member 2
+- auth result from Member 5
 
-Ket qua can co:
+Output:
 
-- admin nhin thay may va trang thai
-- button gui lenh dung packet
+- admin can log in
+- admin can see machine list
+- dashboard can reflect realtime state
 
-### Buoc 6 - Lam client app
+### Step 5 - Build client application skeleton
 
-Nguoi phu trach:
+Owner:
 
 - Member 4
 
-Cong viec:
+Tasks:
 
-- tao connect form
-- tao login flow
-- tao receive handlers
-- tao lock screen
-- tao notification / timer / chat UI
+- create connect form
+- create client login flow
+- create main client screen
+- create lock screen
+- create message/notification view
+- create timer display
 
-Thu tu:
+Implementation order:
 
 1. connect
 2. login
 3. receive status
-4. notification
-5. timer
-6. lock / unlock
+4. receive notification
+5. receive timer
+6. lock/unlock
 7. chat
 
-Phu thuoc:
+Dependencies:
 
-- can packet contract tu Member 2
-- can auth flow tu Member 5
+- packet contract from Member 2
+- auth flow from Member 5
 
-Ket qua can co:
+Output:
 
-- client connect/login on dinh
-- client xu ly command tu server
+- client can connect and log in
+- client can receive commands from server
+- client can switch to lock screen when requested
 
-### Buoc 7 - Tich hop end-to-end
+## 4. Ownership Map
 
-Nguoi phu trach:
+### Member 1 - Team Leader / System Architect
 
-- Member 1 dieu phoi
-- Member 2, 3, 4, 5 tham gia
+Responsible for:
 
-Cong viec:
+- scope control
+- architecture control
+- task splitting
+- milestone tracking
+- integration review
+- decision logging
 
-- noi server voi client that
-- test login end-to-end
-- test machine state sync
-- test lock/unlock
+Main responsibility:
+
+- keep the project direction correct and prevent overlap
+
+### Member 2 - Network Engineer
+
+Responsible for:
+
+- TCP communication
+- packet framing/parsing
+- dispatcher
+- multi-client support
+- disconnect/reconnect handling
+
+Main responsibility:
+
+- make the client-server communication reliable and shared by all modules
+
+### Member 3 - Server GUI Developer
+
+Responsible for:
+
+- admin login form
+- dashboard layout
+- machine list
+- machine state rendering
+- control buttons
+
+Main responsibility:
+
+- make the server usable and realtime for the admin
+
+### Member 4 - Client App Developer
+
+Responsible for:
+
+- connection screen
+- client login
+- main client UI
+- lock screen
+- notification/timer/chat UI
+
+Main responsibility:
+
+- make the client receive and display server commands correctly
+
+### Member 5 - Database & Authentication
+
+Responsible for:
+
+- SQLite schema
+- login validation
+- session storage
+- persistence rules
+
+Main responsibility:
+
+- make authentication and stored state reliable
+
+### Member 6 - Tester & Documentation
+
+Responsible for:
+
+- test plan
+- bug report
+- regression tracking
+- README and usage guide
+- demo checklist
+
+Main responsibility:
+
+- make the project verifiable, explainable, and demo-ready
+
+## 5. Execution Phases
+
+### Phase 0 - Kickoff
+
+Goal:
+
+- align the team before coding starts
+
+Deliverables:
+
+- MVP scope
+- module ownership
+- shared contract draft
+- branch and commit rules
+- first roadmap update
+
+Checks:
+
+- every member knows their module
+- every member knows their dependency
+- no one starts coding a private packet format
+
+### Phase 1 - Architecture and contract
+
+Goal:
+
+- make the system shape clear before implementation grows
+
+Deliverables:
+
+- `API.md`
+- architecture notes
+- packet list
+- state enum list
+- module folders
+
+Checks:
+
+- server and client share the same contract
+- auth and session rules are clear
+- state names are consistent
+
+### Phase 2 - Network foundation
+
+Goal:
+
+- prove the system can connect and exchange packets
+
+Deliverables:
+
+- TCP server
+- TCP client
+- serializer/parser
+- basic dispatcher
+- multi-client connection test
+
+Checks:
+
+- 2 to 3 clients can connect
+- packet send/receive is stable
+- UI thread is not blocked
+
+### Phase 3 - Authentication and persistence
+
+Goal:
+
+- make login and session data work end-to-end
+
+Deliverables:
+
+- SQLite schema
+- login validation
+- session tracking
+- auth result flow
+
+Checks:
+
+- login response is deterministic
+- invalid login is handled cleanly
+- database errors do not crash the app
+
+### Phase 4 - GUI integration
+
+Goal:
+
+- connect real network events to real screens
+
+Deliverables:
+
+- server dashboard
+- client UI
+- realtime state update
+- lock/unlock actions
+
+Checks:
+
+- server actions reach the client
+- client state appears on dashboard
+- no cross-thread UI errors
+
+### Phase 5 - Realtime features
+
+Goal:
+
+- complete the demo feature set
+
+Deliverables:
+
+- notification
+- timer sync
+- chat
+- lock screen
+- status sync
+
+Checks:
+
+- features work in the right order
+- commands are visible on both sides
+- state stays synchronized
+
+### Phase 6 - Stabilization
+
+Goal:
+
+- make the app safe for demo
+
+Deliverables:
+
+- disconnect handling
+- reconnect handling
+- invalid packet handling
+- logging
+- crash reduction
+
+Checks:
+
+- server survives bad input
+- client survives disconnect
+- demo flow remains stable
+
+### Phase 7 - Testing and release
+
+Goal:
+
+- confirm the system is ready to present
+
+Deliverables:
+
+- test report
+- bug list
+- final README
+- run guide
+- demo checklist
+
+Checks:
+
+- core flow works from start to finish
+- documentation matches the code
+- team can demo without guessing steps
+
+## 6. Initial Sprint Plan
+
+This is the recommended start order for the first implementation sprint.
+
+### Day 1
+
+- Member 1 writes scope, ownership, and rules
+- Member 2 defines packet contract draft
+- Member 5 defines DB/auth draft
+- Member 3 creates dashboard skeleton
+- Member 4 creates client skeleton
+- Member 6 creates test matrix and bug template
+
+### Day 2-3
+
+- Member 2 implements TCP connect/send/receive
+- Member 5 implements SQLite schema and auth service
+- Member 3 connects dashboard to stub data
+- Member 4 connects client to stub data
+
+### Day 4-5
+
+- Member 2 finalizes packet framing and dispatcher
+- Member 5 connects auth to network flow
+- Member 3 adds machine status view
+- Member 4 adds receive handlers
+
+### Day 6-7
+
+- integrate server and client
+- test login
+- test status sync
 - test notification
-- test timer
-- test chat
+- record bugs
 
-Thu tu test:
+## 7. Handoff Rules
 
-1. connect
-2. login
-3. machine list
-4. notification
-5. lock / unlock
-6. timer
-7. chat
+### When a module is considered ready to hand off
 
-Ket qua can co:
+- interface is stable
+- packet names are fixed
+- owner has documented expected inputs and outputs
+- at least one sample flow is recorded in docs
 
-- demo flow chay duoc tu dau den cuoi
+### What the next member must receive
 
-### Buoc 8 - Testing va bug fixing
+- file paths owned by the module
+- current assumptions
+- packet examples
+- known limitations
+- pending blockers
 
-Nguoi phu trach:
+### What the previous member must not do
 
-- Member 6 chinh
-- tat ca member ho tro
+- do not keep changing the contract after handoff without informing others
+- do not edit another member's write scope casually
+- do not merge undocumented packet changes
 
-Cong viec:
+## 8. Integration Gates
 
-- smoke test
-- regression test
-- multi-client test
-- disconnect test
-- invalid packet test
-- bug triage
+The project should only move to the next stage if the current gate is passed.
 
-Thu tu:
+### Gate A - Contract gate
 
-1. test core flow
-2. test edge cases
-3. ghi bug
-4. uu tien bug
-5. sua bug
-6. retest
+Pass conditions:
 
-Ket qua can co:
+- packet schema is agreed
+- state model is agreed
+- shared enums are agreed
 
-- bug lon duoc dong
-- demo scenario on dinh
+### Gate B - Connection gate
 
-### Buoc 9 - Documentation va release
+Pass conditions:
 
-Nguoi phu trach:
+- server and client can connect
+- packets can be exchanged
+- no UI freeze occurs
 
-- Member 6
-- Member 1 review
+### Gate C - Auth gate
 
-Cong viec:
+Pass conditions:
 
-- cap nhat README
-- cap nhat ai-docs
-- cap nhat huong dan chay
-- cap nhat bug log
-- chot demo checklist
+- login works
+- auth response is stable
+- session state is connected
 
-Ket qua can co:
+### Gate D - Control gate
 
-- tai lieu khop voi code
-- project san sang ban giao / demo
+Pass conditions:
 
-## Thu tu phan cong theo do uu tien
+- lock/unlock works
+- notification works
+- timer works
+- chat works
 
-### Uu tien 1
+### Gate E - Demo gate
+
+Pass conditions:
+
+- multi-client test passes
+- disconnect test passes
+- docs are updated
+- demo checklist is ready
+
+## 9. Daily Leader Workflow
+
+Every working day, Member 1 should do this:
+
+1. Check project state files.
+2. Review what changed yesterday.
+3. Confirm blockers for each member.
+4. Confirm whether any packet or state change occurred.
+5. Update priority if one module is blocking others.
+6. Record decisions in docs.
+7. Make sure every member knows the next task.
+
+## 10. Suggested Task Priority
+
+### Highest priority
 
 - Member 2: networking core
-- Member 5: auth schema va session
+- Member 5: authentication and session
 
-### Uu tien 2
+### Next priority
 
 - Member 3: server dashboard skeleton
-- Member 4: client connect/login skeleton
+- Member 4: client app skeleton
 
-### Uu tien 3
+### Continuous priority
 
-- Member 2: packet handlers cho core commands
-- Member 3: realtime machine view
-- Member 4: realtime client receive flow
+- Member 6: testing and documentation
+- Member 1: integration and control
 
-### Uu tien 4
+## 11. Definition of Done for the Team
 
-- Member 5: persistence hardening
-- Member 6: test and docs
-- Member 1: integration review
+The project is considered done when all of these are true:
 
-## Thu tu chuc nang can hoan thanh
+- server and client can connect reliably
+- login works with the chosen auth flow
+- dashboard shows realtime machine state
+- client receives lock/unlock, notification, timer, and chat
+- multi-client demo works on Windows
+- bugs are documented
+- README and run guide match the implementation
+- the team can explain the architecture clearly during presentation
 
-### Core flow
-
-1. TCP connect
-2. login
-3. machine/session state
-4. notification
-5. lock / unlock
-6. timer
-7. chat
-
-### Support flow
-
-1. auth database
-2. reconnect
-3. disconnect handling
-4. logging
-5. validation
-
-### Final flow
-
-1. multi-client demo
-2. bug fixing
-3. documentation
-4. release checklist
-
-## Rule khi co xung dot
-
-- Neu packet contract thay doi, dung implementation lai de dong bo API truoc.
-- Neu GUI doi layout nhung network chua xong, uu tien network core.
-- Neu bug lien quan toi auth hoac disconnect, sua truoc bug UI dep.
-- Neu co overlap giua members, Member 1 phai chot ai giu owner chinh.
-
-## Output ma leader can theo doi hang ngay
-
-- task nao done
-- task nao blocked
-- task nao can ho tro
-- file nao phai update
-- feature nao co risk
-
-## Definition of Done cho Leader Flow
-
-- Moi thanh vien biet minh lam gi va lam luc nao.
-- Moi feature co thu tu ro rang.
-- Khong co module nao bi lam truoc khi phu thuoc cua no san sang.
-- Project co the di tu khoi tao den demo ma khong bi vo flow.
