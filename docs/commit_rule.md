@@ -3,32 +3,30 @@
 ## Format
 
 ```text
-[TYPE] short message
+type(scope): short message
 ```
 
 ## Types
 
-- `NETWORK`: socket, packet, reconnect
-- `GUI`: form, UI, layout
-- `CHAT`: chat feature
-- `DATABASE`: SQLite, auth, session
-- `LOCK`: lock/unlock, timer
-- `DOCS`: documents, README, guide
-- `FIX`: bug fix
-- `TEST`: test cases, validation
+- `feat`: add new feature
+- `fix`: resolve bug
+- `refactor`: clean up code without changing behavior
+- `docs`: documentation only
+- `test`: add or update tests
+- `chore`: maintenance task
 
 ## Rules
 
-- Message ngan gon, ro y.
-- Moi commit chi tap trung 1 viec chinh.
-- Viet bang tieng Anh, tranh viet tat kho hieu.
-- Khong commit code loi hoac code dang do.
-- Neu co thay doi lon, chia thanh nhieu commit nho.
+- Use lowercase `type` and `scope`.
+- Keep the message short and clear.
+- One commit should focus on one main change.
+- Write in English.
+- Split large changes into smaller commits.
 
 ## Examples
 
-- `[NETWORK] Add TCP server`
-- `[GUI] Create dashboard form`
-- `[DATABASE] Add SQLite login`
-- `[LOCK] Implement lock screen`
-- `[DOCS] Update architecture guide`
+- `feat(chat): add realtime messaging`
+- `fix(server): resolve timeout issue`
+- `feat(gui): create dashboard form`
+- `fix(network): handle reconnect`
+- `docs(architecture): update system overview`
