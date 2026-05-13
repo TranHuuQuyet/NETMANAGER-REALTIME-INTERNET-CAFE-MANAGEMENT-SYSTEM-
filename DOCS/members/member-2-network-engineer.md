@@ -11,8 +11,8 @@ Ban chi nen sua cac file/module lien quan den:
 - `Shared/`
 - `ServerApp/Networking/`
 - `ClientApp/Networking/`
-- `ai-docs/API.md`
-- `ai-docs/DECISIONS.md` khi co thay doi protocol
+- `../API.md`
+- `../README.md` khi co thay doi protocol
 
 Ban khong nen sua UI form, database layer, hay auth repository tru khi dang tich hop va co owner ro rang.
 
@@ -157,4 +157,3 @@ Moi subtask phai co file ownership ro. Khong doi dong code cua subtask khac neu 
 - Packet qua lai dung schema.
 - Disconnect khong lam crash app.
 - Module khac co the tich hop vao API ma khong xung dot.
-

@@ -12,7 +12,7 @@ Ban chi nen sua cac file/module lien quan den:
 - `ClientApp/Services/`
 - `ClientApp/Models/`
 - `ClientApp/Views/` neu co
-- `ai-docs/` chi khi cap nhat huong dan client
+- `../README.md` chi khi cap nhat huong dan client
 
 Ban khong nen sua server dashboard, packet contract, hay database layer.
 
@@ -146,4 +146,3 @@ Ban khong nen sua server dashboard, packet contract, hay database layer.
 - Lock screen chay dung.
 - UI khong block.
 - Client demo doc lap duoc va hop voi server.
-

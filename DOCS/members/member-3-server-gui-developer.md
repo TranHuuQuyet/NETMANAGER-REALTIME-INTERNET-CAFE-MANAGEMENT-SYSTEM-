@@ -12,7 +12,7 @@ Ban chi nen sua cac file/module lien quan den:
 - `ServerApp/Views/` neu co
 - `ServerApp/Services/` cho phan UI bridge
 - `ServerApp/Models/` neu can model hien thi
-- `ai-docs/` chi khi cap nhat huong dan dashboard
+- `../README.md` chi khi cap nhat huong dan dashboard
 
 Ban khong nen sua packet schema, SQL schema, hay client UI.
 
@@ -146,4 +146,3 @@ Ban khong nen sua packet schema, SQL schema, hay client UI.
 - Machine state nhin thay ngay.
 - UI khong freeze.
 - Dashboard demo duoc ma khong can giai thich nhieu.
-

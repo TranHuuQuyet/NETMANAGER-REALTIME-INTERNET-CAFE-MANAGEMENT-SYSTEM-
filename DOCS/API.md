@@ -15,6 +15,7 @@ Core packet types in this baseline:
 - `STATUS`
 - `LOCK`
 - `UNLOCK`
+- `ACK`
 - `NOTIFICATION`
 - `TIMER`
 - `CHAT`
@@ -110,6 +111,7 @@ Used by admin and client login flows.
 ### `STATUS`
 
 Used for machine state updates and heartbeat-style sync.
+Clients should send it on a regular interval, and also when local state changes.
 
 ```json
 {
@@ -145,6 +147,19 @@ Used to request or notify an unlock action.
 }
 ```
 
+### `ACK`
+
+Used by the client to confirm that a server command was received and executed.
+
+```json
+{
+  "machineId": "PC-01",
+  "ackFor": "LOCK",
+  "status": "Success",
+  "message": "Lock applied"
+}
+```
+
 ### `NOTIFICATION`
 
 Used to send a simple message to one machine or to all machines.
@@ -172,13 +187,14 @@ Used for session timer updates.
 
 ### `CHAT`
 
-Used for basic text chat.
+Used for basic 1-1 text chat.
 
 ```json
 {
   "sender": "PC-01",
+  "receiver": "admin01",
   "message": "May em bi lag",
-  "room": "main"
+  "room": "direct"
 }
 ```
 
@@ -191,6 +207,7 @@ Recommended shared types for the `Shared` project:
 - `MachineStatus`
 - `CommandType`
 - `NotificationMessage`
+- `AckInfo`
 - `ChatMessage`
 - `TimerInfo`
 - `SessionInfo`

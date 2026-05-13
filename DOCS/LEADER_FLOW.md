@@ -45,7 +45,7 @@ It must support TCP connection, login, realtime machine status, lock/unlock cont
 - `ServerApp` - Member 3
 - `ClientApp` - Member 4
 - `Shared` - Member 2
-- `ai-docs` - Member 1 coordinates the control docs, Member 6 handles test and documentation notes
+- `DOCS` - Member 1 coordinates the control docs, Member 6 handles test and documentation notes
 
 ### Branch and Commit Rules
 
@@ -60,9 +60,10 @@ It must support TCP connection, login, realtime machine status, lock/unlock cont
 1. `LOGIN`
 2. `STATUS`
 3. `LOCK` / `UNLOCK`
-4. `NOTIFICATION`
-5. `TIMER`
-6. `CHAT`
+4. `ACK`
+5. `NOTIFICATION`
+6. `TIMER`
+7. `CHAT`
 
 ### Expected Output
 
@@ -122,9 +123,10 @@ Required packet order:
 1. `LOGIN`
 2. `STATUS`
 3. `LOCK` / `UNLOCK`
-4. `NOTIFICATION`
-5. `TIMER`
-6. `CHAT`
+4. `ACK`
+5. `NOTIFICATION`
+6. `TIMER`
+7. `CHAT`
 
 Output:
 

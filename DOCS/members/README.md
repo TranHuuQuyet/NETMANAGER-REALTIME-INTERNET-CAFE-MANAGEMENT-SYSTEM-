@@ -1,6 +1,6 @@
 # Member Guides
 
-Day la thu muc huong dan rieng cho tung thanh vien.
+Day la thu muc huong dan rieng cho tung thanh vien trong `DOCS/`.
 
 ## Files
 
@@ -15,4 +15,4 @@ Day la thu muc huong dan rieng cho tung thanh vien.
 
 - Moi thanh vien mo dung file cua minh.
 - Lam theo tung buoc tu muc tieu den definition of done.
-- Neu can, dung roadmap chinh de doi chieu milestone.
+- Neu can, dung `README.md` va `TASKS.md` de doi chieu milestone.

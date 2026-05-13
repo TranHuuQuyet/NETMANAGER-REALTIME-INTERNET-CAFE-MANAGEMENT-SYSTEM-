@@ -11,7 +11,7 @@ Ban chi nen sua cac file/module lien quan den:
 - `ServerApp/Database/`
 - `ServerApp/Services/Auth/`
 - `ServerApp/Services/Session/`
-- `ai-docs/API.md` va `ai-docs/DECISIONS.md` khi doi schema
+- `../API.md` va `../README.md` khi doi schema
 
 Ban khong nen sua UI form, packet dispatcher cua Member 2, hay client UI.
 

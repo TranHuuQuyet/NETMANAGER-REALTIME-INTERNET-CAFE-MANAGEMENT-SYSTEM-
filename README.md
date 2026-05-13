@@ -1,10 +1,14 @@
-# Docs Index
+# Project Docs Index
+
+All project documentation now lives in `DOCS/`.
 
 ## Core Documents
 
-- [Roadmap](./roadmap-project.md)
-- [System Architecture](./architecture.md)
+- [Implementation Ready](./DOCS/README.md)
+- [API Contract](./DOCS/API.md)
+- [Task Tracker](./DOCS/TASKS.md)
+- [Leader Flow](./DOCS/LEADER_FLOW.md)
 
-## Member Guides
+## Supporting Docs
 
-- [Member Guides Index](./members/README.md)
+- [Member Guides Index](./DOCS/members/README.md)

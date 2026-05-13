@@ -29,7 +29,7 @@ Code/
 - `ClientApp/` is mainly for Member 4.
 - `Shared/` is mainly for Member 2.
 - `Database/` and auth-related server services are mainly for Member 5.
-- Docs and test notes remain outside this folder in `ai-docs/` and `DOCX/`.
+- Docs and test notes remain outside this folder in `DOCS/`.
 
 ## Working Rule
 

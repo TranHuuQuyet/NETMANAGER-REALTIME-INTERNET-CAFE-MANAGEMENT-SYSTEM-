@@ -14,12 +14,10 @@ Ban la nguoi giu huong di tong the cua project. Ban khong can lam het code, nhun
 
 Ban chi nen sua cac file sau:
 
-- `ai-docs/LEADER_FLOW.md`
-- `ai-docs/TASKS.md`
-- `ai-docs/PROJECT_STATE.md`
-- `ai-docs/DECISIONS.md`
-- `ai-docs/BUGS.md`
-- `README.md` khi chot thong tin tong quan
+- `../LEADER_FLOW.md`
+- `../TASKS.md`
+- `../BUGS.md`
+- `../README.md` khi chot thong tin tong quan
 
 Ban khong nen sua truc tiep code runtime trong `ServerApp`, `ClientApp`, `Shared` tru khi dang review integration.
 
@@ -34,7 +32,7 @@ Ban khong nen sua truc tiep code runtime trong `ServerApp`, `ClientApp`, `Shared
 
 - Moi task phai co owner chinh mot nguoi.
 - Khong cho hai nguoi sua cung mot file cung luc neu khong bat buoc.
-- Neu bat buoc sua file chung, chi sua phan riang: vi du `API.md`, `Shared` packet, hoac `README`.
+- Neu bat buoc sua file chung, chi sua phan riang: vi du `API.md`, `Shared` packet, hoac `README.md`.
 - Moi commit phai nho va co y nghia ro.
 - Khong tron UI + networking + DB trong cung mot commit neu co the tach.
 - Moi thay doi packet hoac state phai cap nhat docs ngay.
@@ -120,12 +118,12 @@ Ban khong nen sua truc tiep code runtime trong `ServerApp`, `ClientApp`, `Shared
 
 ## 7. Hanh dong hang ngay
 
-- Kiem tra `PROJECT_STATE.md` truoc khi bat dau.
+- Kiem tra `TASKS.md` truoc khi bat dau.
 - Kiem tra `TASKS.md` de lay viec tiep theo.
 - Xac nhan ai dang lam gi de tranh overlap.
 - Neu co change ve packet, update `API.md` ngay.
 - Neu co bug, dua vao `BUGS.md` ngay.
-- Neu co thay doi ve structure, ghi vao `DECISIONS.md`.
+- Neu co thay doi ve structure, ghi vao `README.md` hoac `TASKS.md`.
 
 ## 8. Deliverables can nop
 
@@ -142,4 +140,3 @@ Ban khong nen sua truc tiep code runtime trong `ServerApp`, `ClientApp`, `Shared
 - Moi member co task ro rang va co the lam lap tuc.
 - Server, client va DB khong xung dot contract.
 - Team co the demo duoc ma khong can giai thich lai tu dau.
-

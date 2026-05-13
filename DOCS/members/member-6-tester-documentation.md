@@ -8,12 +8,10 @@ Ban phu trach test, bug report, tai lieu, va ho tro demo. Ban giup team biet pha
 
 Ban chi nen sua cac file/module lien quan den:
 
-- `README.md`
-- `ai-docs/TASKS.md`
-- `ai-docs/PROJECT_STATE.md`
-- `ai-docs/BUGS.md`
-- `ai-docs/DECISIONS.md`
-- cac tai lieu trong `DOCX/` neu can
+- `../README.md`
+- `../TASKS.md`
+- `../BUGS.md`
+- cac tai lieu trong `DOCS/` neu can
 
 Ban khong nen sua runtime code tru khi dang verify bug va co owner ro rang.
 
@@ -149,4 +147,3 @@ Moi bug nen co:
 - Bug lon duoc ghi nhan va de uu tien ro.
 - Demo co checklist san.
 - Tai lieu khong bi loi thoi.
-
