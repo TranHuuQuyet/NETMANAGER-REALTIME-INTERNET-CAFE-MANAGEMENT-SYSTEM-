@@ -4,42 +4,60 @@
 
 Current phase:
 
-- `Phase 0 -> Phase 1`
+- `Phase 1 - Architecture and Contract Freeze`
 
 Current gate target:
 
-- `Gate A - Scope and Contract Gate`
+- `Gate A - Scope and Contract Gate` passed
+- Next gate target: `Gate B - Connection Gate`
 
 Current reality:
 
+- Phase 0 da hoan thanh va duoc dong bo trong docs
 - leader flow da duoc lam lai
-- role docs dang duoc dong bo
+- role docs da duoc dong bo
 - chua co runtime implementation bat dau day du
 - deadline hien tai la 8 tuan
 - project uu tien demo chay on dinh truoc
 
-## 2. Immediate Start Tasks
+## 2. Phase 0 Completion Checklist
 
-These tasks must be done first before deeper coding:
+These decisions are frozen before deeper coding:
 
-- [ ] Confirm final source folder structure for `ServerApp`, `ClientApp`, `Shared`, `Data/Auth`.
-- [ ] Confirm first accepted version of `DOCS/API.md`.
-- [ ] Freeze tech stack: `.NET 8`, C#, WinForms, TCP, SQLite, `System.Text.Json`.
-- [ ] Freeze account-per-machine rule with `username <-> machineId`.
-- [ ] Freeze supported demo modes: real LAN and local multi-instance.
-- [ ] Freeze minimal chat scope: 1-1 text only, no emoji, no history, no file/image.
-- [ ] Confirm Week 1 task ownership for all 6 members.
-- [ ] Confirm branch naming rule and commit naming rule.
-- [ ] Confirm bug report format and test matrix format.
+- [x] Confirm final source folder structure for `ServerApp`, `ClientApp`, `Shared`, `ServerApp/Auth`, and `ServerApp/Database`.
+- [x] Confirm first accepted version of `DOCS/API.md`.
+- [x] Freeze tech stack: `.NET 8`, C#, WinForms, TCP, SQLite, `System.Text.Json`.
+- [x] Freeze account-per-machine rule with `username <-> machineId`.
+- [x] Freeze supported demo modes: real LAN and local multi-instance.
+- [x] Freeze minimal chat scope: 1-1 text only, no emoji, no history, no file/image.
+- [x] Confirm Week 1 task ownership for all 6 members.
+- [x] Confirm branch naming rule and commit naming rule.
+- [x] Confirm bug report format and test matrix format.
+- [x] Confirm source-of-truth docs:
+  - `LEADER_FLOW.md` for phase, scope, ownership, branch rules, commit rules, and release decisions
+  - `API.md` for packet/auth/session contract
+  - `TASKS.md` for current execution status
+  - `BUGS.md` for risks, unresolved issues, and runtime bugs
 
-## 3. This Week Priority
+## 3. Phase 1 Immediate Start Tasks
+
+These tasks must be done next:
+
+- [ ] Review and accept `DOCS/API.md` with Member 2 and Member 5.
+- [ ] Freeze packet order and state model.
+- [ ] Freeze shared DTO list, enum list, and invalid packet behavior.
+- [ ] Confirm auth/session response contract with Member 5.
+- [ ] Confirm local multi-instance test assumption with Member 2 and Member 6.
+- [ ] Prepare first networking/auth skeleton handoff.
+
+## 4. This Week Priority
 
 ### Member 1
 
-- [ ] Freeze MVP and out-of-scope list.
-- [ ] Freeze ownership map and write scope boundaries.
-- [ ] Freeze stack and identity assumptions.
-- [ ] Freeze first-week tasks and announce owners.
+- [x] Freeze MVP and out-of-scope list.
+- [x] Freeze ownership map and write scope boundaries.
+- [x] Freeze stack and identity assumptions.
+- [x] Freeze first-week tasks and announce owners.
 - [ ] Review `API.md` with Member 2 and Member 5.
 - [ ] Keep `LEADER_FLOW.md`, `TASKS.md`, and `BUGS.md` aligned.
 
@@ -83,7 +101,7 @@ These tasks must be done first before deeper coding:
 - [ ] Review docs for contradictions.
 - [ ] Create separate checklists for real LAN and local multi-instance demo.
 
-## 4. Week-by-Week Delivery Targets
+## 5. Week-by-Week Delivery Targets
 
 ### Week 1
 
@@ -195,7 +213,7 @@ Must be visible by end of week:
 - demo checklist
 - final docs aligned with build
 
-## 5. Cross-Member Dependencies
+## 6. Cross-Member Dependencies
 
 - Member 3 waits on Member 2 for network-facing interface.
 - Member 4 waits on Member 2 for client-facing network interface.
@@ -205,7 +223,7 @@ Must be visible by end of week:
 - Member 6 waits on all members for build output, feature status, and bug reproduction.
 - All members wait on Member 1 for final stack, scope, and gate approval.
 
-## 6. Conflict Watch List
+## 7. Conflict Watch List
 
 These are the most likely overlap areas:
 
@@ -216,7 +234,7 @@ These are the most likely overlap areas:
 - account-to-`machineId` validation: Member 5 owns validation logic, Member 2 owns transport field path, Member 3/4 own display only.
 - README/run guide: Member 6 updates, Member 1 reviews final top-level alignment.
 
-## 7. Weekly Reporting Format
+## 8. Weekly Reporting Format
 
 Each member should report in this shape:
 
@@ -226,22 +244,24 @@ Each member should report in this shape:
 - next task
 - docs that need update
 
-## 8. Done This Turn
+## 9. Done This Turn
 
 - [x] `LEADER_FLOW.md` restructured into full project execution flow.
 - [x] member role docs aligned with the leader flow.
 - [x] `TASKS.md` upgraded from short priority list to execution tracker.
+- [x] Phase 0 branch and commit rules added.
+- [x] Phase 0 source-of-truth docs confirmed.
+- [x] Initial risk list added and linked to conflict control.
+- [x] `ServerApp/Database` chosen consistently over `ServerApp/Data`.
+- [x] Gate A marked passed.
 
-## 9. Next Review Checkpoint
+## 10. Next Review Checkpoint
 
-Before moving beyond `Gate A`, Member 1 should verify:
+Before moving beyond `Gate B`, Member 1 should verify:
 
-- [ ] MVP scope is frozen.
-- [ ] ownership is frozen.
-- [ ] `API.md` baseline is accepted.
-- [ ] tech stack is frozen.
-- [ ] account-to-`machineId` rule is frozen.
-- [ ] chat scope is frozen.
-- [ ] both demo modes are documented.
-- [ ] Week 1 tasks are accepted by all members.
-- [ ] no member is waiting because of unclear responsibility.
+- [ ] server and client can connect successfully.
+- [ ] at least one packet can be exchanged.
+- [ ] receive loop does not freeze UI.
+- [ ] local multi-instance test works.
+- [ ] networking handoff does not conflict with auth ownership.
+- [ ] no GUI member is parsing packet shape independently.

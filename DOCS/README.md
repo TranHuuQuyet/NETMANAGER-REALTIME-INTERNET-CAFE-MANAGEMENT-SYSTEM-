@@ -23,9 +23,10 @@ This is the startup brief for the team before implementation begins.
 ```text
 Code/
 |-- ServerApp/
+|   |-- Auth/
+|   `-- Database/
 |-- ClientApp/
 |-- Shared/
-`-- ServerApp.Data/ or ServerApp/Auth/ServerApp/Data/
 DOCS/
 |-- API.md
 |-- TASKS.md
@@ -59,6 +60,8 @@ DOCS/
 
 - One module, one owner.
 - One commit, one job.
+- Branch format is `member-<number>/<short-task>`, `integration/<flow-name>`, or `hotfix/<short-fix>`.
+- Commit format is `<scope>: <short action>`.
 - Keep packet changes documented in the same session.
 - Do not let server and client diverge on schema.
 - Keep runtime code inside `Code/`.
@@ -77,6 +80,13 @@ DOCS/
 3. `API.md`
 4. `members/README.md`
 5. member-specific role file
+
+## Source of Truth
+
+- `LEADER_FLOW.md`: phase, scope, ownership, branch rules, commit rules, and release decisions
+- `API.md`: packet, auth, and session contract
+- `TASKS.md`: current execution status and next actions
+- `BUGS.md`: risks, unresolved issues, and runtime bugs
 
 ## First Week Goal
 

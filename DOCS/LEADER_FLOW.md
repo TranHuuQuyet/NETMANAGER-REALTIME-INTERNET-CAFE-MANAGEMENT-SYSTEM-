@@ -99,6 +99,9 @@ The project must support both of these:
 
 - Scope must be frozen before feature expansion.
 - `API.md` is the shared contract source of truth.
+- `LEADER_FLOW.md` is the source of truth for phase, scope, ownership, branch rules, commit rules, and release decisions.
+- `TASKS.md` is the source of truth for current execution status and next actions.
+- `BUGS.md` is the source of truth for risks, unresolved issues, and runtime bugs once code exists.
 - Server and client must never invent different packet shapes.
 - Shared packet or state changes must be documented on the same day.
 - Each file or module must have one clear owner.
@@ -192,8 +195,8 @@ Owns:
 
 Write scope:
 
-- `ServerApp/Data/`
 - `ServerApp/Auth/`
+- `ServerApp/Database/`
 - database and persistence files
 
 ### Member 6 - Tester & Documentation
@@ -237,6 +240,59 @@ Members must not:
 - merge undocumented packet changes
 - hard-code fake behavior after real integration has started
 - combine unrelated work in one commit
+
+## 7.1 Branch and Commit Rules
+
+Branch naming rule:
+
+- main integration branch: `main`
+- member work branch: `member-<number>/<short-task>`
+- integration branch when needed: `integration/<flow-name>`
+- hotfix branch after release candidate: `hotfix/<short-fix>`
+
+Examples:
+
+- `member-2/network-skeleton`
+- `member-5/auth-schema`
+- `integration/login-flow`
+- `hotfix/login-machineid-error`
+
+Commit naming rule:
+
+- one commit must represent one logical job
+- use format: `<scope>: <short action>`
+- allowed scopes: `docs`, `shared`, `server`, `client`, `auth`, `db`, `test`, `build`, `fix`
+- avoid mixing unrelated modules in one commit
+- packet or contract changes must update `DOCS/API.md` in the same commit or same review batch
+
+Examples:
+
+- `docs: freeze phase 0 rules`
+- `shared: add packet envelope model`
+- `auth: add machine-bound login validation`
+- `fix: handle invalid packet response`
+
+## 7.2 Initial Risk List
+
+Current Phase 0 risks:
+
+- packet contract drift between server and client
+- unclear login ownership between networking and auth
+- GUI members depending on unfinished real services
+- wrong or inconsistent `machineId` mapping during demo
+- real LAN setup not matching local multi-instance assumptions
+- late feature expansion beyond MVP, especially chat and reporting
+- UI thread blocking during network receive events
+- database schema changes after GUI and network code already depend on auth output
+
+Risk control decisions:
+
+- `DOCS/API.md` must be reviewed before packet implementation goes deep.
+- Member 2 owns transport and shared packet implementation.
+- Member 5 owns auth, session, SQLite schema, and account-to-`machineId` validation.
+- Member 3 and Member 4 consume service/interface outputs instead of inventing packet parsing in UI.
+- Chat remains 1-1 text only.
+- Both real LAN and local multi-instance must stay documented and testable.
 
 ## 8. Shared Delivery Order
 

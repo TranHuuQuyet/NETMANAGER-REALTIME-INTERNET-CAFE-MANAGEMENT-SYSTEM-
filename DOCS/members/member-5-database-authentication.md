@@ -9,7 +9,6 @@ Muc tieu cua ban la tao mot auth/data layer don gian, on dinh, de debug, va de c
 
 Ban duoc uu tien sua:
 
-- `ServerApp/Data/`
 - `ServerApp/Auth/`
 - `ServerApp/Database/`
 - persistence va repository files

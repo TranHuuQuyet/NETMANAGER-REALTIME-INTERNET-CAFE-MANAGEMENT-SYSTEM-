@@ -1,5 +1,20 @@
 # BUGS
 
+## Risk Register
+
+Current Phase 0 risks and controls:
+
+| Risk | Owner | Severity | Control |
+| --- | --- | --- | --- |
+| Packet contract drift between server and client | Member 2, Member 1 approves | High | `DOCS/API.md` is the contract source of truth; packet changes must be documented same day. |
+| Login ownership unclear between networking and auth | Member 2 + Member 5 | High | Member 2 owns transport; Member 5 owns auth/session validation. |
+| GUI code invents its own packet parsing | Member 3 + Member 4 | Medium | GUI consumes agreed services/interfaces only. |
+| Wrong `machineId` mapping during demo | Member 5 | High | Account-to-machine rule is frozen and must be tested before integration. |
+| Real LAN behavior differs from local multi-instance | Member 2 + Member 6 | Medium | Both demo modes need separate smoke checks. |
+| Chat scope expands beyond MVP | Member 1 | Medium | Chat remains 1-1 text only, no emoji/history/file/group. |
+| UI freezes on network receive | Member 2 + GUI owner | High | Network events must not block WinForms UI thread. |
+| Database schema changes after consumers depend on it | Member 5, Member 1 approves | Medium | Auth/session contract must be reviewed in Phase 1 before deep implementation. |
+
 ## Known Bugs
 
 - No application source tree has been committed yet, so runtime bugs cannot be observed in code.
