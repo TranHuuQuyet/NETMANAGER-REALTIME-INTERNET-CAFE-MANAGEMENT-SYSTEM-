@@ -44,6 +44,16 @@ Ban khong nen sua:
 
 - review scope giao dien admin
 
+Phase 0 completion note:
+
+- Da review va accept scope giao dien admin.
+- Server GUI scope gom: admin login form, dashboard shell, machine list/status view, control panel, admin-side realtime display.
+- Write scope chinh la `Code/ServerApp/`, uu tien forms/views/UI-facing services.
+- Khong own packet schema, socket dispatcher, client UI, database/auth internals.
+- Dependency da xac nhan nhung chua duoc cung cap: Member 2 chua co network-facing interface, Member 5 chua co auth result shape.
+- Day la dependency cho Phase 1/Phase 2 handoff, khong phai blocker cho viec hoan thanh Phase 0 cua Member 3.
+- Phase 0 khong yeu cau runtime form code; `Code/ServerApp/` hien moi la folder skeleton va se duoc build trong phase/week tiep theo.
+
 ### Phase 1
 
 - review `API.md` de dam bao dashboard can gi se co trong contract

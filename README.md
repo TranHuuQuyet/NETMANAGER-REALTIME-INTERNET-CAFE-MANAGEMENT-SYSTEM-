@@ -5,7 +5,7 @@ All project documentation now lives in `DOCS/`.
 Current project status:
 
 - documentation-first
-- Phase 0 complete; Phase 1 contract freeze is next
+
 - target delivery baseline: `8 weeks`
 
 ## Core Documents

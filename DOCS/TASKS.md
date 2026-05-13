@@ -39,6 +39,39 @@ These decisions are frozen before deeper coding:
   - `TASKS.md` for current execution status
   - `BUGS.md` for risks, unresolved issues, and runtime bugs
 
+### Member 3 Phase 0 Review
+
+Member 3 has reviewed and accepted the server GUI scope for Phase 0.
+
+- [x] Confirmed owned UI scope:
+  - admin login form
+  - dashboard shell
+  - machine list and machine status rendering
+  - admin control area for lock, unlock, notification, timer, and chat
+  - admin-side realtime display
+  - WinForms UI thread-safe update pattern for server-side events
+- [x] Confirmed write scope:
+  - primary runtime area: `Code/ServerApp/`
+  - server-side UI folders and UI-facing services only
+- [x] Confirmed non-owned areas:
+  - packet schema and shared DTOs stay with Member 2
+  - socket dispatcher stays with Member 2
+  - auth/database internals stay with Member 5
+  - client UI stays with Member 4
+- [x] Confirmed dependencies:
+  - Member 2 still needs to provide network-facing service/interface shape
+  - Member 5 still needs to provide admin auth result shape
+  - Member 1 controls phase order and scope changes
+- [x] Confirmed dependency status:
+  - network-facing service/interface shape is not available yet
+  - admin auth result shape is not available yet
+  - these are Phase 1/Phase 2 handoff dependencies, not blockers for Member 3 Phase 0 completion
+- [x] Confirmed Phase 0 repo state:
+  - `Code/ServerApp/` exists with planned folders
+  - runtime implementation has not started yet, which is acceptable for Phase 0
+- [x] Confirmed next Member 3 action:
+  - review `DOCS/API.md` in Phase 1 and list exact dashboard data/actions needed from Member 2 and Member 5
+
 ## 3. Phase 1 Immediate Start Tasks
 
 These tasks must be done next:
