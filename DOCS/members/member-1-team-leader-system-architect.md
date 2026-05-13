@@ -12,6 +12,7 @@ Muc tieu cua ban:
 - giu dung ownership
 - giu dung timeline
 - giu cho integration khong vo
+- giu duoc demo on dinh trong deadline 8 tuan
 
 ## 2. Write Scope
 
@@ -55,6 +56,7 @@ Ban phai biet cac dependency chinh sau:
 - Member 2 phu thuoc auth interface cua Member 5 cho login flow
 - Member 3 va Member 4 phu thuoc network/auth interface de noi UI
 - Member 6 phu thuoc output cua ca team de test va cap nhat docs
+- ca team phu thuoc quyet dinh som ve stack, machine identity, va demo mode
 
 ## 6. Nhiem vu theo phase
 
@@ -65,6 +67,9 @@ Ban phai biet cac dependency chinh sau:
 - chot branch va commit rule
 - chot nguon truth cho docs
 - chot risk list dau tien
+- chot stack: `.NET 8`, C#, WinForms, TCP, SQLite, `System.Text.Json`
+- chot account rieng gan voi `machineId`
+- chot 2 mode demo: real LAN va local multi-instance
 
 ### Phase 1 - Architecture and Contract Freeze
 
@@ -100,6 +105,7 @@ Ban phai biet cac dependency chinh sau:
 ### Phase 6 - Realtime Feature Completion
 
 - xac nhan notification, timer, chat duoc lam dung uu tien
+- xac nhan chat chi la 1-1 text scope toi thieu
 - ngan team danh thoi gian vao polish som
 - chap nhan feature chi khi da qua test co ban
 
@@ -154,9 +160,19 @@ Ban phai biet cac dependency chinh sau:
 
 ### Week 6
 
+- kiem tra multi-client, reconnect, invalid packet, va 2 mode demo
+
+### Week 7
+
 - approve release candidate
+- chot cleanup source va docs
+- chot known limitations
+
+### Week 8
+
 - chot demo checklist
 - chot final docs va archive state
+- khoa pham vi phat hanh cuoi
 
 ## 8. Hanh dong hang ngay
 

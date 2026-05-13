@@ -20,6 +20,16 @@ Core packet types in this baseline:
 - `TIMER`
 - `CHAT`
 
+## Confirmed Project Rules
+
+- The project targets `.NET 8`, C#, Windows Forms, TCP, SQLite, and `System.Text.Json`.
+- Each client account is mapped to one `machineId`.
+- The server must validate `username`, `password`, and `machineId` on login.
+- A correct account with the wrong `machineId` must be rejected.
+- Chat is minimal 1-1 text only.
+- Chat has no emoji, no history, no file/image, and no group room behavior.
+- The project must work in both real LAN mode and local multi-instance mode.
+
 ## Transport Rules
 
 - Transport is TCP.
@@ -58,6 +68,9 @@ All packets use the same envelope shape.
 - `success` is used on responses.
 - `error` is only present when a request fails.
 - `payload` contains the packet-specific body.
+- `timestamp` is recommended on all requests and responses.
+- Clients should use the account name or `machineId` as `source`.
+- The server should use a stable server identifier such as `server`.
 
 ## Common Response Pattern
 
@@ -93,11 +106,25 @@ Failed response:
 }
 ```
 
+### Minimum Error Codes
+
+The baseline error codes should include:
+
+- `INVALID_CREDENTIALS`
+- `INVALID_MACHINE_ID`
+- `ACCOUNT_MACHINE_MISMATCH`
+- `ACCOUNT_DISABLED`
+- `MACHINE_ALREADY_ACTIVE`
+- `INVALID_PACKET`
+- `UNSUPPORTED_PACKET`
+- `SERVER_ERROR`
+
 ## Packet Payloads
 
 ### `LOGIN`
 
 Used by admin and client login flows.
+For client login, `machineId` is mandatory and must match the assigned account.
 
 ```json
 {
@@ -107,6 +134,12 @@ Used by admin and client login flows.
   "machineId": "PC-01"
 }
 ```
+
+Expected login behavior:
+
+- admin login may not require a bound client machine
+- client login must validate the bound `machineId`
+- wrong `machineId` must return `success: false` and an error code such as `INVALID_MACHINE_ID` or `ACCOUNT_MACHINE_MISMATCH`
 
 ### `STATUS`
 
@@ -150,6 +183,7 @@ Used to request or notify an unlock action.
 ### `ACK`
 
 Used by the client to confirm that a server command was received and executed.
+The client should return `ACK` after `LOCK`, `UNLOCK`, and other command-style packets when execution result matters.
 
 ```json
 {
@@ -159,6 +193,12 @@ Used by the client to confirm that a server command was received and executed.
   "message": "Lock applied"
 }
 ```
+
+Recommended `ACK.status` values:
+
+- `Success`
+- `Failed`
+- `Ignored`
 
 ### `NOTIFICATION`
 
@@ -188,15 +228,24 @@ Used for session timer updates.
 ### `CHAT`
 
 Used for basic 1-1 text chat.
+This packet is intentionally minimal for the MVP.
 
 ```json
 {
   "sender": "PC-01",
   "receiver": "admin01",
-  "message": "May em bi lag",
-  "room": "direct"
+  "message": "May em bi lag"
 }
 ```
+
+Chat scope rules:
+
+- only direct 1-1 text
+- no room field is required in the MVP
+- no history loading
+- no emoji-specific handling
+- no file or image payload
+- no delivery queue after reconnect
 
 ## Shared Models
 
@@ -227,6 +276,11 @@ Suggested fields:
 - `IsActive`
 - `LastLogin`
 
+Rules:
+
+- client accounts should be bound to one `MachineId`
+- the bound machine must be validated during login
+
 ### `Sessions`
 
 Suggested fields:
@@ -252,3 +306,4 @@ Suggested fields:
 
 - If a field name, packet shape, or response rule changes, update this file in the same session.
 - Do not let server and client drift into different packet schemas.
+- Do not widen chat scope or machine identity rules without updating `LEADER_FLOW.md` and `TASKS.md`.

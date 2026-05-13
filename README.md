@@ -2,6 +2,12 @@
 
 All project documentation now lives in `DOCS/`.
 
+Current project status:
+
+- documentation-first
+- implementation-ready planning stage
+- target delivery baseline: `8 weeks`
+
 ## Core Documents
 
 - [Implementation Ready](./DOCS/README.md)
@@ -12,3 +18,4 @@ All project documentation now lives in `DOCS/`.
 ## Supporting Docs
 
 - [Member Guides Index](./DOCS/members/README.md)
+- [Bug Tracker](./DOCS/BUGS.md)

@@ -24,6 +24,8 @@ Ban khong nen sua runtime code tru khi dang verify bug va da duoc owner giao.
 - demo checklist
 - run guide
 - docs consistency review
+- real LAN checklist
+- local multi-instance checklist
 
 ## 4. Dependency cua ban
 
@@ -49,11 +51,13 @@ Ban khong nen sua runtime code tru khi dang verify bug va da duoc owner giao.
 
 - test connection basics
 - test invalid packet basics neu co the
+- test local multi-instance launch path
 
 ### Phase 3
 
 - test login success/fail
 - test inactive user va DB error handling
+- test wrong `machineId` login
 
 ### Phase 4
 
@@ -68,6 +72,7 @@ Ban khong nen sua runtime code tru khi dang verify bug va da duoc owner giao.
 
 - test notification, timer, chat, multi-client
 - cap nhat docs theo behavior that
+- xac nhan chat scope khong vuot quy dinh
 
 ### Phase 7
 
@@ -116,9 +121,19 @@ Ban khong nen sua runtime code tru khi dang verify bug va da duoc owner giao.
 
 ### Week 6
 
-- final smoke test
+- run real LAN smoke test
+- run local multi-instance smoke test
+
+### Week 7
+
+- final smoke test cho release candidate
 - verify run guide
 - finalize demo checklist
+
+### Week 8
+
+- final checklist
+- hold fallback demo steps
 
 ## 7. Handoff cho nguoi khac
 

@@ -36,6 +36,7 @@ Ban khong nen sua:
 - login flow can auth interface tu Member 5
 - GUI members can interface de bind UI
 - contract change can duoc Member 1 approve
+- can ho tro ca real LAN va local multi-instance
 
 ## 5. Nhiem vu theo phase
 
@@ -49,6 +50,7 @@ Ban khong nen sua:
 - chot packet contract trong `API.md`
 - chot DTO va parse rule
 - chot invalid packet behavior
+- chot field `machineId` trong login flow
 
 ### Phase 2
 
@@ -57,6 +59,7 @@ Ban khong nen sua:
 - implement send/receive loop
 - implement serializer/parser
 - tao dispatcher skeleton
+- tao cach test local multi-instance de dev hang ngay
 
 ### Phase 3
 
@@ -77,6 +80,7 @@ Ban khong nen sua:
 
 - finish notification, timer, chat, broadcast, direct message
 - finish ack handling
+- giu chat o muc 1-1 text toi thieu, khong history
 
 ### Phase 7
 
@@ -121,7 +125,17 @@ Ban khong nen sua:
 
 ### Week 6
 
-- support release candidate va final demo
+- chay real LAN smoke test
+- chay local multi-instance smoke test
+
+### Week 7
+
+- support release candidate
+- cleanup boundaries neu can ma khong doi behavior
+
+### Week 8
+
+- support final demo va fallback mode
 
 ## 7. Handoff cho nguoi khac
 

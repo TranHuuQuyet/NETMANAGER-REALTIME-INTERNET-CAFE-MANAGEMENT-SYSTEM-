@@ -15,6 +15,10 @@ This file exists to answer these questions clearly:
 - how to avoid overlap, conflict, and wasted effort
 - how to finish the project on time with a stable demo
 
+Project duration baseline:
+
+- 8 weeks
+
 ## 2. Project Target
 
 The target is a LAN-based Windows Forms client-server internet cafe management system for demo.
@@ -38,7 +42,60 @@ Out of scope for this project:
 - advanced analytics
 - cloud deployment
 
-## 3. Core Working Rules
+## 3. Chosen Technical Stack
+
+The recommended implementation stack for this project is:
+
+- .NET 8
+- C#
+- Windows Forms
+- TCP Socket
+- SQLite
+- `System.Text.Json`
+
+Reason for this choice:
+
+- fast enough for an 8-week academic or team delivery
+- stable for LAN-based Windows desktop apps
+- simple enough to keep source clean
+- suitable for demo-first development without overengineering
+
+## 4. Identity and Demo Rules
+
+### Client identity rule
+
+Each client machine must use its own account and its own `machineId`.
+
+Examples:
+
+- `pc01` <-> `PC-01`
+- `pc02` <-> `PC-02`
+
+Login rule:
+
+- the server validates `username`, `password`, and `machineId`
+- one client account is mapped to one machine
+- a login with the correct account but the wrong `machineId` must be rejected
+
+### Chat scope rule
+
+Chat in this project is only:
+
+- 1-1 text between client and admin
+- no emoji
+- no history
+- no file or image
+- no group room
+- no resend queue after reconnect
+
+### Supported demo modes
+
+The project must support both of these:
+
+- `Mode A - Real LAN Demo`: one server machine and multiple real client machines in the same LAN
+- `Mode B - Local Multi-Instance Demo`: one machine running server and multiple client instances for development and fallback demo use
+
+## 5. Core Working Rules
 
 - Scope must be frozen before feature expansion.
 - `API.md` is the shared contract source of truth.
@@ -49,8 +106,10 @@ Out of scope for this project:
 - UI, networking, and database work should be separated unless integration is required.
 - No member should block another member because of hidden assumptions.
 - Small stable progress is better than large unfinished progress.
+- A stable demo is more important than extra features.
+- Source cleanliness matters, but never through risky late refactors.
 
-## 4. Team Ownership Map
+## 6. Team Ownership Map
 
 ### Member 1 - Team Leader / System Architect
 
@@ -154,7 +213,7 @@ Write scope:
 - `README.md`
 - test notes and run-guide documents
 
-## 5. Conflict Prevention Model
+## 7. Conflict Prevention Model
 
 To keep the team moving without overlap, these rules are mandatory:
 
@@ -179,7 +238,7 @@ Members must not:
 - hard-code fake behavior after real integration has started
 - combine unrelated work in one commit
 
-## 6. Shared Delivery Order
+## 8. Shared Delivery Order
 
 This is the only safe implementation order for the project:
 
@@ -194,7 +253,7 @@ This is the only safe implementation order for the project:
 9. Release candidate
 10. Final demo and archive
 
-## 7. Phase-Based Execution Flow
+## 9. Phase-Based Execution Flow
 
 ### Phase 0 - Project Kickoff and Scope Freeze
 
@@ -222,6 +281,10 @@ Required outputs:
 - commit naming rule
 - initial risk list
 - first project structure agreement
+- chosen technical stack
+- client identity rule
+- chat scope rule
+- supported demo modes
 
 Completion target:
 
@@ -259,6 +322,8 @@ Required outputs:
 - JSON framing rule
 - invalid packet behavior rule
 - auth and session response contract
+- account-to-`machineId` mapping rule
+- local multi-instance test assumption
 
 Completion target:
 
@@ -295,11 +360,13 @@ Required outputs:
 - connect and disconnect handling
 - session object per client
 - 2 to 3 client connection test note
+- local multi-instance test baseline
 
 Completion target:
 
 - clients can connect and exchange packets without freezing UI
 - disconnect does not break the whole process
+- both real-LAN assumptions and local multi-instance assumptions are valid
 
 Conflict control:
 
@@ -330,11 +397,13 @@ Required outputs:
 - login response mapping
 - configuration persistence
 - seed users for demo
+- account-to-machine mapping validation
 
 Completion target:
 
 - admin and client logins work through the real auth path
 - failed login is deterministic and visible
+- wrong `machineId` login is rejected clearly
 
 Conflict control:
 
@@ -365,6 +434,7 @@ Required outputs:
 - lock screen shell
 - notification/timer/chat placeholders
 - UI update strategy for background events
+- local multi-instance launch assumptions for testing
 
 Completion target:
 
@@ -400,6 +470,7 @@ Required outputs:
 - lock/unlock command flow
 - ACK visibility
 - integration bug list
+- machine-bound login flow
 
 Completion target:
 
@@ -434,11 +505,13 @@ Required outputs:
 - ACK processing
 - status sync completion
 - direct and broadcast handling
+- final 1-1 text chat behavior only
 
 Completion target:
 
 - every MVP packet type works in the real application
 - 2 to 3 clients can participate in the demo flow
+- chat remains within the agreed minimal scope
 
 Conflict control:
 
@@ -470,6 +543,8 @@ Required outputs:
 - duplicate login handling
 - better logs
 - user-visible error states
+- local multi-instance fallback test
+- real LAN smoke test
 
 Completion target:
 
@@ -504,11 +579,14 @@ Required outputs:
 - demo checklist
 - known limitations list
 - final test report
+- local multi-instance test guide
+- real LAN test guide
 
 Completion target:
 
 - the team can set up and run the demo on a clean Windows machine
 - docs match the real build
+- both demo modes can be explained and run if needed
 
 Conflict control:
 
@@ -536,6 +614,7 @@ Required outputs:
 - final documentation package
 - bug and limitation summary
 - post-release notes
+- primary demo mode and fallback demo mode notes
 
 Completion target:
 
@@ -546,14 +625,15 @@ Conflict control:
 
 - no code changes during final demo unless Member 1 opens an emergency fix window
 
-## 8. Week-by-Week Production Plan
+## 10. Week-by-Week Production Plan
 
-### Week 1 - Kickoff, Scope, Contract, and Skeleton Start
+### Week 1 - Kickoff, Scope, Contract, and Tech Freeze
 
 Main weekly goal:
 
 - freeze scope
 - freeze contract baseline
+- freeze technical direction
 - start skeleton work without overlap
 
 Member 1:
@@ -563,6 +643,8 @@ Member 1:
 - finalize branch/commit rules
 - publish first `API.md` baseline with Member 2
 - publish first weekly task map
+- freeze stack choice: `.NET 8`, C#, WinForms, TCP, SQLite, `System.Text.Json`
+- freeze client identity rule and supported demo modes
 
 Member 2:
 
@@ -590,19 +672,22 @@ Member 5:
 - define auth result model
 - define session model
 - create auth service skeleton
+- define account-to-`machineId` validation rule
 
 Member 6:
 
 - create bug report template
 - create test matrix template
 - create first checklist for contract and connection tests
+- create separate checklist for `Mode A` and `Mode B`
 
 Week 1 completion target:
 
 - no one is waiting on basic role clarity
 - contract and ownership are stable enough to continue
+- stack and identity assumptions are frozen
 
-### Week 2 - Network Core and Auth Core
+### Week 2 - Network Core, Auth Core, and App Skeleton Completion
 
 Main weekly goal:
 
@@ -643,12 +728,13 @@ Member 6:
 - run connection test notes
 - run login success/failure tests
 - record first real bugs
+- validate local multi-instance testing path
 
 Week 2 completion target:
 
 - login works through real network and auth path at a basic level
 
-### Week 3 - Main Flow Integration
+### Week 3 - Login, Status, and Core Flow Integration
 
 Main weekly goal:
 
@@ -691,11 +777,47 @@ Week 3 completion target:
 
 - one admin and at least one client complete the full core flow
 
-### Week 4 - Feature Completion
+### Week 4 - Lock, Unlock, ACK, and Control Flow Completion
 
 Main weekly goal:
 
-- finish timer, notification, chat, and full status synchronization
+- make machine control stable before secondary features
+
+Member 1:
+
+- keep the team on control flow priority
+- reject chat or polish detours before control flow is stable
+
+Member 2:
+
+- finish lock/unlock routing
+- finish ACK routing and error behavior
+
+Member 3:
+
+- finish admin control behavior and command-result display
+
+Member 4:
+
+- finish lock screen and unlock reaction behavior
+
+Member 5:
+
+- support machine-bound login and active session validation
+
+Member 6:
+
+- test lock/unlock and ACK behavior in both demo modes
+
+Week 4 completion target:
+
+- login, status, lock/unlock, and ACK work stably
+
+### Week 5 - Timer, Notification, and Minimal Chat Completion
+
+Main weekly goal:
+
+- finish timer, notification, chat, and remaining realtime behavior
 
 Member 1:
 
@@ -722,16 +844,18 @@ Member 6:
 
 - test each feature separately
 - test 2 to 3 clients if possible
+- confirm chat remains 1-1 text only
 
-Week 4 completion target:
+Week 5 completion target:
 
 - all MVP features exist in real flow, even if not fully polished
 
-### Week 5 - Stabilization and Regression
+### Week 6 - Multi-Client, Stability, and Environment Validation
 
 Main weekly goal:
 
 - remove demo blockers and increase reliability
+- prove the app works in both required deployment modes
 
 Member 1:
 
@@ -742,6 +866,7 @@ Member 1:
 Member 2:
 
 - fix disconnect, reconnect, timeout, malformed packet issues
+- verify real-LAN assumptions and local multi-instance assumptions
 
 Member 3:
 
@@ -754,56 +879,104 @@ Member 4:
 Member 5:
 
 - fix DB/auth edge cases and consistency issues
+- verify account-to-machine mapping behavior
 
 Member 6:
 
 - run regression checklist
 - verify fixed bugs
 - maintain known limitation list
+- run both demo-mode smoke tests
 
-Week 5 completion target:
+Week 6 completion target:
 
 - no high-severity demo blocker remains open without explicit acceptance
+- both demo modes are usable for development or presentation
 
-### Week 6 - Release Candidate, Demo Prep, and Archive
+### Week 7 - Source Cleanup, Regression, and Release Candidate
 
 Main weekly goal:
 
 - lock the final build and prepare the team to present it
+- clean up source boundaries without risky redesign
 
 Member 1:
 
 - approve release candidate
 - run final leadership review
 - lock all non-essential changes
+- confirm architecture explanation is simple and consistent
 
 Member 2:
 
 - support final setup and network troubleshooting
+- clean network code boundaries if needed without changing behavior
 
 Member 3:
 
 - rehearse server dashboard demo path
+- clean UI/service boundaries if needed without changing flow
 
 Member 4:
 
 - rehearse client demo path
+- clean UI/service boundaries if needed without changing flow
 
 Member 5:
 
 - verify demo accounts, auth, and session behavior
+- clean auth/data boundaries if needed without changing behavior
 
 Member 6:
 
 - finish demo checklist
 - finish run guide verification
 - finish post-release summary
+- finish final regression report draft
 
-Week 6 completion target:
+Week 7 completion target:
 
-- the build, docs, and demo script are aligned and repeatable
+- source is clean enough to present
+- release candidate is stable enough for final rehearsal
 
-## 9. Detailed Week 1 Working Plan
+### Week 8 - Final Rehearsal, Release Lock, and Demo
+
+Main weekly goal:
+
+- freeze the final result and present it safely
+
+Member 1:
+
+- lock release scope completely
+- approve final demo order and fallback mode
+
+Member 2:
+
+- support final environment and network checks
+
+Member 3:
+
+- rehearse admin dashboard demo path one last time
+
+Member 4:
+
+- rehearse client demo path one last time
+
+Member 5:
+
+- verify final account, machine, and session data
+
+Member 6:
+
+- run final smoke test
+- run final checklist
+- hold demo notes and fallback steps
+
+Week 8 completion target:
+
+- the build, docs, source structure, and demo flow are all presentation-ready
+
+## 11. Detailed Week 1 Working Plan
 
 ### Day 1
 
@@ -813,6 +986,7 @@ Week 6 completion target:
 - Member 3: start server shell with stubbed navigation
 - Member 4: start client shell with stubbed screens
 - Member 6: create test and bug tracking templates
+- All: confirm `.NET 8 + WinForms + TCP + SQLite + System.Text.Json`
 
 ### Day 2
 
@@ -822,6 +996,7 @@ Week 6 completion target:
 - Member 3: finish dashboard shell and machine list stub
 - Member 4: finish login shell and lock screen stub
 - Member 6: review docs consistency and test readiness
+- All: confirm account-to-`machineId` mapping rule
 
 ### Day 3
 
@@ -831,6 +1006,7 @@ Week 6 completion target:
 - Member 3: bind UI to service interfaces or stubs
 - Member 4: bind UI to service interfaces or stubs
 - Member 6: record first issues and missing definitions
+- All: confirm chat minimal scope rule
 
 ### Day 4
 
@@ -840,6 +1016,7 @@ Week 6 completion target:
 - Member 3: prepare status view
 - Member 4: prepare client receive-state view
 - Member 6: run first connection test checklist
+- All: confirm local multi-instance test assumptions
 
 ### Day 5
 
@@ -849,8 +1026,9 @@ Week 6 completion target:
 - Member 3: complete admin shell baseline
 - Member 4: complete client shell baseline
 - Member 6: publish first bug and risk summary
+- All: confirm `Mode A` and `Mode B` are both documented
 
-## 10. Handoff Rules
+## 12. Handoff Rules
 
 When a module is ready to hand off:
 
@@ -873,7 +1051,7 @@ The previous owner must not:
 - edit the consumer's area casually
 - merge changes that invalidate the handoff without notice
 
-## 11. Integration Gates
+## 13. Integration Gates
 
 ### Gate A - Scope and Contract Gate
 
@@ -883,6 +1061,8 @@ Pass conditions:
 - ownership is frozen
 - packet schema is agreed
 - state model is agreed
+- tech stack is frozen
+- account-to-`machineId` rule is frozen
 
 ### Gate B - Connection Gate
 
@@ -891,6 +1071,7 @@ Pass conditions:
 - server and client connect successfully
 - packets are exchanged
 - UI is not blocked
+- local multi-instance test works
 
 ### Gate C - Auth Gate
 
@@ -899,6 +1080,7 @@ Pass conditions:
 - login works
 - auth result is deterministic
 - session state is connected
+- wrong `machineId` is rejected correctly
 
 ### Gate D - Core Control Gate
 
@@ -916,6 +1098,7 @@ Pass conditions:
 - timer works
 - chat works
 - multi-client test basically works
+- chat stays within minimal scope
 
 ### Gate F - Release Gate
 
@@ -925,16 +1108,19 @@ Pass conditions:
 - clean-machine setup test passes
 - docs match the build
 - no known high-severity demo blocker remains
+- real LAN smoke test passes
+- local multi-instance fallback passes
 
-## 12. Leader Operating Routine
+## 14. Leader Operating Routine
 
 Every day, Member 1 must:
 
 1. Check what each member finished yesterday.
 2. Check who is blocked and by what dependency.
 3. Confirm whether packet or state rules changed.
-4. Update tasks or decisions in docs.
-5. Reassign priority if one module is blocking others.
+4. Confirm whether any dependency or machine/account assumption changed.
+5. Update tasks or decisions in docs.
+6. Reassign priority if one module is blocking others.
 
 Every week, Member 1 must:
 
@@ -942,7 +1128,8 @@ Every week, Member 1 must:
 2. Check whether the next week can start without hidden blockers.
 3. Compare docs against real implementation status.
 4. Review bug severity and risk level.
-5. Announce the next week's priorities clearly.
+5. Check whether both demo modes are still supported.
+6. Announce the next week's priorities clearly.
 
 Before release, Member 1 must:
 
@@ -950,9 +1137,10 @@ Before release, Member 1 must:
 2. Review the demo checklist with Member 6.
 3. Confirm the team can explain their module clearly.
 4. Confirm the build runs from the documented steps.
-5. Approve only release-blocking fixes.
+5. Confirm the fallback demo mode still works.
+6. Approve only release-blocking fixes.
 
-## 13. Definition of Done
+## 15. Definition of Done
 
 The project is done only when:
 
@@ -961,8 +1149,10 @@ The project is done only when:
 - dashboard shows realtime machine state
 - client receives lock/unlock, notification, timer, and chat correctly
 - multi-client demo works on Windows
+- each client account is correctly bound to its own `machineId`
 - disconnect and reconnect do not crash the app
 - invalid packets do not crash the app
 - bugs are documented honestly
 - docs and run guide match the actual build
+- both real LAN and local multi-instance demo modes are usable
 - the team can present the architecture and flow clearly

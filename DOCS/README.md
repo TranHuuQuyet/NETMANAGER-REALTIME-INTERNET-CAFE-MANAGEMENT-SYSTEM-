@@ -1,16 +1,20 @@
 # DOCS Implementation Ready
 
-This is the single startup brief for the team.
+This is the startup brief for the team before implementation begins.
 
 ## Confirmed Decisions
 
 - `Code/` is the root for all source.
+- The project duration baseline is `8 weeks`.
+- The recommended stack is `.NET 8`, C#, Windows Forms, TCP, SQLite, and `System.Text.Json`.
 - `Shared` holds DTOs, enums, constants, packet contract, and light parse/serialize helpers.
 - `LOGIN` is shared for both admin and client.
 - `STATUS` is both heartbeat and state-change update.
 - `LOCK` / `UNLOCK` are server-driven; the client executes immediately and returns `ACK` / `STATUS`.
-- `CHAT` is 1-1.
+- `CHAT` is direct 1-1 text only.
 - `NOTIFICATION` is message plus light severity.
+- Each client account is bound to one `machineId`.
+- The project must support both real LAN demo mode and local multi-instance mode.
 - Network stability comes before polish.
 - UI should stay clean, clear, and runnable from the start.
 
@@ -20,7 +24,8 @@ This is the single startup brief for the team.
 Code/
 |-- ServerApp/
 |-- ClientApp/
-`-- Shared/
+|-- Shared/
+`-- ServerApp.Data/ or ServerApp/Auth/ServerApp/Data/
 DOCS/
 |-- API.md
 |-- TASKS.md
@@ -31,14 +36,15 @@ DOCS/
 
 ## What We Build First
 
-1. `Shared` contract and packet helpers.
-2. TCP connect / send / receive loop.
-3. Login and auth/session flow.
-4. `STATUS` heartbeat plus state change sync.
-5. `LOCK` / `UNLOCK` with client ACK handling.
-6. `NOTIFICATION`, timer, and 1-1 chat.
-7. WinForms shell wiring and integration.
-8. Reconnect, disconnect, and invalid packet handling.
+1. Scope, stack, identity rule, and contract freeze.
+2. `Shared` contract and packet helpers.
+3. TCP connect / send / receive loop.
+4. Login and auth/session flow with `machineId` validation.
+5. `STATUS` heartbeat plus state change sync.
+6. `LOCK` / `UNLOCK` with client ACK handling.
+7. `NOTIFICATION`, timer, and minimal 1-1 chat.
+8. WinForms shell wiring and integration.
+9. Reconnect, disconnect, invalid packet handling, and demo-mode validation.
 
 ## Ownership Summary
 
@@ -56,20 +62,36 @@ DOCS/
 - Keep packet changes documented in the same session.
 - Do not let server and client diverge on schema.
 - Keep runtime code inside `Code/`.
+- Keep chat scope minimal unless Member 1 approves a scope change.
+- Do not allow one client account to log in as another machine.
 
-## First Sprint Goal
+## Demo Modes
+
+- `Mode A - Real LAN Demo`: one server machine and multiple real clients in the same LAN
+- `Mode B - Local Multi-Instance Demo`: one machine running the server and multiple client instances for development and fallback demo use
+
+## Reading Order
+
+1. `LEADER_FLOW.md`
+2. `TASKS.md`
+3. `API.md`
+4. `members/README.md`
+5. member-specific role file
+
+## First Week Goal
 
 - A client can connect.
 - A login packet can round-trip.
 - The server can see one client status.
 - The client can receive one server command.
 - The UI stays responsive.
+- The team agrees on stack, machine identity, and demo modes.
 
-## Definition of Done for Phase 1
+## Definition of Done Before Coding Deeply
 
-- TCP connection is stable.
-- `LOGIN` and `STATUS` are working.
-- `LOCK` / `UNLOCK` are wired with ACK flow.
-- `NOTIFICATION` and chat are present.
 - `Code/` structure is in place.
-- The team can continue without guessing ownership.
+- stack is frozen
+- `API.md` baseline is accepted
+- account-to-`machineId` rule is accepted
+- team ownership is accepted
+- both demo modes are documented

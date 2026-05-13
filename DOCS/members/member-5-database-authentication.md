@@ -32,6 +32,7 @@ Ban khong nen sua:
 - session service
 - seed data
 - config persistence neu can
+- account-to-`machineId` validation
 
 ## 4. Dependency cua ban
 
@@ -50,6 +51,7 @@ Ban khong nen sua:
 - define schema assumptions
 - define auth result shape
 - define session state shape
+- define account-to-machine mapping rule
 
 ### Phase 2
 
@@ -62,6 +64,7 @@ Ban khong nen sua:
 - implement repositories
 - implement auth validation
 - implement session tracking
+- reject login neu sai `machineId`
 
 ### Phase 4
 
@@ -121,6 +124,14 @@ Ban khong nen sua:
 - fix consistency and error handling
 
 ### Week 6
+
+- verify real LAN va local multi-instance account behavior
+
+### Week 7
+
+- verify release candidate data va cleanup auth/data boundaries
+
+### Week 8
 
 - verify final demo accounts va persistence behavior
 

@@ -36,6 +36,7 @@ Ban khong nen sua:
 - packet/service interface tu Member 2
 - auth result tu Member 5
 - phase order va scope tu Member 1
+- machine-bound login rule tu Member 1, 2, 5
 
 ## 5. Nhiem vu theo phase
 
@@ -55,6 +56,7 @@ Ban khong nen sua:
 ### Phase 3
 
 - noi admin login UI vao auth result thuc
+- hien loi ro neu account dung nhung sai `machineId`
 
 ### Phase 4
 
@@ -74,6 +76,7 @@ Ban khong nen sua:
 - finish notification area
 - finish timer display
 - finish chat/admin interaction area
+- giu chat o muc text don gian, khong history, khong file/image
 
 ### Phase 7
 
@@ -114,6 +117,14 @@ Ban khong nen sua:
 - fix server UI stability, thread-safety, reconnect display
 
 ### Week 6
+
+- test server UI trong ca real LAN va local multi-instance
+
+### Week 7
+
+- rehearse release candidate va cleanup UI boundary
+
+### Week 8
 
 - rehearse final admin-side demo
 
