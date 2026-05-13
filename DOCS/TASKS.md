@@ -254,6 +254,7 @@ Each member should report in this shape:
 - [x] Initial risk list added and linked to conflict control.
 - [x] `ServerApp/Database` chosen consistently over `ServerApp/Data`.
 - [x] Gate A marked passed.
+- [x] Member 4 Phase 0 client GUI scope checklist confirmed by Member 4 self-review.
 
 ## 10. Next Review Checkpoint
 

@@ -43,6 +43,30 @@ Ban khong nen sua:
 
 - review client scope
 
+#### Phase 0 checklist/xac nhan cua Member 4
+
+- [x] Da doc va doi chieu `DOCS/LEADER_FLOW.md` muc Phase 0.
+- [x] Da xac nhan scope client GUI gom connect form, client login screen, main client screen, lock screen, notification/timer/chat display, client-side command reaction, va reconnect UX.
+- [x] Da xac nhan write scope chinh la `Code/ClientApp/`, gom `Forms/`, `Models/`, `Networking/`, va `Services/` theo boundary hien co.
+- [x] Da xac nhan khong sua packet schema, server dashboard, database/auth internals trong Phase 0.
+- [x] Da xac nhan client UI chi render state va goi service/interface, khong tu invent packet shape hoac parse packet truc tiep trong form.
+- [x] Da xac nhan dependency can cho cac phase sau: network/service interface tu Member 2, login/auth result tu Member 2 va Member 5, machine-bound login rule tu Member 1/2/5.
+- [x] Da xac nhan client login phai dung `username + password + machineId` va phai hien loi ro khi sai `machineId`.
+- [x] Da xac nhan chat scope chi la 1-1 text toi thieu, khong emoji, khong history, khong file/image.
+- [x] Da xac nhan client phai ho tro ca `Mode A - Real LAN Demo` va `Mode B - Local Multi-Instance Demo`.
+- [x] Da xac nhan Phase 0 khong yeu cau runtime implementation; Week 1/Phase 4 moi bat dau client shell.
+
+#### Bao cao Phase 0 cua Member 4
+
+Ket qua ra soat:
+
+- Phase 0 chung da duoc danh dau hoan thanh trong `DOCS/TASKS.md`.
+- `DOCS/LEADER_FLOW.md` da ghi ro Member 4 can confirm client GUI scope trong Phase 0.
+- `Code/README.md` da khoa folder boundary va ownership: `ClientApp/` la khu vuc chinh cua Member 4.
+- `Code/ClientApp/` da co cau truc nen tang de bat dau cac task tiep theo.
+
+Ket luan cua Member 4: Phase 0 da hoan thanh sau khi xac nhan lai client scope, ownership, dependency, demo mode, machine-bound login rule, va gioi han MVP UI.
+
 ### Phase 1
 
 - review contract de biet client nhan/gui gi
