@@ -2,158 +2,155 @@
 
 ## 1. Vai tro
 
-Ban phu trach toan bo lop networking. Muc tieu cua ban la giu cho TCP on dinh, packet ro rang, multi-client chay duoc, va khong lam tre UI.
+Ban phu trach toan bo lop networking va shared transport contract.
+Muc tieu cua ban la giu cho server va client noi chuyen voi nhau on dinh, dung schema, khong block UI, va de cac module khac tich hop duoc.
 
 ## 2. Write Scope
 
-Ban chi nen sua cac file/module lien quan den:
+Ban duoc uu tien sua:
 
 - `Shared/`
 - `ServerApp/Networking/`
 - `ClientApp/Networking/`
-- `../API.md`
-- `../README.md` khi co thay doi protocol
+- `DOCS/API.md`
 
-Ban khong nen sua UI form, database layer, hay auth repository tru khi dang tich hop va co owner ro rang.
+Ban khong nen sua:
 
-## 3. Muc tieu cuoi cung
+- server UI cua Member 3
+- client UI cua Member 4
+- database/auth implementation cua Member 5
 
-- Server va client ket noi duoc qua TCP.
-- Packet JSON gui nhan on dinh.
-- Multi-client hoat dong song song.
-- Disconnect va timeout khong lam sap app.
-- Cac module khac co the dung network API ma khong phai doan.
+## 3. Thu ban so huu
 
-## 4. Luat de khong xung dot commit
+- packet envelope
+- packet types
+- serializer/parser
+- dispatcher
+- TCP listener
+- TCP connector
+- connection/session object
+- disconnect/reconnect handling
 
-- Toan bo packet schema phai do ban quan ly.
-- Neu schema doi, ban phai update `API.md` truoc hoac cung luc voi code.
-- Ban khong sua UI state cua Member 3/4 truc tiep.
-- Ban khong sua SQL query cua Member 5.
-- Ban chi expose interface/contract ro rang de module khac ket noi.
-- Moi commit network nen tach rieng: connection, packet contract, dispatcher, resilience.
+## 4. Dependency cua ban
 
-## 5. Cong viec can lam tu dau den cuoi
+- login flow can auth interface tu Member 5
+- GUI members can interface de bind UI
+- contract change can duoc Member 1 approve
 
-### Giai doan khoi tao
+## 5. Nhiem vu theo phase
 
-- xac dinh IP, port, va mo hinh ket noi
-- chot cach frame packet on dinh
-- chot cach encode/decode JSON
-- tao skeleton server listener va client connector
+### Phase 0
 
-### Giai doan core connection
+- review networking feasibility
+- xac nhan framing va packet assumptions
 
-- viet TCP server accept loop
-- viet TCP client connect loop
-- test echo/handshake co ban
-- dam bao server khong block khi mot client cham
-- tao connection/session object rieng cho moi client
+### Phase 1
 
-### Giai doan packet contract
+- chot packet contract trong `API.md`
+- chot DTO va parse rule
+- chot invalid packet behavior
 
-- dinh nghia packet type chinh
-- xay serializer va parser
-- chot loi output neu packet sai format
-- dam bao packet model khop voi `API.md`
-- khong thay doi schema vo toi va lap lai
+### Phase 2
 
-### Giai doan dispatch
+- implement TCP listener
+- implement client connector
+- implement send/receive loop
+- implement serializer/parser
+- tao dispatcher skeleton
 
-- route packet theo `type`
-- tach handler cho login, status, chat, lock, unlock, timer, notification
-- tra ket qua ro rang khi packet khong hop le
-- ghi log loi socket va loi parse
+### Phase 3
 
-### Giai doan on dinh
+- noi login packet flow voi auth interface
+- tra auth result theo contract
 
-- bat exception socket co kiem soat
-- xu ly disconnect sach se
-- ho tro reconnect co ban
-- kiem tra timeout va mat ket noi giua chung
-- giu thread UI khong bi block
+### Phase 4
 
-### Giai doan integration
+- expose network-facing interface cho GUI
+- ho tro stub hoac service shape de Member 3/4 noi vao
 
-- ket noi voi server GUI
-- ket noi voi client GUI
-- kiem tra broadcast neu can
-- kiem tra state sync giua nhieu client
-- kiem tra thoi gian phan hoi khi co nhieu event lien tiep
+### Phase 5
 
-### Giai doan release
+- route status, lock, unlock, ack
+- noi event tu network sang UI-facing service
 
-- chay test multi-client
-- chay test packet invalid
-- chay test server restart
-- chay test reconnect sau disconnect
-- xac nhan network layer doan truoc demo
+### Phase 6
 
-## 6. Ke hoach chi tiet theo phase
+- finish notification, timer, chat, broadcast, direct message
+- finish ack handling
 
-### Phase 1 - Connection
+### Phase 7
 
-- [ ] Tao server listener
-- [ ] Tao client connector
-- [ ] Tao handshake
-- [ ] Tao basic send/receive loop
+- harden timeout, disconnect, reconnect
+- harden malformed packet handling
+- improve log output
 
-### Phase 2 - Packet contract
+### Phase 8
 
-- [ ] Dinh nghia packet type
-- [ ] Dinh nghia shared DTO
-- [ ] Dinh nghia framing rule
-- [ ] Dinh nghia parse error behavior
+- chi sua release-blocking network bug
+- support final setup test
 
-### Phase 3 - Routing and state
+### Phase 9
 
-- [ ] Xay packet dispatcher
-- [ ] Ganh client session state
-- [ ] Ganh server machine state
-- [ ] Dong bo status update
+- support demo network setup
+- support live troubleshooting neu co
 
-### Phase 4 - Resilience
+## 6. Ke hoach theo tuan
 
-- [ ] Xu ly disconnect
-- [ ] Xu ly timeout
-- [ ] Xu ly reconnect
-- [ ] Ghi log loi mang
+### Week 1
 
-### Phase 5 - Integration
+- draft packet contract
+- tao networking skeleton
+- tao connect/send/receive proof
 
-- [ ] Ket noi voi server UI
-- [ ] Ket noi voi client UI
-- [ ] Test broadcast
-- [ ] Test multi-client
+### Week 2
 
-## 7. Chia task de lam song song khong dap nhau
+- finish listener, connector, parser, dispatcher skeleton
+- expose login/status path
 
-- Subtask A: connection loop va session object
-- Subtask B: packet model, serializer, parser
-- Subtask C: dispatcher va handlers
-- Subtask D: resilience va reconnect
+### Week 3
 
-Moi subtask phai co file ownership ro. Khong doi dong code cua subtask khac neu chua review.
+- noi core integration: login, status, lock/unlock, ack
 
-## 8. Nguyen tac ky thuat
+### Week 4
 
-- Khong doc/ghi socket tren UI thread.
-- Khong update WinForms control truc tiep tu background thread.
-- Khong de schema packet thay doi ma khong cap nhat docs.
-- Khong de loi socket lam sap toan bo server.
-- Khong de message format tua nhau giua server va client.
+- finish notification, timer, chat, broadcast/direct flow
 
-## 9. Deliverables can nop
+### Week 5
 
-- TCP server/client core.
-- Packet parser/serializer.
-- Dispatcher and handlers.
-- Reconnect and disconnect handling.
-- Multi-client test note.
+- fix disconnect, reconnect, timeout, malformed packet bugs
+
+### Week 6
+
+- support release candidate va final demo
+
+## 7. Handoff cho nguoi khac
+
+Ban phai cung cap cho Member 3, 4, 5:
+
+- packet shape ro rang
+- service interface ro rang
+- event hoac callback ro rang
+- sample input/output ro rang
+
+## 8. Nguyen tac tranh xung dot
+
+- ban la owner duy nhat cua packet implementation
+- GUI khong parse packet truc tiep trong form neu da co service
+- auth duoc goi qua interface, khong embed SQL vao network layer
+- doi packet thi update `API.md` cung ngay
+
+## 9. Deliverables
+
+- TCP server/client core
+- serializer/parser
+- dispatcher
+- connection state handling
+- reconnect/disconnect handling
+- multi-client note
 
 ## 10. Definition of Done
 
-- 2 den 3 client ket noi on dinh.
-- Packet qua lai dung schema.
-- Disconnect khong lam crash app.
-- Module khac co the tich hop vao API ma khong xung dot.
+- 2 den 3 clients connect on dinh
+- packet dung schema da chot
+- UI khong bi block boi socket work
+- disconnect/invalid packet khong lam sap app

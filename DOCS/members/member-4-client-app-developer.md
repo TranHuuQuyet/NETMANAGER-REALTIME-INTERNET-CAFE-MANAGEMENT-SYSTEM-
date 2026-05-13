@@ -2,147 +2,148 @@
 
 ## 1. Vai tro
 
-Ban phu trach ung dung client. Client phai ket noi duoc voi server, nhan lenh realtime, hien lock screen khi can, va giu UI on dinh.
+Ban phu trach ung dung client.
+Muc tieu cua ban la tao client co the connect, login, nhan lenh realtime, hien lock screen khi can, va giu trai nghiem on dinh cho may client.
 
 ## 2. Write Scope
 
-Ban chi nen sua cac file/module lien quan den:
+Ban duoc uu tien sua:
 
-- `ClientApp/Forms/`
-- `ClientApp/Services/`
-- `ClientApp/Models/`
-- `ClientApp/Views/` neu co
-- `../README.md` chi khi cap nhat huong dan client
+- `ClientApp/`
+- client-side forms
+- client-side views
+- client-side UI bridge/services neu can cho UI
 
-Ban khong nen sua server dashboard, packet contract, hay database layer.
+Ban khong nen sua:
 
-## 3. Muc tieu cuoi cung
+- packet schema
+- server dashboard
+- database/auth internals
 
-- Client connect va login duoc.
-- Client nhan notification, timer, lock, unlock, chat.
-- Client co lock screen full-screen.
-- Client co xu ly disconnect va reconnect co ban.
+## 3. Thu ban so huu
 
-## 4. Luat de khong xung dot commit
+- connect form
+- client login screen
+- main client screen
+- lock screen
+- notification/timer/chat display
+- client-side command reaction
+- client-side reconnect UX
 
-- Client UI chi nhan event va render state, khong parse packet trong form neu co the tach.
-- Khong sua networking core tru khi co agreed interface.
-- Khong doi packet field neu Member 2 chua chot contract.
-- Moi commit nen tach: connect/login, receive flow, lock screen, chat/timer, polish.
+## 4. Dependency cua ban
 
-## 5. Cong viec can lam tu dau den cuoi
+- network/service interface tu Member 2
+- login result flow tu Member 2 va Member 5
+- scope va phase order tu Member 1
 
-### Giai doan khoi tao
+## 5. Nhiem vu theo phase
 
-- tao connect form
-- tao login flow client
-- tao client state model
-- chot cach luu IP/Port neu can
+### Phase 0
 
-### Giai doan connection flow
+- review client scope
 
-- kiem tra ket noi den server
-- gui login packet
-- hien trang thai ket noi va auth ro rang
-- xu ly loi connect khong lam crash app
+### Phase 1
 
-### Giai doan realtime receive
+- review contract de biet client nhan/gui gi
 
-- nhan notification tu server
-- nhan timer update
-- nhan lock/unlock command
-- nhan chat message
-- nhan status hoac session update neu co
+### Phase 2
 
-### Giai doan lock screen
+- chuan bi service boundary cho client UI
 
-- tao man hinh khoa full-screen
-- chan thao tac khong dung
-- hien thong diep ro rang
-- chi mo khoa khi nhan `UNLOCK`
+### Phase 3
 
-### Giai doan chat va status
+- noi client login UI vao auth result thuc
 
-- hien chat voi admin
-- gui message tu client
-- cap nhat status khi co thay doi
-- dam bao flow chat khong lam tre UI
+### Phase 4
 
-### Giai doan resilience
+- build connect form
+- build login shell
+- build main client shell
+- build lock screen shell
 
-- bao cho nguoi dung khi server mat ket noi
-- thu reconnect co ban
-- giu local state khong bi vo khi disconnect
-- khong de packet xau lam crash client
+### Phase 5
 
-### Giai doan polish
+- bind client UI vao login/status/lock/unlock flow thuc
+- hien ket noi va trang thai ro rang
 
-- don dep form, labels, va state feedback
-- uu tien readability hon hieu ung phuc tap
-- giup nguoi dung biet dang o trang thai nao
+### Phase 6
 
-## 6. Ke hoach chi tiet theo phase
+- finish notification/timer/chat display
+- finish unlock reaction
+- finish status presentation can thiet
 
-### Phase 1 - Connect and login
+### Phase 7
 
-- [ ] Tao connect form
-- [ ] Tao login form
-- [ ] Tao connect state
-- [ ] Tao auth result display
+- fix disconnect/reconnect UX
+- fix invalid packet crash risk
+- fix lock state hoac stale UI
 
-### Phase 2 - Receive commands
+### Phase 8
 
-- [ ] Nhan notification
-- [ ] Nhan lock/unlock
-- [ ] Nhan timer
-- [ ] Nhan chat
+- chi sua release-blocking client UI bug
+- rehearse client demo path
 
-### Phase 3 - Lock screen
+### Phase 9
 
-- [ ] Tao fullscreen lock form
-- [ ] Chan thao tac khong dung
-- [ ] Hien unlock state
+- demo client behavior
 
-### Phase 4 - Stability
+## 6. Ke hoach theo tuan
 
-- [ ] Xu ly disconnect
-- [ ] Xu ly reconnect
-- [ ] Xu ly invalid packet
-- [ ] Xu ly network error an toan
+### Week 1
 
-### Phase 5 - Demo readiness
+- create connect screen
+- create login shell
+- create main shell
+- create lock screen shell
 
-- [ ] Test ket noi on dinh
-- [ ] Test lock/unlock
-- [ ] Test notification/timer/chat
-- [ ] Test UI khong freeze
+### Week 2
 
-## 7. Cach lam de khong overlap
+- bind UI vao service interfaces
+- chuan bi receive-state rendering
 
-- Ban chi owned `ClientApp`.
-- Server dashboard la cua Member 3.
-- Network dispatcher la cua Member 2.
-- Auth flow la cua Member 5.
-- Neu can doi contract, ban phai thong qua Member 2 va Member 1 truoc.
+### Week 3
 
-## 8. Nguyen tac code
+- bind client vao core flow: login, status, lock/unlock
 
-- Tach networking service khoi form.
-- UI chi lam viec voi state va event.
-- Khong de lock flow bi phu thuoc vao button state alone.
-- Khong update UI truc tiep tu thread socket.
+### Week 4
 
-## 9. Deliverables can nop
+- finish notification, timer, chat, lock flow
 
-- Connect form.
-- Client login flow.
-- Main client UI.
-- Full-screen lock screen.
-- Notification, timer, chat handling.
+### Week 5
+
+- fix reconnect, disconnect, invalid state, UI stability
+
+### Week 6
+
+- rehearse final client-side demo
+
+## 7. Handoff cho nguoi khac
+
+Ban can noi ro:
+
+- client can nhan event nao
+- client can render state nao
+- lock screen can input gi
+- phan nao da noi that, phan nao con placeholder
+
+## 8. Nguyen tac tranh xung dot
+
+- UI chi render state va goi action, khong tu invent packet
+- Member 2 own networking core
+- Member 5 own auth logic
+- ban khong sua server-side code de fix client issue neu chua duoc giao
+
+## 9. Deliverables
+
+- connect form
+- login flow
+- main client UI
+- full-screen lock screen
+- notification/timer/chat handling
 
 ## 10. Definition of Done
 
-- Client ket noi va nhan lenh on dinh.
-- Lock screen chay dung.
-- UI khong block.
-- Client demo doc lap duoc va hop voi server.
+- client connect va login duoc
+- client nhan lenh realtime dung
+- lock screen chay dung
+- reconnect/disconnect khong lam vo trai nghiem co ban

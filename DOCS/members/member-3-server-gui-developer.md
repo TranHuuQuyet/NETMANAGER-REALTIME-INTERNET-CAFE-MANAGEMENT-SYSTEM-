@@ -2,147 +2,148 @@
 
 ## 1. Vai tro
 
-Ban phu trach giao dien admin dashboard cua server. UI phai ro rang, realtime, de thao tac, va khong tre khi network co nhieu event.
+Ban phu trach giao dien admin cua server.
+Muc tieu cua ban la tao dashboard de admin dang nhap, xem trang thai may, va thao tac lock/unlock/notification/timer/chat mot cach ro rang, nhanh, de demo.
 
 ## 2. Write Scope
 
-Ban chi nen sua cac file/module lien quan den:
+Ban duoc uu tien sua:
 
-- `ServerApp/Forms/`
-- `ServerApp/Views/` neu co
-- `ServerApp/Services/` cho phan UI bridge
-- `ServerApp/Models/` neu can model hien thi
-- `../README.md` chi khi cap nhat huong dan dashboard
+- `ServerApp/`
+- server-side forms
+- server-side views
+- server-side UI bridge/services neu can cho UI
 
-Ban khong nen sua packet schema, SQL schema, hay client UI.
+Ban khong nen sua:
 
-## 3. Muc tieu cuoi cung
+- packet schema
+- socket dispatcher
+- client UI
+- database/auth internals
 
-- Admin co the dang nhap va vao dashboard.
-- Danh sach may cap nhat realtime.
-- Lock, unlock, notification, timer, chat thao tac duoc.
-- UI khong freeze khi co socket event.
+## 3. Thu ban so huu
 
-## 4. Luat de khong xung dot commit
+- admin login form
+- dashboard shell
+- machine list
+- machine status rendering
+- admin control area
+- admin-side realtime display
+- UI thread-safe update pattern cho server app
 
-- UI chi call vao network/service interface, khong tu y parse packet trong form.
-- Nha mot file dashboard se khong duoc Member 4 sua cung luc.
-- Neu can thay doi contract, phai trao doi voi Member 2 va Member 1 truoc.
-- Moi commit UI nen tach rieng: layout, binding, state render, action buttons, polish.
+## 4. Dependency cua ban
 
-## 5. Cong viec can lam tu dau den cuoi
+- packet/service interface tu Member 2
+- auth result tu Member 5
+- phase order va scope tu Member 1
 
-### Giai doan khoi tao
+## 5. Nhiem vu theo phase
 
-- tao khung dashboard
-- tao layout header, content, control panel
-- chot naming convention cho control
-- tao form login admin neu can
+### Phase 0
 
-### Giai doan machine view
+- review scope giao dien admin
 
-- hien thi danh sach may
-- hien thi trang thai online, offline, locked, playing
-- hien thi IP, machine name, timer, connection state neu co
-- tao refresh pattern cho machine list
+### Phase 1
 
-### Giai doan control flow
+- review `API.md` de dam bao dashboard can gi se co trong contract
 
-- tao nut lock, unlock, notification, timer
-- tao area xem chat neu co
-- tao hanh dong admin ro rang, khong lam loan UI
-- mapping button event sang network service
+### Phase 2
 
-### Giai doan realtime
+- khong tu viet protocol
+- chuan bi UI service boundary cho network input
 
-- nhan update tu network service
-- invoke ve UI thread dung cach
-- cap nhat mau sac, icon, badge, label theo state
-- kiem tra khong co deadlock hay cross-thread error
+### Phase 3
 
-### Giai doan polish
+- noi admin login UI vao auth result thuc
 
-- don dep spacing, typography, va visual hierarchy
-- dam bao dashboard de demo
-- giam noise UI, tang readability
-- thiet lap empty state va error state ro rang
+### Phase 4
 
-### Giai doan integration
+- build login form
+- build dashboard shell
+- build machine list stub
+- build control panel
 
-- ket noi voi socket layer
-- ket noi voi auth layer neu dashboard co login
-- ket noi voi shared packet models
-- test voi client lock/unlock/timer/notify
+### Phase 5
 
-### Giai doan release
+- bind dashboard vao state thuc
+- hien ket qua command va machine state thuc
+- hien ack neu co
 
-- kiem tra dashboard chay on dinh khi co nhieu event
-- kiem tra refresh lien tuc khong lam lag
-- kiem tra admin action gui ra dung packet
-- kiem tra UI sau reconnect va after disconnect
+### Phase 6
 
-## 6. Ke hoach chi tiet theo phase
+- finish notification area
+- finish timer display
+- finish chat/admin interaction area
 
-### Phase 1 - Layout
+### Phase 7
 
-- [ ] Tao dashboard shell
-- [ ] Tao login form
-- [ ] Tao machine list panel
-- [ ] Tao control panel
+- fix cross-thread, lag, stale state, reconnect UI issues
 
-### Phase 2 - State display
+### Phase 8
 
-- [ ] Hien machine status
-- [ ] Hien connection state
-- [ ] Hien timer state
-- [ ] Hien notification area
+- chi sua release-blocking server UI bug
+- rehearse dashboard demo path
 
-### Phase 3 - Actions
+### Phase 9
 
-- [ ] Gui lock command
-- [ ] Gui unlock command
-- [ ] Gui notification
-- [ ] Gui timer command
+- demo admin dashboard
 
-### Phase 4 - Realtime UI
+## 6. Ke hoach theo tuan
 
-- [ ] Listen network updates
-- [ ] Update UI thread safely
-- [ ] Refresh machine cards
-- [ ] Handle offline state
+### Week 1
 
-### Phase 5 - Demo readiness
+- create server login shell
+- create dashboard shell
+- create machine list stub
 
-- [ ] Polish visuals
-- [ ] Test multi-client updates
-- [ ] Remove UI clutter
-- [ ] Validate interaction speed
+### Week 2
 
-## 7. Cach lam de khong overlap
+- bind UI vao service interfaces
+- chuan bi status rendering
 
-- Bo cuc va styling la cua ban.
-- Network dispatcher va packet parser la cua Member 2.
-- Auth result va session state la cua Member 5.
-- Ban chi nhan state tu service, khong nam quyen doi protocol.
+### Week 3
 
-## 8. Hanh vi UI can dam bao
+- bind dashboard vao login/status/lock/unlock flow thuc
 
-- Khong block khi dang nhan packet.
-- Khong update truc tiep tu background thread.
-- Khong de button action gay trung lap packet.
-- Khong de dashboard mat trang thai khi socket reconnect.
+### Week 4
 
-## 9. Deliverables can nop
+- finish notification/timer/chat/admin controls
 
-- Admin login form.
-- Realtime dashboard.
-- Machine list/state view.
-- Control panel cho lock/unlock/notification/timer.
-- UI integration voi network service.
+### Week 5
+
+- fix server UI stability, thread-safety, reconnect display
+
+### Week 6
+
+- rehearse final admin-side demo
+
+## 7. Handoff cho nguoi khac
+
+Ban can noi ro:
+
+- UI can nhan state nao
+- UI can goi action nao
+- state nao la loading, error, success
+- control nao da noi that, control nao con stub
+
+## 8. Nguyen tac tranh xung dot
+
+- chi goi service/interface, khong parse packet trong form neu co the tach
+- Member 2 own transport, ban own presentation
+- auth flow phai theo result cua Member 5
+- khong sua `Shared` de "cho nhanh"
+
+## 9. Deliverables
+
+- admin login form
+- dashboard shell
+- machine list/state view
+- control panel
+- realtime admin UI
 
 ## 10. Definition of Done
 
-- Admin thao tac on dinh.
-- Machine state nhin thay ngay.
-- UI khong freeze.
-- Dashboard demo duoc ma khong can giai thich nhieu.
+- admin dang nhap duoc
+- machine state thay duoc tren dashboard
+- admin thao tac command thay ket qua ro
+- UI khong freeze va khong vo khi network event den

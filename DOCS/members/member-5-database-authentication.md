@@ -2,146 +2,156 @@
 
 ## 1. Vai tro
 
-Ban phu trach SQLite, login validation, luu account, luu session, va cac thong tin persistence co ban cho he thong.
+Ban phu trach persistence, authentication, va session state.
+Muc tieu cua ban la tao mot auth/data layer don gian, on dinh, de debug, va de cac module khac goi den ma khong can doan internal behavior.
 
 ## 2. Write Scope
 
-Ban chi nen sua cac file/module lien quan den:
+Ban duoc uu tien sua:
 
+- `ServerApp/Data/`
+- `ServerApp/Auth/`
 - `ServerApp/Database/`
-- `ServerApp/Services/Auth/`
-- `ServerApp/Services/Session/`
-- `../API.md` va `../README.md` khi doi schema
+- persistence va repository files
 
-Ban khong nen sua UI form, packet dispatcher cua Member 2, hay client UI.
+Ban co the cap nhat:
 
-## 3. Muc tieu cuoi cung
+- `DOCS/API.md` neu can bo sung auth/session response, sau khi thong nhat voi Member 1 va Member 2
 
-- Auth hoat dong on dinh.
-- Du lieu user va session co the luu va lay lai duoc.
-- Server co can cu de xac thuc admin/client.
-- Schema don gian, de debug, de demo.
+Ban khong nen sua:
 
-## 4. Luat de khong xung dot commit
+- UI forms
+- packet dispatcher implementation
+- client runtime
 
-- Schema la contract, nen moi thay doi phai thong qua Member 1 va Member 2.
-- Neu auth can them enum/model chung, Member 5 chi de xuat; Member 2 se update `Shared/`.
-- Khong de SQL loang ra UI.
-- Khong de password handling bi su dung khac nhau giua cac module.
-- Moi commit nen tach: schema, repository, auth service, session service, integration.
+## 3. Thu ban so huu
 
-## 5. Cong viec can lam tu dau den cuoi
+- SQLite schema
+- repository/data access layer
+- auth service
+- session service
+- seed data
+- config persistence neu can
 
-### Giai doan khoi tao
+## 4. Dependency cua ban
 
-- chot schema toi thieu
-- chot field can thiet cho `Users`, `Sessions`, `Machines`
-- chot cach hash password neu co
-- chot luong auth cho admin va client
+- login packet flow tu Member 2
+- admin/client login screens cua Member 3 va Member 4 se dung output cua ban
+- scope va release order tu Member 1
 
-### Giai doan data access
+## 5. Nhiem vu theo phase
 
-- tao repository/data access layer rieng
-- khong viet SQL truc tiep trong UI
-- tao ham add/get/update/validate
-- tao error handling cho SQLite ro rang
+### Phase 0
 
-### Giai doan authentication
+- review auth/database scope
 
-- validate username/password
-- tra ket qua success/fail ro rang
-- phan biet admin, client, disabled, locked neu can
-- ghi last login neu co
+### Phase 1
 
-### Giai doan session and config
+- define schema assumptions
+- define auth result shape
+- define session state shape
 
-- luu session co ban
-- luu machine mapping neu can
-- luu config ket noi neu project can
-- khong luu du lieu nhay cam khong can thiet
+### Phase 2
 
-### Giai doan integration
+- expose auth interface cho network layer goi
 
-- noi auth vao server login flow
-- noi auth vao dashboard neu co admin login
-- noi session vao state machine cua server
-- dam bao ket qua auth khop voi packet contract
+### Phase 3
 
-### Giai doan hardening
+- implement `Users`
+- implement `Sessions`
+- implement repositories
+- implement auth validation
+- implement session tracking
 
-- kiem tra sai mat khau
-- kiem tra user khong ton tai
-- kiem tra database bi loi
-- kiem tra concurrent access co an toan khong
+### Phase 4
 
-### Giai doan release
+- provide auth stubs hoac service contracts cho GUI team neu can
 
-- kiem tra login tu client
-- kiem tra login tu admin
-- kiem tra session tracking
-- kiem tra database khong lam app crash khi loi
+### Phase 5
 
-## 6. Ke hoach chi tiet theo phase
+- support login integration
+- support session-to-server-state behavior
 
-### Phase 1 - Schema
+### Phase 6
 
-- [ ] Tao `Users`
-- [ ] Tao `Sessions`
-- [ ] Tao `Machines`
-- [ ] Chot field va key
+- finish timer/session persistence neu can
+- finish machine mapping neu can
 
-### Phase 2 - Data access
+### Phase 7
 
-- [ ] Tao repository
-- [ ] Tao query helpers
-- [ ] Tao error handling
-- [ ] Tao seed data neu can
+- harden invalid login, missing user, DB error, consistency issue
 
-### Phase 3 - Authentication
+### Phase 8
 
-- [ ] Validate login
-- [ ] Tra auth result
-- [ ] Luu last login
-- [ ] Phan loai role
+- chi sua release-blocking auth/DB bug
+- verify demo accounts va setup
 
-### Phase 4 - Session storage
+### Phase 9
 
-- [ ] Luu session start/end
-- [ ] Luu machine mapping
-- [ ] Luu config co ban
-- [ ] Dong bo voi server state
+- giai thich auth/session/database flow khi demo
 
-### Phase 5 - Stability
+## 6. Ke hoach theo tuan
 
-- [ ] Test sai mat khau
-- [ ] Test user khong ton tai
-- [ ] Test DB error handling
-- [ ] Test concurrent access
+### Week 1
 
-## 7. Cach lam de khong overlap
+- draft schema
+- draft auth result model
+- draft session model
+- create auth service skeleton
 
-- Ban owned auth, session, va DB.
-- Ban khong sua UI truct tiep.
-- Ban khong doi packet format neu chua thong qua Member 2 va Member 1.
-- Ban phai cung cap service interface ro de Member 3 va 4 dung.
+### Week 2
 
-## 8. Nguyen tac
+- finish schema
+- finish repository layer
+- finish auth validation
+- finish session basics
 
-- Schema don gian hon schema dep.
-- Khong de plaintext password ton tai trong luong xu ly.
-- Khong de auth result mo ho.
-- Khong de SQL phu thuoc vao control UI.
+### Week 3
 
-## 9. Deliverables can nop
+- support login integration
+- fix auth/session mismatch trong core flow
 
-- SQLite schema hoac script.
-- Data access layer.
-- Auth service.
-- Session/config storage.
+### Week 4
+
+- finish timer/session persistence rules neu co
+
+### Week 5
+
+- fix DB/auth edge cases
+- fix consistency and error handling
+
+### Week 6
+
+- verify final demo accounts va persistence behavior
+
+## 7. Handoff cho nguoi khac
+
+Ban phai cung cap:
+
+- auth service interface
+- auth result shape
+- session state shape
+- seed account thong tin can thiet cho demo
+- expected error cases
+
+## 8. Nguyen tac tranh xung dot
+
+- schema change phai thong nhat truoc
+- Member 2 own packet transport, ban own auth/data logic
+- UI khong duoc chua SQL
+- khong de password plaintext trong flow production-like
+
+## 9. Deliverables
+
+- SQLite schema
+- repository layer
+- auth service
+- session service
+- seed data
 
 ## 10. Definition of Done
 
-- Login on dinh.
-- Data doc/ghi duoc.
-- Team khac co the dung auth service ma khong doan schema.
-- DB loi khong lam sap demo.
+- admin/client login on dinh
+- data doc ghi duoc
+- DB/auth error khong lam sap demo
+- module khac co the goi auth layer ma khong can doan internals

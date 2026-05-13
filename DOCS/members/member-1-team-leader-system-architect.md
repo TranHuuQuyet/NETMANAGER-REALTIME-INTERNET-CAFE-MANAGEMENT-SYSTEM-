@@ -2,141 +2,189 @@
 
 ## 1. Vai tro
 
-Ban la nguoi giu huong di tong the cua project. Ban khong can lam het code, nhung ban phai dam bao:
+Ban la nguoi giu huong di tong the cua project.
+Ban khong can code nhieu nhat, nhung ban phai dam bao ca team biet dang lam gi, phu thuoc vao ai, va khi nao duoc chuyen phase.
 
-- scope khong bi loang
-- packet contract khong bi doi lung tung
-- tung member co write scope rieng
-- integration khong bi vo
-- team co the tiep tuc lam viec ma khong mat boi canh
+Muc tieu cua ban:
+
+- giu dung MVP
+- giu dung contract
+- giu dung ownership
+- giu dung timeline
+- giu cho integration khong vo
 
 ## 2. Write Scope
 
-Ban chi nen sua cac file sau:
+Ban duoc uu tien sua:
 
-- `../LEADER_FLOW.md`
-- `../TASKS.md`
-- `../BUGS.md`
-- `../README.md` khi chot thong tin tong quan
+- `DOCS/LEADER_FLOW.md`
+- `DOCS/TASKS.md`
+- `DOCS/BUGS.md`
+- `README.md`
+- cac file docs tong quan khac neu can
 
-Ban khong nen sua truc tiep code runtime trong `ServerApp`, `ClientApp`, `Shared` tru khi dang review integration.
+Ban khong nen sua runtime code trong `Shared`, `ServerApp`, `ClientApp`, `Data`, `Auth` tru khi dang review integration va da co owner dong y.
 
-## 3. Muc tieu cuoi cung
+## 3. Thu ban so huu
 
-- Project co mot MVP ro rang va demo duoc.
-- Moi member biet minh lam gi, lam den dau, va tiep theo la gi.
-- Server, client, auth, DB va docs dung mot contract.
-- Khong co overlap write scope giua cac member.
+Ban la owner chinh cua:
 
-## 4. Luat dieu phoi de tranh xung dot commit
+- scope MVP
+- phase va gate
+- task assignment
+- integration order
+- release approval
+- conflict resolution
+- decision log
 
-- Moi task phai co owner chinh mot nguoi.
-- Khong cho hai nguoi sua cung mot file cung luc neu khong bat buoc.
-- Neu bat buoc sua file chung, chi sua phan riang: vi du `API.md`, `Shared` packet, hoac `README.md`.
-- Moi commit phai nho va co y nghia ro.
-- Khong tron UI + networking + DB trong cung mot commit neu co the tach.
-- Moi thay doi packet hoac state phai cap nhat docs ngay.
-- Neu Member 2 chot contract, Member 3 va 4 phai theo contract do, khong tu y doi field.
+## 4. Thu ban khong so huu
 
-## 5. Cong viec can lam tu dau den cuoi
+Ban khong la owner runtime cua:
 
-### Giai doan khoi tao
+- packet implementation cua Member 2
+- server UI cua Member 3
+- client UI cua Member 4
+- database/auth logic cua Member 5
+- test execution chi tiet cua Member 6
 
-- chot ten project va MVP
-- chot pham vi co the demo
-- loai bo tinh nang ngoai scope
-- chot branch convention va commit convention
-- chot folder structure
-- chot luot lam viec cua tung member
+## 5. Dependency can theo doi
 
-### Giai doan thiet ke
+Ban phai biet cac dependency chinh sau:
 
-- chot structure `ServerApp`, `ClientApp`, `Shared`
-- chot packet type va state model
-- chot async model cho socket
-- chot schema SQLite muc tieu
-- chot output mong doi cua tung module
+- Member 3 va Member 4 phu thuoc contract cua Member 2
+- Member 2 phu thuoc auth interface cua Member 5 cho login flow
+- Member 3 va Member 4 phu thuoc network/auth interface de noi UI
+- Member 6 phu thuoc output cua ca team de test va cap nhat docs
 
-### Giai doan xay nen tang
+## 6. Nhiem vu theo phase
 
-- theo doi TCP core
-- theo doi auth core
-- theo doi GUI core
-- theo doi DB core
-- kiem tra moi module co dung contract khong
+### Phase 0 - Kickoff and Scope Freeze
 
-### Giai doan tich hop
+- chot MVP va out-of-scope
+- chot ownership map
+- chot branch va commit rule
+- chot nguon truth cho docs
+- chot risk list dau tien
 
-- review source truoc khi merge
-- kiem tra server va client co cung hieu packet khong
-- kiem tra UI khong bi block boi network
-- kiem tra DB auth khong lam crash app
-- kiem tra multi-client flow
+### Phase 1 - Architecture and Contract Freeze
 
-### Giai doan hoan thien
+- review `API.md`
+- chot packet order va state model
+- chot architecture direction
+- giai quyet conflict contract truoc khi code di xa
 
-- uu tien bug lien quan login, reconnect, lock, timer, notification
-- doi chieu bug list voi test result
-- dam bao docs va code khop nhau
+### Phase 2 - Networking Foundation
+
+- theo doi Member 2 co bi block boi auth hay khong
+- dam bao GUI members khong tu viet protocol rieng
+- kiem tra output network co the handoff duoc
+
+### Phase 3 - Authentication and Persistence
+
+- theo doi Member 5 va Member 2 noi login flow
+- dam bao session rule ro rang
+- dam bao auth fail co behavior ro
+
+### Phase 4 - GUI Skeletons and Local Stub Flow
+
+- dam bao Member 3 va Member 4 chi build theo interface
+- ngan pham vi UI vuot MVP
+- review skeleton da du cho demo flow chua
+
+### Phase 5 - End-to-End Integration
+
+- chot thu tu integrate: login -> status -> lock/unlock -> ack
+- chi dinh lead owner cho moi blocker cross-module
+- ngan contract drift
+
+### Phase 6 - Realtime Feature Completion
+
+- xac nhan notification, timer, chat duoc lam dung uu tien
+- ngan team danh thoi gian vao polish som
+- chap nhan feature chi khi da qua test co ban
+
+### Phase 7 - Stabilization and Hardening
+
+- freeze feature
+- uu tien bug theo severity
+- quyet dinh bug nao phai fix, bug nao duoc chap nhan tam thoi
+
+### Phase 8 - Testing and Release Candidate
+
+- approve code freeze
+- approve release candidate
+- doi chieu build voi docs
+
+### Phase 9 - Final Demo and Post-Release Review
+
+- dan demo
+- quyet dinh fallback neu co su co
+- chot tong ket va limitation
+
+## 7. Ke hoach theo tuan
+
+### Week 1
+
+- chot MVP, scope, ownership, branch rule, commit rule
+- dong bo `LEADER_FLOW.md`, `API.md`, `TASKS.md`
+- giao task dau tien cho tung member
+
+### Week 2
+
+- theo doi network core va auth core
+- go blocker giua Member 2 va Member 5
+- giu contract on dinh
+
+### Week 3
+
+- dieu phoi integration core flow
+- chot owner cho bug cross-module
+- ngan task moi ngoai luong
+
+### Week 4
+
+- chot feature completion theo MVP
+- buoc team test end-to-end thay vi chi test module rieng
+
+### Week 5
+
+- freeze feature
+- tap trung stabilization va regression
+- cap nhat risk va limitation
+
+### Week 6
+
+- approve release candidate
 - chot demo checklist
+- chot final docs va archive state
 
-## 6. Ke hoach chi tiet theo phase
+## 8. Hanh dong hang ngay
 
-### Phase 0 - Project control
+- doc `TASKS.md`
+- xac nhan ai dang block ai
+- xac nhan packet/state co doi khong
+- cap nhat quyet dinh vao docs
+- nhac owner khi thay overlap write scope
 
-- [ ] Chot scope MVP bang 1 doan ngan
-- [ ] Chot danh sach tinh nang se lam va khong lam
-- [ ] Chot ten project chinh thuc
-- [ ] Chot folder ownership cho tung member
-- [ ] Chot rule ve branch va commit
-- [ ] Chot file nao la source of truth cho docs
+## 9. Nguyen tac tranh xung dot
 
-### Phase 1 - Architecture and contract
+- moi task chi co 1 owner chinh
+- file chung phai co nguoi chot cuoi
+- packet doi thi docs doi cung ngay
+- khong cho 2 nguoi sua cung runtime area neu khong co ly do ro
+- merge integration theo tung buoc nho
 
-- [ ] Xac nhan luong server/client
-- [ ] Xac nhan danh sach packet core
-- [ ] Xac nhan enum trang thai may
-- [ ] Xac nhan enum lenh dieu khien
-- [ ] Xac nhan rule parse JSON
-- [ ] Xac nhan rule xu ly packet loi
+## 10. Deliverables
 
-### Phase 2 - Build tracking
+- `LEADER_FLOW.md` on dinh
+- `TASKS.md` ro rang theo tuan
+- `BUGS.md` co severity va owner
+- release decision ro rang
+- demo flow ro rang
 
-- [ ] Tao task board dau tien
-- [ ] Kiem tra cong viec cua tung member hang ngay
-- [ ] Ghi blocker ngay khi phat sinh
-- [ ] Ghi decision ngay khi co thay doi lon
-- [ ] Dieu chinh uu tien neu module nao bi tre
+## 11. Definition of Done
 
-### Phase 3 - Integration and release
-
-- [ ] Review merge request
-- [ ] Kiem tra regression
-- [ ] Kiem tra demo flow
-- [ ] Kiem tra bug list
-- [ ] Kiem tra docs cuoi cung
-
-## 7. Hanh dong hang ngay
-
-- Kiem tra `TASKS.md` truoc khi bat dau.
-- Kiem tra `TASKS.md` de lay viec tiep theo.
-- Xac nhan ai dang lam gi de tranh overlap.
-- Neu co change ve packet, update `API.md` ngay.
-- Neu co bug, dua vao `BUGS.md` ngay.
-- Neu co thay doi ve structure, ghi vao `README.md` hoac `TASKS.md`.
-
-## 8. Deliverables can nop
-
-- Roadmap chia phase ro rang.
-- Architecture va API contract dong bo.
-- Task tracking cap nhat lien tuc.
-- Bug list va decision log day du.
-- Demo flow on dinh.
-
-## 9. Definition of Done
-
-- Scope khong lech.
-- Cac module khong dap nhau ve write scope.
-- Moi member co task ro rang va co the lam lap tuc.
-- Server, client va DB khong xung dot contract.
-- Team co the demo duoc ma khong can giai thich lai tu dau.
+- moi member biet ngay viec tiep theo cua minh
+- team khong tranh cai vi ownership mo ho
+- contract va docs khop implementation
+- project di dung phase va kip timeline
