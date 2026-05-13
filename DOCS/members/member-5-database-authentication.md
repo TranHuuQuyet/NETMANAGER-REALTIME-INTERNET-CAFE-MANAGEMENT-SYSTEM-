@@ -41,6 +41,14 @@ Ban khong nen sua:
 
 ## 5. Nhiem vu theo phase
 
+### Phase 0 Completion Checklist
+
+- [x] Review and confirm auth/database scope aligns with project rules in `LEADER_FLOW.md` and `API.md`.
+- [x] Confirm ownership of `ServerApp/Auth/`, `ServerApp/Database/`, persistence, and repository files.
+- [x] Confirm dependency on login packet flow from Member 2 and login screens from Member 3 and Member 4.
+- [x] Confirm account-to-machineId validation rule: server validates username, password, machineId; reject if wrong machineId.
+- [x] Confirm SQLite schema, auth service, session service, and seed data ownership.
+
 ### Phase 0
 
 - review auth/database scope
